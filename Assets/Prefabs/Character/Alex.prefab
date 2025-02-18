@@ -150,7 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 2
-  runSpeed: 4
+  runSpeed: 3
+  bicycleSpeed: 4
+  canRide: 0
 --- !u!70 &917209396391438223
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
