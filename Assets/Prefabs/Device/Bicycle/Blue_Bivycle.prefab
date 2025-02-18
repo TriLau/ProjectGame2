@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5341384894288092555}
-  - component: {fileID: 3299293209758548636}
+  - component: {fileID: 9161003503667496490}
   m_Layer: 0
   m_Name: Collision
   m_TagString: Untagged
@@ -32,8 +32,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1143223489767042946}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &3299293209758548636
-CapsuleCollider2D:
+--- !u!58 &9161003503667496490
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -64,9 +64,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03288251, y: 0.026305974}
-  m_Size: {x: 0.6885263, y: 1.052612}
-  m_Direction: 0
+  m_Offset: {x: 0.032762527, y: 0.11201453}
+  serializedVersion: 2
+  m_Radius: 0.6023276
 --- !u!1 &7466646249119043999
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae5dc5adfe3e38419962044dc4768a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 4
+  speed: 4
 --- !u!70 &3787580922204280268
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
