@@ -2,27 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BicycleController : MonoBehaviour
+public class VehicleController : MonoBehaviour
 {
-    private float speed;
-    private Vector2 movement;
+    public float speed = 1f;
+    public Vector2 movement;
     private Rigidbody2D rb;
     private Animator animator;
-    private GameObject player;
     private PlayerController playerController;
-    private Collider2D col;
-
-    private bool isRiding = false;
-    private bool canRide = false;
-    public bool CanRide
-    {
-        get { return canRide; }
-        private set
-        {
-            canRide = value;
-            playerController.CanRide = value;
-        }
-    }
 
     private bool _isFacingRight = true;
     public bool IsFacingRight
@@ -38,6 +24,8 @@ public class BicycleController : MonoBehaviour
         }
     }
 
+    private bool isBeingRidden = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,25 +34,8 @@ public class BicycleController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canRide)
+        if (isBeingRidden)
         {
-            isRiding = !isRiding;
-
-            if (isRiding)
-            {
-                col.isTrigger = true;
-                player.transform.position = transform.position;
-            }
-            else
-            {
-                col.isTrigger= false;
-                transform.position = player.transform.position; 
-            }
-        }
-
-        if (isRiding)
-        {
-            speed = playerController.bicycleSpeed;
             IsFacingRight = playerController.IsFacingRight;
 
             float moveX = Input.GetAxisRaw("Horizontal");
@@ -84,20 +55,18 @@ public class BicycleController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isRiding)
-        {
-            rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
-        }
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            player = collision.gameObject;
-            playerController = collision.GetComponent<PlayerController>();
-            col = collision;
-            CanRide = true;
+            PlayerController player = collision.GetComponent<PlayerController>();
+            if (player.IsRidingVehicle) return;
+
+            playerController = player;
+            playerController.SetCurrentVehicle(this);
         }
     }
 
@@ -105,7 +74,29 @@ public class BicycleController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            CanRide = false;
+            PlayerController player = collision.GetComponent<PlayerController>();
+            if (player.IsRidingVehicle) return;
+
+            playerController.ClearVehicle();
+        }
+    }
+
+    public void SetRiding(bool riding)
+    {
+        isBeingRidden = riding;
+
+        if (riding)
+        {
+            playerController.vehicleSpeed = speed;
+            playerController.transform.position = transform.position;
+            playerController.GetComponent<Collider2D>().isTrigger = true;
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+        else
+        {
+            playerController.transform.position = transform.position;
+            playerController.GetComponent<Collider2D>().isTrigger = false;
+            rb.bodyType = RigidbodyType2D.Kinematic;
         }
     }
 }
