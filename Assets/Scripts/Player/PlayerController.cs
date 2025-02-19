@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
         player.Movement = new Vector2(moveX, moveY).normalized;
 
         if (movement != Vector2.zero) lastMovement = movement;
-
+        
         animator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x));
         animator.SetFloat("Vertical", lastMovement.y);
 
