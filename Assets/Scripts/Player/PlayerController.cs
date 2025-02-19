@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 1f;
     public float runSpeed = 1f;
+    public float vehicleSpeed;
 
     [SerializeField]
     private float _currentSpeed;
@@ -13,7 +14,7 @@ public class PlayerController : MonoBehaviour
     {
         get 
         {
-            return _currentSpeed = IsRuning ? runSpeed : walkSpeed;
+            return _currentSpeed = IsRidingVehicle ? vehicleSpeed : IsRuning ? runSpeed : walkSpeed;
         }
     }
 
