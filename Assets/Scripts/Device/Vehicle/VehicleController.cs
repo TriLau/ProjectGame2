@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VehicleController : MonoBehaviour
+public class VehicleController : PlayerController
 {
     public float vehicleSpeed = 1f;
     private Vector2 movement;
@@ -17,7 +17,7 @@ public class VehicleController : MonoBehaviour
     public bool IsFacingRight
     {
         get { return _isFacingRight; }
-        set
+        set 
         {
             if (_isFacingRight != value)
             {
@@ -106,8 +106,7 @@ public class VehicleController : MonoBehaviour
             playerAnimator = playerController.GetComponent<Animator>();
             animator.SetFloat("Horizontal", Mathf.Abs(playerController.LastMovement.x));
             animator.SetFloat("Vertical", playerController.LastMovement.y);
-            IsFacingRight = playerController.IsFacingRight;
-            if (!IsFacingRight) playerController.IsFacingRight = !IsFacingRight;
+            playerController.IsFacingRight = IsFacingRight;
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
         else
