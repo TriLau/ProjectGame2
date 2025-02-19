@@ -18,19 +18,17 @@ public class Player
         }
     }
 
-    [SerializeField]
-    private Vector2 _movement;
-    public Vector2 Movement 
-    { 
-        get { return _movement; } 
-        private set { _movement = value; }
-    }
-
+    private Vector2 movement;
     private Vector2 lastMovement;
     public Vector2 LastMovement
     {
         get { return lastMovement; }
     }
+
+    private Rigidbody2D rb;
+    private Animator animator;
+    private Collider2D col;
+    private VehicleController curentVehicle;
 
     [SerializeField]
     private bool _isFacingRight = true;
@@ -45,7 +43,6 @@ public class Player
             _isFacingRight = value;
         }
     }
-
     [SerializeField]
     private bool _canRun = true;
     public bool CanRun
@@ -78,11 +75,7 @@ public class Player
         private set
         {
             _isRidingVehicle = value;
+            animator.SetBool("UseDevice", value);
         }
-    }
-
-    public void SetMovement(Vector2 movement)
-    {
-        Movement = movement;
     }
 }
