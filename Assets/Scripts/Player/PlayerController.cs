@@ -4,7 +4,26 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Player player;
+    public float walkSpeed = 1f;
+    public float runSpeed = 1f;
+
+    [SerializeField]
+    private float _currentSpeed;
+    public float CurrentSpeed
+    {
+        get 
+        {
+            return _currentSpeed = IsRuning ? runSpeed : walkSpeed;
+        }
+    }
+
+    private Vector2 movement;
+    private Vector2 lastMovement;
+    public Vector2 LastMovement
+    {
+        get { return lastMovement; }
+    }
+
     private Rigidbody2D rb;
     private Animator animator;
     private Collider2D col;
@@ -64,7 +83,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        player = GetComponent<Player>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
@@ -103,7 +121,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!IsRidingVehicle)
         {
-            rb.MovePosition(rb.position + player.Movement * player.CurrentSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + movement * CurrentSpeed * Time.fixedDeltaTime);
         }
     }
 
@@ -134,7 +152,7 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        player.Movement = new Vector2(moveX, moveY).normalized;
+        movement = new Vector2(moveX, moveY).normalized;
 
         if (movement != Vector2.zero) lastMovement = movement;
         
