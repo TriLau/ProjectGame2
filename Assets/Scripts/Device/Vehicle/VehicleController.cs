@@ -10,7 +10,17 @@ public class VehicleController : MonoBehaviour
     private Animator playerAnimator;
     private PlayerController playerController;
 
-    private bool isBeingRidden = false;
+    [SerializeField]
+    private bool _isBeingRidden = false;
+    public bool IsBeingRidden
+    {
+        get { return _isBeingRidden; }
+        private set
+        {
+            _isBeingRidden = value;
+            animator.SetBool("IsRiding", value);
+        }
+    }
 
     void Start()
     {
@@ -21,7 +31,7 @@ public class VehicleController : MonoBehaviour
 
     void Update()
     {
-        if (isBeingRidden)
+        if (IsBeingRidden)
         {
             if (playerController.movement != Vector2.zero)
             {                 
@@ -67,7 +77,7 @@ public class VehicleController : MonoBehaviour
 
     public void SetRiding(bool riding)
     {
-        isBeingRidden = riding;
+        IsBeingRidden = riding;
 
         if (riding)
         {
@@ -77,12 +87,12 @@ public class VehicleController : MonoBehaviour
             transform.localScale = playerController.transform.localScale;
             animator.SetFloat("Horizontal", Mathf.Abs(playerController.LastMovement.x));
             animator.SetFloat("Vertical", playerController.LastMovement.y);
+            playerController.vehicleSpeed = vehicleSpeed;
         }
         else
         {
             playerController.transform.position = transform.position;
             playerController.GetComponent<Collider2D>().isTrigger = false;
-            
         }
     }
 }
