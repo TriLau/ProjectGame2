@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class VehicleController : MonoBehaviour
 {
-    public float speed = 1f;
-    public Vector2 movement;
+    public float vehicleSpeed = 1f;
+    private Vector2 movement;
+    private Vector2 lastMovement;
     private Rigidbody2D rb;
     private Animator animator;
+    private Animator playerAnimator;
     private PlayerController playerController;
 
+    [SerializeField]
     private bool _isFacingRight = true;
     public bool IsFacingRight
     {
@@ -18,9 +21,10 @@ public class VehicleController : MonoBehaviour
         {
             if (_isFacingRight != value)
             {
-                _isFacingRight = value;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
+
+            _isFacingRight = value;
         }
     }
 
@@ -36,17 +40,24 @@ public class VehicleController : MonoBehaviour
     {
         if (isBeingRidden)
         {
-            IsFacingRight = playerController.IsFacingRight;
-
             float moveX = Input.GetAxisRaw("Horizontal");
             float moveY = Input.GetAxisRaw("Vertical");
 
             movement = new Vector2(moveX, moveY).normalized;
 
-            animator.SetFloat("Horizontal", Mathf.Abs(playerController.Movement.x));
-            animator.SetFloat("Vertical", playerController.Movement.y);
+            if (movement != Vector2.zero)
+            {
+                lastMovement = movement;
+                 
+                animator.SetFloat("Horizontal", Mathf.Abs(movement.x));
+                animator.SetFloat("Vertical", movement.y);
 
+                playerAnimator.SetFloat("Horizontal", Mathf.Abs(movement.x));
+                playerAnimator.SetFloat("Vertical", movement.y);
+            }
+            
             animator.SetFloat("Speed", movement.magnitude);
+            playerAnimator.SetFloat("Speed", movement.magnitude);
 
             if (movement.x > 0 && !IsFacingRight) IsFacingRight = true;
             else if (movement.x < 0 && IsFacingRight) IsFacingRight = false;
@@ -55,7 +66,10 @@ public class VehicleController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        if (isBeingRidden)
+        {
+            rb.MovePosition(rb.position + movement * vehicleSpeed * Time.fixedDeltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -87,15 +101,22 @@ public class VehicleController : MonoBehaviour
 
         if (riding)
         {
-            playerController.vehicleSpeed = speed;
             playerController.transform.position = transform.position;
             playerController.GetComponent<Collider2D>().isTrigger = true;
+            playerAnimator = playerController.GetComponent<Animator>();
+            animator.SetFloat("Horizontal", Mathf.Abs(playerController.LastMovement.x));
+            animator.SetFloat("Vertical", playerController.LastMovement.y);
+            IsFacingRight = playerController.IsFacingRight;
+            if (!IsFacingRight) playerController.IsFacingRight = !IsFacingRight;
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
         else
         {
             playerController.transform.position = transform.position;
             playerController.GetComponent<Collider2D>().isTrigger = false;
+            playerAnimator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x));
+            playerAnimator.SetFloat("Vertical", lastMovement.y);
+            playerController.IsFacingRight = IsFacingRight;
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
     }
