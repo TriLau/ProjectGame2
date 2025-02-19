@@ -5,71 +5,41 @@ using UnityEngine;
 public class VehicleController : MonoBehaviour
 {
     public float vehicleSpeed = 1f;
-    private Vector2 movement;
-    private Vector2 lastMovement;
-    private Rigidbody2D rb;
+    public Vector2 movement;
     private Animator animator;
     private Animator playerAnimator;
     private PlayerController playerController;
-
-    [SerializeField]
-    private bool _isFacingRight = true;
-    public bool IsFacingRight
-    {
-        get { return _isFacingRight; }
-        set
-        {
-            if (_isFacingRight != value)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            }
-
-            _isFacingRight = value;
-        }
-    }
 
     private bool isBeingRidden = false;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        animator.SetFloat("Horizontal", Mathf.Abs(movement.x));
+        animator.SetFloat("Vertical", movement.y);
     }
 
     void Update()
     {
         if (isBeingRidden)
         {
-            float moveX = Input.GetAxisRaw("Horizontal");
-            float moveY = Input.GetAxisRaw("Vertical");
+            if (playerController.movement != Vector2.zero)
+            {                 
+                animator.SetFloat("Horizontal", Mathf.Abs(playerController.movement.x));
+                animator.SetFloat("Vertical", playerController.movement.y);
 
-            movement = new Vector2(moveX, moveY).normalized;
-
-            if (movement != Vector2.zero)
-            {
-                lastMovement = movement;
-                 
-                animator.SetFloat("Horizontal", Mathf.Abs(movement.x));
-                animator.SetFloat("Vertical", movement.y);
-
-                playerAnimator.SetFloat("Horizontal", Mathf.Abs(movement.x));
-                playerAnimator.SetFloat("Vertical", movement.y);
+                playerAnimator.SetFloat("Horizontal", Mathf.Abs(playerController.movement.x));
+                playerAnimator.SetFloat("Vertical", playerController.movement.y);
             }
             
-            animator.SetFloat("Speed", movement.magnitude);
-            playerAnimator.SetFloat("Speed", movement.magnitude);
-
-            if (movement.x > 0 && !IsFacingRight) IsFacingRight = true;
-            else if (movement.x < 0 && IsFacingRight) IsFacingRight = false;
+            animator.SetFloat("Speed", playerController.movement.magnitude);
+            playerAnimator.SetFloat("Speed", playerController.movement.magnitude);
         }
     }
 
     private void FixedUpdate()
     {
-        if (isBeingRidden)
-        {
-            rb.MovePosition(rb.position + movement * vehicleSpeed * Time.fixedDeltaTime);
-        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -104,20 +74,15 @@ public class VehicleController : MonoBehaviour
             playerController.transform.position = transform.position;
             playerController.GetComponent<Collider2D>().isTrigger = true;
             playerAnimator = playerController.GetComponent<Animator>();
+            transform.localScale = playerController.transform.localScale;
             animator.SetFloat("Horizontal", Mathf.Abs(playerController.LastMovement.x));
             animator.SetFloat("Vertical", playerController.LastMovement.y);
-            IsFacingRight = playerController.IsFacingRight;
-            if (!IsFacingRight) playerController.IsFacingRight = !IsFacingRight;
-            rb.bodyType = RigidbodyType2D.Dynamic;
         }
         else
         {
             playerController.transform.position = transform.position;
             playerController.GetComponent<Collider2D>().isTrigger = false;
-            playerAnimator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x));
-            playerAnimator.SetFloat("Vertical", lastMovement.y);
-            playerController.IsFacingRight = IsFacingRight;
-            rb.bodyType = RigidbodyType2D.Kinematic;
+            
         }
     }
 }

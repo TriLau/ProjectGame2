@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private Vector2 movement;
+    public Vector2 movement;
     private Vector2 lastMovement;
     public Vector2 LastMovement
     {
@@ -93,10 +93,7 @@ public class PlayerController : MonoBehaviour
         if (CanRun && Input.GetKey(KeyCode.LeftShift)) IsRuning = true;
         else IsRuning = false;
 
-        if (!IsRidingVehicle)
-        {
-            OnMove();
-        }
+        OnMove();
 
         if (Input.GetKeyDown(KeyCode.E) && CanRide)
         {
@@ -104,25 +101,20 @@ public class PlayerController : MonoBehaviour
 
             if (IsRidingVehicle)
             {
-                transform.SetParent(curentVehicle.transform);
-                rb.bodyType = RigidbodyType2D.Kinematic;
                 curentVehicle.SetRiding(true);
+                curentVehicle.transform.SetParent(transform);
             }
             else
             {
-                transform.SetParent(null);
-                rb.bodyType = RigidbodyType2D.Dynamic;
                 curentVehicle.SetRiding(false);
+                curentVehicle.transform.SetParent(null);
             }
         }
     }
 
     private void FixedUpdate()
     {
-        if (!IsRidingVehicle)
-        {
-            rb.MovePosition(rb.position + movement * CurrentSpeed * Time.fixedDeltaTime);
-        }
+        rb.MovePosition(rb.position + movement * CurrentSpeed * Time.fixedDeltaTime);
     }
 
     public void SetCurrentVehicle(VehicleController vehicle)
