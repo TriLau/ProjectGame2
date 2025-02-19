@@ -216,7 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae5dc5adfe3e38419962044dc4768a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  vehicleSpeed: 4
+  movement: {x: 0, y: 0}
 --- !u!70 &3787580922204280268
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
