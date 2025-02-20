@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Collider2D col;
+    [SerializeField]
     private VehicleController curentVehicle;
 
     [SerializeField]
@@ -128,11 +129,8 @@ public class PlayerController : MonoBehaviour
 
     public void ClearVehicle()
     {
-        if (!IsRidingVehicle)
-        {
-            CanRide = false;
-            curentVehicle = null;
-        }
+        CanRide = false;
+        curentVehicle = null;
     }
 
     public void SetFacing()

@@ -7,6 +7,7 @@ public class VehicleController : MonoBehaviour
     public float vehicleSpeed = 1f;
     public Vector2 movement;
     private Animator animator;
+    [SerializeField]
     private PlayerController playerController;
 
     [SerializeField]
@@ -45,7 +46,6 @@ public class VehicleController : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerController player = collision.GetComponent<PlayerController>();
-            if (player.IsRidingVehicle) return;
 
             playerController = player;
             playerController.SetCurrentVehicle(this);
@@ -59,7 +59,7 @@ public class VehicleController : MonoBehaviour
             PlayerController player = collision.GetComponent<PlayerController>();
             if (player.IsRidingVehicle) return;
 
-            //playerController.ClearVehicle();
+            playerController.ClearVehicle();
         }
     }
 
