@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 1480301862695094884, guid: 1bee62c1640c1da47ab3b0303eda31dd, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 22100000, guid: 43bfd9d034bfb9e40a66ab08915f5d85, type: 2}
     - target: {fileID: 3069992538054791838, guid: 1bee62c1640c1da47ab3b0303eda31dd, type: 3}
       propertyPath: m_Name
       value: Josh
