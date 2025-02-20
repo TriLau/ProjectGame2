@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VehicleController : PlayerController
+public class VehicleController : MonoBehaviour
 {
     public float vehicleSpeed = 1f;
     public Vector2 movement;
     private Animator animator;
+    [SerializeField]
     private PlayerController playerController;
 
     [SerializeField]
@@ -16,13 +17,8 @@ public class VehicleController : PlayerController
     private bool _isBeingRidden = false;
     public bool IsBeingRidden
     {
-<<<<<<< HEAD
-        get { return _isFacingRight; }
-        set 
-=======
         get { return _isBeingRidden; }
         private set
->>>>>>> origin/dev
         {
             _isBeingRidden = value;
             animator.SetBool("IsRiding", value);
@@ -50,7 +46,6 @@ public class VehicleController : PlayerController
         if (collision.CompareTag("Player"))
         {
             PlayerController player = collision.GetComponent<PlayerController>();
-            if (player.IsRidingVehicle) return;
 
             playerController = player;
             playerController.SetCurrentVehicle(this);
@@ -64,7 +59,7 @@ public class VehicleController : PlayerController
             PlayerController player = collision.GetComponent<PlayerController>();
             if (player.IsRidingVehicle) return;
 
-            //playerController.ClearVehicle();
+            playerController.ClearVehicle();
         }
     }
 
@@ -79,12 +74,7 @@ public class VehicleController : PlayerController
             transform.localScale = playerController.transform.localScale;
             animator.SetFloat("Horizontal", Mathf.Abs(playerController.LastMovement.x));
             animator.SetFloat("Vertical", playerController.LastMovement.y);
-<<<<<<< HEAD
-            playerController.IsFacingRight = IsFacingRight;
-            rb.bodyType = RigidbodyType2D.Dynamic;
-=======
             playerController.vehicleSpeed = vehicleSpeed;
->>>>>>> origin/dev
         }
         else
         {
@@ -112,12 +102,12 @@ public class VehicleController : PlayerController
 
         switch (movement.x, movement.y)
         {
-            case (1, 0) :
+            case (1, 0):
                 {
                     colliders[1].enabled = true;
                     break;
                 }
-            case (0, 1) :
+            case (0, 1):
                 {
                     colliders[2].enabled = true;
                     break;
