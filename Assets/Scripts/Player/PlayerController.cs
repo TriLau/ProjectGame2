@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 1f;
     public float runSpeed = 1f;
     public float vehicleSpeed;
+    private string currentState;
 
     [SerializeField]
     private float _currentSpeed;
@@ -83,6 +85,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private bool _isPickingup = false;
+    public bool IsPickingup
+    {
+        get { return _isPickingup; }
+        private set 
+        { 
+            _isPickingup = value;
+        }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -111,6 +124,16 @@ public class PlayerController : MonoBehaviour
                 curentVehicle.SetRiding(false);
                 curentVehicle.transform.SetParent(null);
             }
+        }
+
+        if (Input.GetMouseButtonDown(0) && IsPickingup)
+        {
+            animator.SetTrigger("Attack");
+        }
+
+        if (!IsRidingVehicle)
+        {
+            CheckAnimation();
         }
     }
 
@@ -155,5 +178,83 @@ public class PlayerController : MonoBehaviour
 
         if (movement.x > 0 && !IsFacingRight) IsFacingRight = true;
         else if (movement.x < 0 && IsFacingRight) IsFacingRight = false;
+    }
+
+    public void PickupItem(ItemData item)
+    {
+        bool result = InventoryManager.Instance.AddItemToTnventorySlot(item);
+        if (result == true)
+        {
+            Debug.Log("Item added");
+            IsPickingup = true;
+        }
+        else
+        {
+            Debug.Log("Item not added");
+        }
+    }
+
+    public ItemData GetSelectedItem()
+    {
+        ItemData receivedItem = InventoryManager.Instance.GetSelectedItem(false);
+        if (receivedItem != null)
+        {
+            return receivedItem;
+        }
+
+        return null;
+    }
+
+    public void UseSelectedItem()
+    {
+        ItemData receivedItem = InventoryManager.Instance.GetSelectedItem(true);
+        if (receivedItem != null)
+        {
+            Debug.Log("Used item: " + receivedItem);
+        }
+        else
+        {
+            Debug.Log("Not item used");
+        }
+    }
+
+    private void CheckAnimation()
+    {
+        ItemData item = GetSelectedItem();
+        if (item != null)
+        {
+            IsPickingup = true;
+        }
+        else
+        {
+            IsPickingup = false;
+        }
+
+        if (IsPickingup)
+        {
+            switch (item.name)
+            {
+                case "Axe":
+                    ChangeAnimationState(AnimationStrings.axeIdle);
+                    break;
+                case "Sword":
+                    ChangeAnimationState(AnimationStrings.swordIdle);
+                    break;
+            }
+        }
+
+        if (!IsPickingup || InventoryManager.Instance.GetSelectedItem(false) == null)
+        {
+            ChangeAnimationState(AnimationStrings.idle);
+        }
+    }
+
+    private void ChangeAnimationState(string newState)
+    {
+        if (currentState == newState) return;
+
+        animator.Play(newState);
+
+        currentState = newState;
     }
 }
