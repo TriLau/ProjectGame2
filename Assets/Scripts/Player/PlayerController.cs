@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private float _currentSpeed;
     public float CurrentSpeed
     {
-        get 
+        get
         {
             return _currentSpeed = IsRidingVehicle ? vehicleSpeed : IsRuning ? runSpeed : walkSpeed;
         }

@@ -102,12 +102,12 @@ public class VehicleController : MonoBehaviour
 
         switch (movement.x, movement.y)
         {
-            case (1, 0) :
+            case (1, 0):
                 {
                     colliders[1].enabled = true;
                     break;
                 }
-            case (0, 1) :
+            case (0, 1):
                 {
                     colliders[2].enabled = true;
                     break;
