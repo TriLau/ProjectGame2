@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private float _currentSpeed;
     public float CurrentSpeed
     {
-        get 
+        get
         {
             return _currentSpeed = IsRidingVehicle ? vehicleSpeed : IsRuning ? runSpeed : walkSpeed;
         }
@@ -116,10 +116,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!IsRidingVehicle)
-        {
-            rb.MovePosition(rb.position + movement * CurrentSpeed * Time.fixedDeltaTime);
-        }
         rb.MovePosition(rb.position + movement * CurrentSpeed * Time.fixedDeltaTime);
     }
 
