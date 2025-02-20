@@ -10,7 +10,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public GameObject InventoryItemPrefab;
     public List<ItemData> items = new List<ItemData>();
 
-    int selectedSlot = -1;
+    public int selectedSlot = -1;
 
     private void Start()
     {
