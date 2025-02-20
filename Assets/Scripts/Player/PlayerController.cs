@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-<<<<<<< HEAD
-    private Player player;
-=======
     public float walkSpeed = 1f;
     public float runSpeed = 1f;
     public float vehicleSpeed;
@@ -15,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private float _currentSpeed;
     public float CurrentSpeed
     {
-        get 
+        get
         {
             return _currentSpeed = IsRidingVehicle ? vehicleSpeed : IsRuning ? runSpeed : walkSpeed;
         }
@@ -28,10 +25,10 @@ public class PlayerController : MonoBehaviour
         get { return lastMovement; }
     }
 
->>>>>>> origin/dev
     private Rigidbody2D rb;
     private Animator animator;
     private Collider2D col;
+    [SerializeField]
     private VehicleController curentVehicle;
 
     [SerializeField]
@@ -88,7 +85,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        player = GetComponent<Player>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
@@ -120,14 +116,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-<<<<<<< HEAD
-        if (!IsRidingVehicle)
-        {
-            rb.MovePosition(rb.position + player.Movement * player.CurrentSpeed * Time.fixedDeltaTime);
-        }
-=======
         rb.MovePosition(rb.position + movement * CurrentSpeed * Time.fixedDeltaTime);
->>>>>>> origin/dev
     }
 
     public void SetCurrentVehicle(VehicleController vehicle)
@@ -140,11 +129,8 @@ public class PlayerController : MonoBehaviour
 
     public void ClearVehicle()
     {
-        if (!IsRidingVehicle)
-        {
-            CanRide = false;
-            curentVehicle = null;
-        }
+        CanRide = false;
+        curentVehicle = null;
     }
 
     public void SetFacing()
@@ -157,7 +143,7 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        player.Movement = new Vector2(moveX, moveY).normalized;
+        movement = new Vector2(moveX, moveY).normalized;
 
         if (movement != Vector2.zero) lastMovement = movement;
 
