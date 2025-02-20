@@ -86,14 +86,10 @@ public class PlayerController : MonoBehaviour
 
             if (IsRidingVehicle)
             {
-                transform.SetParent(curentVehicle.transform);
-                rb.bodyType = RigidbodyType2D.Kinematic;
                 curentVehicle.SetRiding(true);
             }
             else
             {
-                transform.SetParent(null);
-                rb.bodyType = RigidbodyType2D.Dynamic;
                 curentVehicle.SetRiding(false);
             }
         }

@@ -28,17 +28,13 @@ public class VehicleController : PlayerController
         }
     }
 
-    private bool isBeingRidden = false;
-
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (isBeingRidden)
         {
             float moveX = Input.GetAxisRaw("Horizontal");
             float moveY = Input.GetAxisRaw("Vertical");
@@ -113,10 +109,6 @@ public class VehicleController : PlayerController
         {
             playerController.transform.position = transform.position;
             playerController.GetComponent<Collider2D>().isTrigger = false;
-            playerAnimator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x));
-            playerAnimator.SetFloat("Vertical", lastMovement.y);
-            playerController.IsFacingRight = IsFacingRight;
-            rb.bodyType = RigidbodyType2D.Kinematic;
         }
     }
 }
