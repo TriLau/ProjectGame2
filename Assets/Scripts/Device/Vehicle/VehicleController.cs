@@ -7,8 +7,10 @@ public class VehicleController : PlayerController
     public float vehicleSpeed = 1f;
     public Vector2 movement;
     private Animator animator;
-    private Animator playerAnimator;
     private PlayerController playerController;
+
+    [SerializeField]
+    private List<Collider2D> colliders;
 
     [SerializeField]
     private bool _isBeingRidden = false;
@@ -30,31 +32,17 @@ public class VehicleController : PlayerController
     void Start()
     {
         animator = GetComponent<Animator>();
-        animator.SetFloat("Horizontal", Mathf.Abs(movement.x));
-        animator.SetFloat("Vertical", movement.y);
+        SetMovement(movement);
     }
 
     void Update()
     {
         if (IsBeingRidden)
         {
-            if (playerController.movement != Vector2.zero)
-            {                 
-                animator.SetFloat("Horizontal", Mathf.Abs(playerController.movement.x));
-                animator.SetFloat("Vertical", playerController.movement.y);
+            SetMovement(playerController.movement);
 
-                playerAnimator.SetFloat("Horizontal", Mathf.Abs(playerController.movement.x));
-                playerAnimator.SetFloat("Vertical", playerController.movement.y);
-            }
-            
             animator.SetFloat("Speed", playerController.movement.magnitude);
-            playerAnimator.SetFloat("Speed", playerController.movement.magnitude);
         }
-    }
-
-    private void FixedUpdate()
-    {
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -76,7 +64,7 @@ public class VehicleController : PlayerController
             PlayerController player = collision.GetComponent<PlayerController>();
             if (player.IsRidingVehicle) return;
 
-            playerController.ClearVehicle();
+            //playerController.ClearVehicle();
         }
     }
 
@@ -88,7 +76,6 @@ public class VehicleController : PlayerController
         {
             playerController.transform.position = transform.position;
             playerController.GetComponent<Collider2D>().isTrigger = true;
-            playerAnimator = playerController.GetComponent<Animator>();
             transform.localScale = playerController.transform.localScale;
             animator.SetFloat("Horizontal", Mathf.Abs(playerController.LastMovement.x));
             animator.SetFloat("Vertical", playerController.LastMovement.y);
@@ -103,6 +90,48 @@ public class VehicleController : PlayerController
         {
             playerController.transform.position = transform.position;
             playerController.GetComponent<Collider2D>().isTrigger = false;
+        }
+    }
+
+    public void SetMovement(Vector2 movement)
+    {
+        if (movement != Vector2.zero)
+        {
+            animator.SetFloat("Horizontal", Mathf.Abs(movement.x));
+            animator.SetFloat("Vertical", movement.y);
+            SetCollision(movement);
+        }
+    }
+
+    public void SetCollision(Vector2 movement)
+    {
+        foreach (var col in colliders)
+        {
+            col.enabled = false;
+        }
+
+        switch (movement.x, movement.y)
+        {
+            case (1, 0) :
+                {
+                    colliders[1].enabled = true;
+                    break;
+                }
+            case (0, 1) :
+                {
+                    colliders[2].enabled = true;
+                    break;
+                }
+            case (0, -1):
+                {
+                    colliders[0].enabled = true;
+                    break;
+                }
+            default:
+                {
+                    colliders[1].enabled = true;
+                    break;
+                }
         }
     }
 }
