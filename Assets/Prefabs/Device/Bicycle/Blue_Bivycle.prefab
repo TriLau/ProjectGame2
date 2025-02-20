@@ -326,6 +326,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleSpeed: 4
   movement: {x: 1, y: 0}
+  colliders:
+  - {fileID: 8772695372056623864}
+  - {fileID: 7066090931826656711}
+  - {fileID: 5838048302535506690}
+  _isBeingRidden: 0
 --- !u!70 &5791893770237385704
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
