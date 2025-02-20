@@ -22,7 +22,7 @@ public class InventoryManager : Singleton<InventoryManager>
         if (Input.inputString != null)
         {
             bool isNumber = int.TryParse(Input.inputString, out int number);
-            if (isNumber && number > 0 && number < 7)
+            if (isNumber && number > 0 && number < 10)
             {
                 ChangeSelectedSlot(number - 1);
             }
