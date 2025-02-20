@@ -4,7 +4,31 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+<<<<<<< HEAD
     private Player player;
+=======
+    public float walkSpeed = 1f;
+    public float runSpeed = 1f;
+    public float vehicleSpeed;
+
+    [SerializeField]
+    private float _currentSpeed;
+    public float CurrentSpeed
+    {
+        get 
+        {
+            return _currentSpeed = IsRidingVehicle ? vehicleSpeed : IsRuning ? runSpeed : walkSpeed;
+        }
+    }
+
+    public Vector2 movement;
+    private Vector2 lastMovement;
+    public Vector2 LastMovement
+    {
+        get { return lastMovement; }
+    }
+
+>>>>>>> origin/dev
     private Rigidbody2D rb;
     private Animator animator;
     private Collider2D col;
@@ -75,10 +99,7 @@ public class PlayerController : MonoBehaviour
         if (CanRun && Input.GetKey(KeyCode.LeftShift)) IsRuning = true;
         else IsRuning = false;
 
-        if (!IsRidingVehicle)
-        {
-            OnMove();
-        }
+        OnMove();
 
         if (Input.GetKeyDown(KeyCode.E) && CanRide)
         {
@@ -87,20 +108,26 @@ public class PlayerController : MonoBehaviour
             if (IsRidingVehicle)
             {
                 curentVehicle.SetRiding(true);
+                curentVehicle.transform.SetParent(transform);
             }
             else
             {
                 curentVehicle.SetRiding(false);
+                curentVehicle.transform.SetParent(null);
             }
         }
     }
 
     private void FixedUpdate()
     {
+<<<<<<< HEAD
         if (!IsRidingVehicle)
         {
             rb.MovePosition(rb.position + player.Movement * player.CurrentSpeed * Time.fixedDeltaTime);
         }
+=======
+        rb.MovePosition(rb.position + movement * CurrentSpeed * Time.fixedDeltaTime);
+>>>>>>> origin/dev
     }
 
     public void SetCurrentVehicle(VehicleController vehicle)
