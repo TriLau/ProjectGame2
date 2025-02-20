@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VehicleController : MonoBehaviour
+public class VehicleController : PlayerController
 {
     public float vehicleSpeed = 1f;
     public Vector2 movement;
@@ -17,8 +17,13 @@ public class VehicleController : MonoBehaviour
     private bool _isBeingRidden = false;
     public bool IsBeingRidden
     {
+<<<<<<< HEAD
+        get { return _isFacingRight; }
+        set 
+=======
         get { return _isBeingRidden; }
         private set
+>>>>>>> origin/dev
         {
             _isBeingRidden = value;
             animator.SetBool("IsRiding", value);
@@ -74,7 +79,12 @@ public class VehicleController : MonoBehaviour
             transform.localScale = playerController.transform.localScale;
             animator.SetFloat("Horizontal", Mathf.Abs(playerController.LastMovement.x));
             animator.SetFloat("Vertical", playerController.LastMovement.y);
+<<<<<<< HEAD
+            playerController.IsFacingRight = IsFacingRight;
+            rb.bodyType = RigidbodyType2D.Dynamic;
+=======
             playerController.vehicleSpeed = vehicleSpeed;
+>>>>>>> origin/dev
         }
         else
         {
