@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VehicleController : PlayerController
+public class VehicleController : MonoBehaviour
 {
     public float vehicleSpeed = 1f;
     public Vector2 movement;
@@ -74,6 +74,7 @@ public class VehicleController : PlayerController
             transform.localScale = playerController.transform.localScale;
             animator.SetFloat("Horizontal", Mathf.Abs(playerController.LastMovement.x));
             animator.SetFloat("Vertical", playerController.LastMovement.y);
+            playerController.vehicleSpeed = vehicleSpeed;
         }
         else
         {
@@ -101,12 +102,12 @@ public class VehicleController : PlayerController
 
         switch (movement.x, movement.y)
         {
-            case (1, 0) :
+            case (1, 0):
                 {
                     colliders[1].enabled = true;
                     break;
                 }
-            case (0, 1) :
+            case (0, 1):
                 {
                     colliders[2].enabled = true;
                     break;
