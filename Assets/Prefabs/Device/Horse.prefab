@@ -261,9 +261,9 @@ MonoBehaviour:
   movement: {x: 1, y: 0}
   playerController: {fileID: 0}
   colliders:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5785139968341556685}
+  - {fileID: 6394662075341012736}
+  - {fileID: 4856981601908684424}
   _isBeingRidden: 0
 --- !u!70 &4572596997964881620
 CapsuleCollider2D:
