@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Collider2D col;
     [SerializeField]
-    private VehicleController currentVehicle;
+    private VehicleController curentVehicle;
 
     [SerializeField]
     private bool _isFacingRight = true;
@@ -73,8 +73,6 @@ public class PlayerController : MonoBehaviour
         private set { _canRide = value; }
     }
 
-    
-
     [SerializeField]
     private bool _isRidingVehicle = false;
     public bool IsRidingVehicle
@@ -83,19 +81,7 @@ public class PlayerController : MonoBehaviour
         private set
         {
             _isRidingVehicle = value;
-            if (value)
-            {
-                if (currentVehicle.tag == "Bicycle")
-                    animator.SetBool("UseDevice", true);
-                else if (currentVehicle.tag == "Horse")
-                    animator.SetBool("UseHorse", true);
-            }
-            else
-            {
-                animator.SetBool("UseDevice", false);
-                animator.SetBool("UseHorse", false);
-            }
-
+            animator.SetBool("UseDevice", value);
         }
     }
 
@@ -130,13 +116,13 @@ public class PlayerController : MonoBehaviour
 
             if (IsRidingVehicle)
             {
-                currentVehicle.SetRiding(true);
-                currentVehicle.transform.SetParent(transform);
+                curentVehicle.SetRiding(true);
+                curentVehicle.transform.SetParent(transform);
             }
             else
             {
-                currentVehicle.SetRiding(false);
-                currentVehicle.transform.SetParent(null);
+                curentVehicle.SetRiding(false);
+                curentVehicle.transform.SetParent(null);
             }
         }
 
@@ -161,13 +147,13 @@ public class PlayerController : MonoBehaviour
         if (IsRidingVehicle) return;
 
         CanRide = true;
-        currentVehicle = vehicle;
+        curentVehicle = vehicle;
     }
 
     public void ClearVehicle()
     {
         CanRide = false;
-        currentVehicle = null;
+        curentVehicle = null;
     }
 
     public void SetFacing()
