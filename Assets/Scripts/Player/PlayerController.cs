@@ -232,15 +232,7 @@ public class PlayerController : MonoBehaviour
 
         if (IsHoldingItem)
         {
-            switch (item.name)
-            {
-                case "Axe":
-                    ChangeAnimationState(AnimationStrings.axeIdle);
-                    break;
-                case "Sword":
-                    ChangeAnimationState(AnimationStrings.swordIdle);
-                    break;
-            }
+            ChangeAnimationState(item.name);
         }
 
         if (!IsHoldingItem || InventoryManager.Instance.GetSelectedItem(false) == null)
