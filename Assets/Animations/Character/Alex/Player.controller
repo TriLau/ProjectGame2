@@ -740,7 +740,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Axe_Idle
+  m_Name: Axe
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2305,7 +2305,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sword_Idle
+  m_Name: Sword
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2714,30 +2714,30 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 6094948921908734768}
-    second:
-    - {fileID: -4754269030374059434}
-  - first: {fileID: -4638598055758123582}
-    second:
-    - {fileID: 9128681670943862564}
-  - first: {fileID: 4489626166827718995}
-    second:
-    - {fileID: 1439954745559527259}
-  - first: {fileID: -6461783696989163518}
-    second:
-    - {fileID: 4723964834831775080}
-  - first: {fileID: -8853961898685332167}
-    second:
-    - {fileID: -1616651574153102639}
-  - first: {fileID: -4083638725810680477}
-    second:
-    - {fileID: -4870564669552000099}
-  - first: {fileID: 5326933145296254900}
-    second:
-    - {fileID: 7796261652591384265}
   - first: {fileID: 5609955629840631658}
     second:
     - {fileID: -6664263595931798116}
+  - first: {fileID: 5326933145296254900}
+    second:
+    - {fileID: 7796261652591384265}
+  - first: {fileID: -4083638725810680477}
+    second:
+    - {fileID: -4870564669552000099}
+  - first: {fileID: -8853961898685332167}
+    second:
+    - {fileID: -1616651574153102639}
+  - first: {fileID: -6461783696989163518}
+    second:
+    - {fileID: 4723964834831775080}
+  - first: {fileID: 4489626166827718995}
+    second:
+    - {fileID: 1439954745559527259}
+  - first: {fileID: -4638598055758123582}
+    second:
+    - {fileID: 9128681670943862564}
+  - first: {fileID: 6094948921908734768}
+    second:
+    - {fileID: -4754269030374059434}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}

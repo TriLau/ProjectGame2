@@ -246,15 +246,7 @@ public class PlayerController : MonoBehaviour
 
         if (IsPickingup)
         {
-            switch (item.name)
-            {
-                case "Axe":
-                    ChangeAnimationState(AnimationStrings.axeIdle);
-                    break;
-                case "Sword":
-                    ChangeAnimationState(AnimationStrings.swordIdle);
-                    break;
-            }
+            ChangeAnimationState(item.name);
         }
 
         if (!IsPickingup || InventoryManager.Instance.GetSelectedItem(false) == null)
