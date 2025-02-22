@@ -10,7 +10,7 @@ public class Damageable : MonoBehaviour
     [SerializeField]
     private int _maxHealth = 100;
 
-    Animator animator;
+    public Animator animator;
 
     public int MaxHealth
     {
