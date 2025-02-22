@@ -80,7 +80,6 @@ public class VehicleController : MonoBehaviour
         {
             playerController.transform.position = transform.position;
             playerController.GetComponent<Collider2D>().isTrigger = false;
-            animator.SetFloat("Speed", 0);
         }
     }
 
