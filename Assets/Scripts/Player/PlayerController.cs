@@ -110,6 +110,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private bool _canAttack = true;
+    public bool CanAttack
+    {
+        get { return _canAttack; }
+        private set { _canAttack = value; }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -140,9 +148,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && IsHoldingItem)
+        if (IsHoldingItem && CanAttack)
         {
-            animator.SetTrigger("Attack");
+            if (Input.GetMouseButton(0))
+            {
+                StartCoroutine(AttackRoutine());
+            }
         }
 
         if (!IsRidingVehicle)
@@ -262,5 +273,13 @@ public class PlayerController : MonoBehaviour
         animator.Play(newState);
 
         currentState = newState;
+    }
+
+    private IEnumerator AttackRoutine()
+    {
+        CanAttack = false;
+        animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.5f);
+        CanAttack = true;
     }
 }
