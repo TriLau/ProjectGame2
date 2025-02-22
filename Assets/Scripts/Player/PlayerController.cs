@@ -86,13 +86,13 @@ public class PlayerController : MonoBehaviour
     }
 
     [SerializeField]
-    private bool _isPickingup = false;
-    public bool IsPickingup
+    private bool _isHoldingItem = false;
+    public bool IsHoldingItem
     {
-        get { return _isPickingup; }
+        get { return _isHoldingItem; }
         private set 
         { 
-            _isPickingup = value;
+            _isHoldingItem = value;
         }
     }
 
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && IsPickingup)
+        if (Input.GetMouseButtonDown(0) && IsHoldingItem)
         {
             animator.SetTrigger("Attack");
         }
@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
         if (result == true)
         {
             Debug.Log("Item added");
-            IsPickingup = true;
+            IsHoldingItem = true;
         }
         else
         {
@@ -223,14 +223,14 @@ public class PlayerController : MonoBehaviour
         ItemData item = GetSelectedItem();
         if (item != null)
         {
-            IsPickingup = true;
+            IsHoldingItem = true;
         }
         else
         {
-            IsPickingup = false;
+            IsHoldingItem = false;
         }
 
-        if (IsPickingup)
+        if (IsHoldingItem)
         {
             switch (item.name)
             {
@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!IsPickingup || InventoryManager.Instance.GetSelectedItem(false) == null)
+        if (!IsHoldingItem || InventoryManager.Instance.GetSelectedItem(false) == null)
         {
             ChangeAnimationState(AnimationStrings.idle);
         }
