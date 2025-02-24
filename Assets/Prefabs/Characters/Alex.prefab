@@ -133,12 +133,8 @@ Transform:
   m_LocalPosition: {x: -3.45, y: 1.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-<<<<<<< HEAD
   m_Children:
   - {fileID: 7598735911738858897}
-=======
-  m_Children: []
->>>>>>> parent of 9bd4124 (Revert "Merge branch 'main' of https://github.com/TriLau/ProjectGame2")
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &355996309913763107
