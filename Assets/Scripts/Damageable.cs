@@ -10,7 +10,7 @@ public class Damageable : MonoBehaviour
     [SerializeField]
     private int _maxHealth = 100;
 
-    public Animator animator;
+    private Animator animator;
 
     public int MaxHealth
     {
@@ -72,6 +72,8 @@ public class Damageable : MonoBehaviour
 
             timeSinceHit += Time.deltaTime;
         }
+
+        if (!IsAlive) Destroy(gameObject, 1f);
     }
 
     public bool Hit(int damage, Vector2 knockback)

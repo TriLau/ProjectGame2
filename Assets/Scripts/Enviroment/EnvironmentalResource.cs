@@ -17,6 +17,8 @@ public class EnvironmentalResource : MonoBehaviour
     [SerializeField]
     private ERType eRType;
 
+    private EWeatherType eWeather;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -25,6 +27,7 @@ public class EnvironmentalResource : MonoBehaviour
 
     void Update()
     {
+        eWeather = EWeatherType.Spring;
         ChangeState();
     }
 
@@ -38,6 +41,28 @@ public class EnvironmentalResource : MonoBehaviour
         if (damageable.Health == 10)
         {
             animator.Play("Root_Idle");
+        }
+    }
+
+    public void ChangeBySeasion()
+    {
+        switch(eWeather)
+        {
+            case EWeatherType.Spring:
+                {
+                    animator.Play(AnimationStrings.springIdle);
+                    break;
+                }
+            case EWeatherType.Summer:
+                {
+                    animator.Play(AnimationStrings.summerIdle);
+                    break;
+                }
+            case EWeatherType.Winter:
+                {
+                    animator.Play(AnimationStrings.winterIdle);
+                    break;
+                }
         }
     }
 }
