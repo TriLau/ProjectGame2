@@ -260,7 +260,10 @@ MonoBehaviour:
   _isRuning: 0
   _canRide: 0
   _isRidingVehicle: 0
-  _isPickingup: 0
+  _isHoldingItem: 0
+  _canAttack: 1
+  _canSleep: 0
+  _isSleeping: 0
 --- !u!58 &5248820430536388865
 CircleCollider2D:
   m_ObjectHideFlags: 0
