@@ -24,12 +24,14 @@ public enum ItemType
 {
     Tile,
     Food,
-    Tool
+    Tool,
+    Material
 }
 
 public enum ActionType
 {
     Cook,
     Combine,
-    Mine
+    Mine,
+    Craft
 }
