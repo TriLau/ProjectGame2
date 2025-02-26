@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum ERType
-{
-    Tree,
-    Stone
-}
-
 public class EnvironmentalResource : MonoBehaviour
 {
     private Animator animator;
     private Damageable damageable;
 
     [SerializeField]
-    private ERType eRType;
+    private int numItem = 2;
 
-    private EWeatherType eWeather;
+    [SerializeField]
+    private GameObject item;
 
     void Start()
     {
@@ -27,8 +22,8 @@ public class EnvironmentalResource : MonoBehaviour
 
     void Update()
     {
-        eWeather = EWeatherType.Spring;
         ChangeState();
+        //ChangeBySeason();
     }
 
     public void OnHit(int damage, Vector2 knockback)
@@ -38,31 +33,50 @@ public class EnvironmentalResource : MonoBehaviour
 
     public void ChangeState()
     {
-        if (damageable.Health == 10)
+        if (damageable.Health == 20)
         {
-            animator.Play("Root_Idle");
+            animator.SetBool(AnimationStrings.hasBeenCut, true);
+            SpawnItem();
         }
     }
 
-    public void ChangeBySeasion()
+    public void ChangeBySeason()
     {
-        switch(eWeather)
+        ESeason season = SeasonManager.Instance.Season;
+
+        switch(season)
         {
-            case EWeatherType.Spring:
+            case ESeason.Spring:
                 {
                     animator.Play(AnimationStrings.springIdle);
                     break;
                 }
-            case EWeatherType.Summer:
+            case ESeason.Summer:
                 {
                     animator.Play(AnimationStrings.summerIdle);
                     break;
                 }
-            case EWeatherType.Winter:
+            case ESeason.Autumn:
+                {
+                    animator.Play(AnimationStrings.autumnIdle);
+                    break;
+                }
+            case ESeason.Winter:
                 {
                     animator.Play(AnimationStrings.winterIdle);
                     break;
                 }
+        }
+    }
+
+    public void SpawnItem()
+    {
+        if (numItem > 0)
+        {
+            GameObject itemSpawned = Instantiate(item, transform.position, Quaternion.identity);
+            Rigidbody2D rb = itemSpawned.GetComponent<Rigidbody2D>();
+            rb.velocity = new Vector2(rb.velocity.x * 1f, rb.velocity.y * 1f);
+            numItem--;
         }
     }
 }
