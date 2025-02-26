@@ -8,4 +8,7 @@ internal class AnimationStrings
     internal static string swordIdle = "Sword";
     internal static string axeIdle = "Axe";
     internal static string isSleep = "isSleeping";
+    internal static string springIdle = "Spring_Idle";
+    internal static string summerIdle = "Summer_Idle";
+    internal static string winterIdle = "Winter_Idle";
 }
