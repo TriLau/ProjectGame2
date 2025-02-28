@@ -58,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6c8ba93b54ee83c4c8722e061b12e2a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -158,7 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85b65873f4531e43bc942ed6b1972d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eRType: 0
+  numItem: 2
+  item: {fileID: 2516789850110517418, guid: 7807146909d0a944895bb6c00994b06c, type: 3}
 --- !u!114 &8446098217863212974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,8 +188,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _maxHealth: 40
-  animator: {fileID: 0}
-  _health: 20
+  _health: 40
   _isAlive: 1
   isInvincible: 0
   invincibilityTime: 0

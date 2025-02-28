@@ -212,9 +212,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &1480301862695094884
 Animator:
@@ -252,6 +252,7 @@ MonoBehaviour:
   walkSpeed: 2
   runSpeed: 3
   vehicleSpeed: 0
+  _canMove: 1
   _currentSpeed: 0
   movement: {x: 0, y: 0}
   currentVehicle: {fileID: 0}
@@ -264,6 +265,7 @@ MonoBehaviour:
   _canAttack: 1
   _canSleep: 0
   _isSleeping: 0
+  _currentBed: {fileID: 0}
 --- !u!58 &5248820430536388865
 CircleCollider2D:
   m_ObjectHideFlags: 0
