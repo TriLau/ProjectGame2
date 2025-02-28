@@ -45,6 +45,7 @@ public class VehicleController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if (IsBeingRidden) return;
             PlayerController player = collision.GetComponent<PlayerController>();
 
             playerController = player;

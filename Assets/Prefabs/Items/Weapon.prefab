@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4931434756416402080}
   - component: {fileID: 3906291288246050922}
   m_Layer: 0
-  m_Name: Axe
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1449220059
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1384574044, guid: 1964a41c77651ee45ae527d054e97830, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!114 &4931434756416402080
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e4174b1bf1b94e41b62a710631ebeb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: a8f74ae94e7dc48488cb5ad3f5251e14, type: 2}
+  item: {fileID: 0}
 --- !u!70 &3906291288246050922
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

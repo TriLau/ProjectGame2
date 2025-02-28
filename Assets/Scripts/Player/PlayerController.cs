@@ -40,7 +40,12 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Collider2D col;
     [SerializeField]
-    private VehicleController currentVehicle;
+    private VehicleController _currentVehicle;
+    public VehicleController CurrentVehicle
+    {
+        get { return _currentVehicle; }
+        private set { _currentVehicle = value; }
+    }
 
     [SerializeField]
     private bool _isFacingRight = true;
@@ -94,9 +99,9 @@ public class PlayerController : MonoBehaviour
             _isRidingVehicle = value;
             if (value)
             {
-                if (currentVehicle.tag == "Bicycle")
+                if (CurrentVehicle.tag == "Bicycle")
                     animator.SetBool("UseDevice", true);
-                else if (currentVehicle.tag == "Horse")
+                else if (CurrentVehicle.tag == "Horse")
                     animator.SetBool("UseHorse", true);
             }
             else
@@ -151,6 +156,14 @@ public class PlayerController : MonoBehaviour
         private set { _currentBed = value; }
     }
 
+    [SerializeField]
+    private bool _hadTarget;
+    public bool HadTarget
+    {
+        get { return _hadTarget; }
+        private set { _hadTarget = value; }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -171,13 +184,13 @@ public class PlayerController : MonoBehaviour
 
             if (IsRidingVehicle)
             {
-                currentVehicle.SetRiding(true);
-                currentVehicle.transform.SetParent(transform);
+                CurrentVehicle.SetRiding(true);
+                CurrentVehicle.transform.SetParent(transform);
             }
             else
             {
-                currentVehicle.SetRiding(false);
-                currentVehicle.transform.SetParent(null);
+                CurrentVehicle.SetRiding(false);
+                CurrentVehicle.transform.SetParent(null);
             }
         }
 
@@ -221,29 +234,38 @@ public class PlayerController : MonoBehaviour
     // ============== Bed Stuff =============
     public void SetCurrentBed(BedScript bed)
     {
+        if (HadTarget) return;
+        HadTarget = true;
         CanSleep = true;
         CurrentBed = bed;
+        CurrentBed.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     public void ClearBed()
     {
+        HadTarget = false;
         CanSleep = false;
+        CurrentBed.GetComponent<SpriteRenderer>().color = Color.white;
         CurrentBed = null;
+
     }
 
     // ============= Vehicle ================
     public void SetCurrentVehicle(VehicleController vehicle)
     {
-        if (IsRidingVehicle) return;
-
+        if (IsRidingVehicle || HadTarget) return;
+        HadTarget = true;
         CanRide = true;
-        currentVehicle = vehicle;
+        CurrentVehicle = vehicle;
+        CurrentVehicle.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     public void ClearVehicle()
     {
+        HadTarget = false;
         CanRide = false;
-        currentVehicle = null;
+        CurrentVehicle.GetComponent<SpriteRenderer>().color = Color.white;
+        CurrentVehicle = null;
     }
 
     // ============== Movement ==================

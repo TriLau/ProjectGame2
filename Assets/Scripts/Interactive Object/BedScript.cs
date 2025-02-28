@@ -8,6 +8,17 @@ public class BedScript : MonoBehaviour
     private PlayerController playerController;
 
     [SerializeField]
+    private bool _isVertical = false;
+    public bool IsVertical
+    {
+        get { return _isVertical; }
+        private set
+        {
+            _isVertical = value;
+        }
+    }
+
+    [SerializeField]
     private bool _isBeingUsed = false;
     public bool IsBeingUsed
     {
@@ -34,12 +45,24 @@ public class BedScript : MonoBehaviour
         if (toUse)
         {
             playerController.transform.SetParent(transform);
-            playerController.transform.position = transform.position;
+            if (!IsVertical)
+            {
+                playerController.transform.position = transform.position + new Vector3(0.5f, 0.5f, 0);
+                playerController.transform.rotation = Quaternion.Euler(0, 0, 90);
+                playerController.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            }
+            else
+            {
+                playerController.transform.position = transform.position;
+            }
+            playerController.movement = Vector2.zero;
             playerController.GetComponent<Collider2D>().isTrigger = true;
         }
         else
         {
             playerController.transform.SetParent(null);
+            playerController.transform.rotation = Quaternion.Euler(0, 0, 0);
+            playerController.GetComponent<SpriteRenderer>().sortingOrder = 0;
             playerController.GetComponent<Collider2D>().isTrigger = false;
         }
         
