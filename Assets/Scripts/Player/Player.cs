@@ -1,0 +1,77 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class Player
+{
+    public enum EState
+    {
+        Ilde,
+        Sleep,
+        RidingVehicle,
+        Fishing,
+        HoldingItem
+    }
+
+    private EState _curentState;
+    private float _maxHealth;
+    private float _currentHealth;
+    private float _money;
+    private Vector3 _position;
+
+    public float MaxHealth
+    { get { return _maxHealth; } }
+
+    public float CurrentHealth 
+    { get { return _currentHealth; } }
+
+    public float Money
+    { get { return _money; } }
+
+    public Vector3 Position
+    { get { return _position; } }
+
+    public Player() 
+    {
+        this._curentState = EState.Ilde;
+        this._maxHealth = 100;
+        this._currentHealth = 100;
+        this._money = 0;
+        this._position = Vector3.zero;
+    }
+
+    // State
+    public EState GetState()
+    {
+        return _curentState;
+    }
+
+    public void SetState(EState state)
+    {
+        _curentState = state;
+    }
+
+    // Health
+    public void SetMaxHealth(float health)
+    {
+        this._maxHealth = health;
+    }
+
+    public void SetCurrentHealth(float health)
+    {
+        this._currentHealth = health;
+    }
+
+    // Money
+    public void SetMoney(float money)
+    {
+        this._money = money;
+    }
+
+    // Position
+    public void SetPosition(Vector3 position)
+    {
+        this._position = position;
+    }
+}

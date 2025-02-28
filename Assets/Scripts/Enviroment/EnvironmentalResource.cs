@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum ERType
-{
-    Tree,
-    Stone
-}
-
 public class EnvironmentalResource : MonoBehaviour
 {
     private Animator animator;
     private Damageable damageable;
 
     [SerializeField]
-    private ERType eRType;
+    private int numItem = 2;
 
-    private EWeatherType eWeather;
+    [SerializeField]
+    private GameObject item;
 
     void Start()
     {
@@ -27,8 +22,8 @@ public class EnvironmentalResource : MonoBehaviour
 
     void Update()
     {
-        eWeather = EWeatherType.Spring;
         ChangeState();
+        //ChangeBySeason();
     }
 
     public void OnHit(int damage, Vector2 knockback)
@@ -38,31 +33,52 @@ public class EnvironmentalResource : MonoBehaviour
 
     public void ChangeState()
     {
-        if (damageable.Health == 10)
+        if (damageable.Health == 20)
         {
-            animator.Play("Root_Idle");
+            animator.SetBool(AnimationStrings.hasBeenCut, true);
+            DropItem();
         }
     }
 
-    public void ChangeBySeasion()
+    public void ChangeBySeason()
     {
-        switch(eWeather)
+        ESeason season = SeasonManager.Instance.Season;
+
+        switch(season)
         {
-            case EWeatherType.Spring:
+            case ESeason.Spring:
                 {
                     animator.Play(AnimationStrings.springIdle);
                     break;
                 }
-            case EWeatherType.Summer:
+            case ESeason.Summer:
                 {
                     animator.Play(AnimationStrings.summerIdle);
                     break;
                 }
-            case EWeatherType.Winter:
+            case ESeason.Autumn:
+                {
+                    animator.Play(AnimationStrings.autumnIdle);
+                    break;
+                }
+            case ESeason.Winter:
                 {
                     animator.Play(AnimationStrings.winterIdle);
                     break;
                 }
+        }
+    }
+
+    public void DropItem()
+    {
+        if (numItem > 0)
+        {
+            Vector3 randomDir = UtilsClass.GetRandomDir();
+            Vector3 position = this.transform.position + randomDir * 0.2f;
+            GameObject transform = Instantiate(item, position, Quaternion.identity);
+
+            transform.gameObject.GetComponent<Rigidbody2D>().AddForce(randomDir * 5f, ForceMode2D.Impulse);
+            numItem--;
         }
     }
 }

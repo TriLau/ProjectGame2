@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Collider2D col;
+    private Player player;
+    
     [SerializeField]
     private VehicleController _currentVehicle;
     public VehicleController CurrentVehicle
@@ -164,12 +166,14 @@ public class PlayerController : MonoBehaviour
         private set { _hadTarget = value; }
     }
 
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
+        player = new Player();
     }
+
 
     void Update()
     {
@@ -295,7 +299,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // =================== Item ======================
-    public void PickupItem(ItemData item)
+    public void PickupItem(Item item)
     {
         bool result = InventoryManager.Instance.AddItemToTnventorySlot(item);
         if (result == true)
@@ -309,9 +313,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public ItemData GetSelectedItem()
+    public Item GetSelectedItem()
     {
-        ItemData receivedItem = InventoryManager.Instance.GetSelectedItem(false);
+        Item receivedItem = InventoryManager.Instance.GetSelectedItem(false);
         if (receivedItem != null)
         {
             return receivedItem;
@@ -322,7 +326,7 @@ public class PlayerController : MonoBehaviour
 
     public void UseSelectedItem()
     {
-        ItemData receivedItem = InventoryManager.Instance.GetSelectedItem(true);
+        Item receivedItem = InventoryManager.Instance.GetSelectedItem(true);
         if (receivedItem != null)
         {
             Debug.Log("Used item: " + receivedItem);
@@ -336,7 +340,7 @@ public class PlayerController : MonoBehaviour
     // ===================== Animation =====================
     private void CheckAnimation()
     {
-        ItemData item = GetSelectedItem();
+        Item item = GetSelectedItem();
         if (item != null)
         {
             IsHoldingItem = true;
@@ -373,6 +377,4 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         CanAttack = true;
     }
-
-    
 }
