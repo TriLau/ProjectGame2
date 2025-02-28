@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(menuName = "Scripable object/Item")]
-public class ItemData : ScriptableObject
+[System.Serializable]
+public class Item : ScriptableObject
 {
     [Header("Only gameplay")]
     public TileBase tile;

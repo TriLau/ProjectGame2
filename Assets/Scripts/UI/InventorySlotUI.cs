@@ -4,10 +4,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IDropHandler
+public class InventorySlotUI : MonoBehaviour, IDropHandler
 {
+    private InventorySlot _slot;
+
     public Image image;
     public Sprite selectedColor, notSelectedColor;
+
+    public InventorySlot Slot
+    { get { return _slot; } }
 
     private void Awake()
     {
@@ -28,8 +33,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         if (transform.childCount == 0)
         {
-            InventoryItem inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
+            InventoryItemUI inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
             inventoryItem.parentAfterDrag = transform;
         }
+    }
+
+    public InventorySlot GetSelectedSlot()
+    {
+        return _slot;
     }
 }
