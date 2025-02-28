@@ -15,7 +15,7 @@ public class ItemPickup : MonoBehaviour
     {
         InitialItem(item);
     }
-    public void InitialItem(ItemData item)
+    public void InitialItem(Item item)
     {
         GetComponent<SpriteRenderer>().sprite = item.image;
     }
