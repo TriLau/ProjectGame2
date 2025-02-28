@@ -33,7 +33,7 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
     {
         if (transform.childCount == 0)
         {
-            InventoryItemUI inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
+            InventoryItemUI inventoryItem = eventData.pointerDrag.GetComponent<InventoryItemUI>();
             inventoryItem.parentAfterDrag = transform;
         }
     }

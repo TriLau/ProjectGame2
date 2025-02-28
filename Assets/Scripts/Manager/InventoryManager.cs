@@ -63,7 +63,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public bool AddItemToTnventorySlot(Item item)
     {
-        return AddItem(item, inventorySlots);
+        return AddItem(item, inventorySlotsUI);
     }
 
     public bool AddItem(Item item, List<InventorySlotUI> slots)
@@ -71,7 +71,7 @@ public class InventoryManager : Singleton<InventoryManager>
         for (int i = 0; i < slots.Count; i++)
         {
             InventorySlotUI slot = slots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            InventoryItemUI itemInSlot = slot.GetComponentInChildren<InventoryItemUI>();
             if (itemInSlot != null &&
                 itemInSlot.item == item &&
                 itemInSlot.count < maxStackedItems &&
@@ -85,8 +85,8 @@ public class InventoryManager : Singleton<InventoryManager>
 
         for (int i = 0; i < slots.Count; i++)
         {
-            InventorySlot slot = slots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            InventorySlotUI slot = slots[i];
+            InventoryItemUI itemInSlot = slot.GetComponentInChildren<InventoryItemUI>();
             if (itemInSlot == null)
             {
                 SpawnNewItem(item, slot);
@@ -97,17 +97,17 @@ public class InventoryManager : Singleton<InventoryManager>
         return false;
     }
 
-    void SpawnNewItem(Item item, InventorySlot slot)
+    void SpawnNewItem(Item item, InventorySlotUI slot)
     {
         GameObject newItemGO = Instantiate(InventoryItemPrefab, slot.transform);
-        InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
+        InventoryItemUI inventoryItem = newItemGO.GetComponent<InventoryItemUI>();
         inventoryItem.InitialiseItem(item);
     }
 
     public Item GetSelectedItem(bool use)
     {
         InventorySlot slot = inventorySlotsUI[selectedSlot].GetSelectedSlot();
-        InventoryItem itemInSlot = inventorySlotsUI[selectedSlot].GetComponentInChildren<InventoryItem>();
+        InventoryItemUI itemInSlot = inventorySlotsUI[selectedSlot].GetComponentInChildren<InventoryItemUI>();
         
         if (itemInSlot != null)
         {
