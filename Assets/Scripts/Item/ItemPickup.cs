@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    public ItemData item;
+    public Item item;
+
+    private void Update()
+    {
+        transform.gameObject.GetComponent<Rigidbody2D>().velocity *= 0.8f;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

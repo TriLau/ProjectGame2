@@ -36,7 +36,7 @@ public class EnvironmentalResource : MonoBehaviour
         if (damageable.Health == 20)
         {
             animator.SetBool(AnimationStrings.hasBeenCut, true);
-            SpawnItem();
+            DropItem();
         }
     }
 
@@ -69,13 +69,15 @@ public class EnvironmentalResource : MonoBehaviour
         }
     }
 
-    public void SpawnItem()
+    public void DropItem()
     {
         if (numItem > 0)
         {
-            GameObject itemSpawned = Instantiate(item, transform.position, Quaternion.identity);
-            Rigidbody2D rb = itemSpawned.GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(rb.velocity.x * 1f, rb.velocity.y * 1f);
+            Vector3 randomDir = UtilsClass.GetRandomDir();
+            Vector3 position = this.transform.position + randomDir * 0.2f;
+            GameObject transform = Instantiate(item, position, Quaternion.identity);
+
+            transform.gameObject.GetComponent<Rigidbody2D>().AddForce(randomDir * 5f, ForceMode2D.Impulse);
             numItem--;
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,7 +80,7 @@ public class Damageable : MonoBehaviour
             timeSinceHit += Time.deltaTime;
         }
 
-        if (!IsAlive) Destroy(gameObject, 1f);
+        if (!IsAlive) Destroy(gameObject);
     }
 
     public bool Hit(int damage, Vector2 knockback)

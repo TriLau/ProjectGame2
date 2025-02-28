@@ -5,17 +5,17 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventoryItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("UI")]
     public Image image;
     public Text countText;
 
-    [HideInInspector] public ItemData item;
+    [HideInInspector] public Item item;
     [HideInInspector] public int count = 1;
     [HideInInspector] public Transform parentAfterDrag;
 
-    public void InitialiseItem(ItemData newItem)
+    public void InitialiseItem(Item newItem)
     {
         item = newItem;
         image.sprite = newItem.image;
@@ -45,5 +45,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         image.raycastTarget = true;
         transform.SetParent(parentAfterDrag);
+        InventoryManager.Instance.RefreshInventory();
     }
 }

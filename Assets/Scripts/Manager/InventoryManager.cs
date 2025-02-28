@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEditor.Progress;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
+    private Inventory inventory;
+
     public int maxStackedItems = 5;
-    public InventorySlot[] inventorySlots;
+    public List<InventorySlotUI> inventorySlotsUI;
+    public GameObject inventorySlotPrefab;
     public GameObject InventoryItemPrefab;
-    public List<ItemData> items = new List<ItemData>();
 
     public int selectedSlot = -1;
 
     private void Start()
     {
+        inventory = new Inventory();
         ChangeSelectedSlot(0);
     }
 
@@ -29,27 +33,44 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
+    public void RefreshInventory()
+    {
+        inventory.Print();
+    }
+
+    // Inventory Slot
+    public void SpawnNewSlot(int amount)
+    {
+        do
+        {
+            GameObject slot = Instantiate(inventorySlotPrefab, this.transform);
+            InventorySlot iSlot = slot.GetComponent<InventorySlot>();
+            amount--;
+            inventory.AddSlotToInventory(iSlot);
+        } while (amount > 0);
+    }
+
     void ChangeSelectedSlot(int newValue)
     {
         if (selectedSlot >= 0)
         {
-            inventorySlots[selectedSlot].Deselect();
+            inventorySlotsUI[selectedSlot].Deselect();
         }
 
-        inventorySlots[newValue].Select();
+        inventorySlotsUI[newValue].Select();
         selectedSlot = newValue;
     }
 
-    public bool AddItemToTnventorySlot(ItemData item)
+    public bool AddItemToTnventorySlot(Item item)
     {
         return AddItem(item, inventorySlots);
     }
 
-    public bool AddItem(ItemData item, InventorySlot[] slots)
+    public bool AddItem(Item item, List<InventorySlotUI> slots)
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Count; i++)
         {
-            InventorySlot slot = slots[i];
+            InventorySlotUI slot = slots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot != null &&
                 itemInSlot.item == item &&
@@ -62,7 +83,7 @@ public class InventoryManager : Singleton<InventoryManager>
             }
         }
 
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Count; i++)
         {
             InventorySlot slot = slots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
@@ -76,20 +97,21 @@ public class InventoryManager : Singleton<InventoryManager>
         return false;
     }
 
-    void SpawnNewItem(ItemData item, InventorySlot slot)
+    void SpawnNewItem(Item item, InventorySlot slot)
     {
         GameObject newItemGO = Instantiate(InventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(item);
     }
 
-    public ItemData GetSelectedItem(bool use)
+    public Item GetSelectedItem(bool use)
     {
-        InventorySlot slot = inventorySlots[selectedSlot];
-        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+        InventorySlot slot = inventorySlotsUI[selectedSlot].GetSelectedSlot();
+        InventoryItem itemInSlot = inventorySlotsUI[selectedSlot].GetComponentInChildren<InventoryItem>();
+        
         if (itemInSlot != null)
         {
-            ItemData item = itemInSlot.item;
+            Item item = itemInSlot.item;
             if (use == true)
             {
                 itemInSlot.count--;
