@@ -5,7 +5,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 {
     private Inventory inventory;
     
@@ -16,9 +16,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private void Start()
     {
-        inventory = new Inventory();
-        inventoryUI.UpdateSlotUI(inventory.MaxSlotInventory);
-        ChangeSelectedSlot(0);  
+
     }
 
     private void Update()
@@ -67,9 +65,9 @@ public class InventoryManager : Singleton<InventoryManager>
             UI_InventorySlot slotUI = inventoryUI.inventorySlotsUI[i];
             UI_InventoryItem itemUI = slotUI.GetComponentInChildren<UI_InventoryItem>();
 
-            if (itemUI == null)
+            if (itemUI == null && inventory.AddItemToInventory(item, slotUI.slotIndex))
             {
-                InventoryItem inventoryItem = inventory.AddItemToInventory(item, slotUI.slotIndex);
+                InventoryItem inventoryItem = inventory.GetInventoryItemOfIndex(slotUI.slotIndex);
                 inventoryUI.AddItemToInventoryUI(inventoryItem, slotUI.slotIndex);
                 return true;
             }
@@ -102,5 +100,17 @@ public class InventoryManager : Singleton<InventoryManager>
         }
 
         return null;
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        inventory = gameData.InventoryData;
+        inventoryUI.UpdateSlotUI(inventory);
+        ChangeSelectedSlot(0);
+    }
+
+    public void SaveData(ref GameData gameData)
+    {
+        gameData.SetInventoryData(inventory);
     }
 }

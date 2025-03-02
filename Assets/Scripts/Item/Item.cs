@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(menuName = "Scripable object/Item")]
-[System.Serializable]
 public class Item : ScriptableObject
 {
     [Header("Only gameplay")]

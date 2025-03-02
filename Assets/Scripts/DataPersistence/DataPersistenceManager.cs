@@ -19,7 +19,7 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     {
         InitializeDataHandler();
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        //LoadGame();
+        LoadGame();
     }
 
     private void InitializeDataHandler()
@@ -36,7 +36,6 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     public void NewGame()
     {
         this.gameData = new GameData();
-        SaveGame();
     }
 
     public void LoadGame()

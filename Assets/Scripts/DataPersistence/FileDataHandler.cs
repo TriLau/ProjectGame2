@@ -57,7 +57,8 @@ public class FileDataHandler
                 {
                     writer.Write(dataToStore);
                 }
-            }    
+            }
+            Debug.Log("Game saved successfully!");
         }
         catch (Exception e) 
         {
