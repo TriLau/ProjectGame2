@@ -19,11 +19,12 @@ public class ItemPickup : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().sprite = item.image;
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            InventoryManager.Instance.AddItemToTnventorySlot(item);
+            InventoryManager.Instance.AddItemToInventorySlot(item);
             Destroy(gameObject);
         }
     }

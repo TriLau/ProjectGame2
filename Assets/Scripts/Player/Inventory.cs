@@ -6,68 +6,46 @@ using UnityEngine;
 [System.Serializable]
 public class Inventory
 {
-    private List<InventorySlot> _slotList;
-    
-    public List<InventorySlot> ItemList
-    { get { return _slotList; } }
+    private int _maxSlotInventory;
+    private List<InventoryItem> _ineventoryItemList;
+
+    public int MaxSlotInventory
+    {  get { return _maxSlotInventory; } }
+
+    public List<InventoryItem> InventoryItemList
+    {  get { return _ineventoryItemList; } }
 
     public Inventory() 
     {
-        _slotList = new List<InventorySlot>();
+        this._maxSlotInventory = 14;
+        this._ineventoryItemList = new List<InventoryItem>(_maxSlotInventory);
     }
 
-    public Inventory(List<InventorySlot> slotList)
+    public InventoryItem GetInventoryItemOfIndex(int index)
     {
-        _slotList = slotList;
+        return _ineventoryItemList[index];
     }
 
-    public void AddSlotToInventory(InventorySlot slot)
+    public InventoryItem AddItemToInventory(Item item, int slotIndex)
     {
-        _slotList.Add(slot);
+        InventoryItem inventoryItem = new InventoryItem(item, slotIndex);
+        _ineventoryItemList.Add(inventoryItem);
+        return inventoryItem;
     }
 
-    public void RemoveSlotFromInventory(InventorySlot item)
+    public bool RemoveItemFromInventory(Item item, int amount = 1)
     {
-        _slotList.Remove(item);
+        InventoryItem existingItem = _ineventoryItemList.Find(i => i.Item == item);
+        if (existingItem != null)
+        {
+            existingItem.AddQuantity(-amount);
+            if (existingItem.Quantity <= 0) _ineventoryItemList.Remove(existingItem); return true;
+        }
+        return false;
     }
 
     public void SortedSlotList()
     {
-        _slotList.Sort((x, y) => x.Item.itemName.CompareTo(y.Item.itemName));
-    }
-
-    public void SwapItemInSlot(int index, Item item)
-    {
-        Print();
-    }
-
-    public void AddItemToInventorySlot(Item itemAdded)
-    {
-        foreach (InventorySlot slot in _slotList)
-        {
-            Item item = slot.Item;
-            if (item == null) slot.AddItemToSlot(itemAdded);
-            else if (item != null)
-            {
-
-            }
-        }
-    }
-
-    public void Print()
-    {
-        foreach (InventorySlot slot in _slotList)
-        {
-            int index = _slotList.IndexOf(slot);
-            Item item = slot.Item;
-            if (item !=  null)
-            {
-                Debug.Log($"i: {index} - item: {item.itemName}\n");
-            }
-            else
-            {
-                Debug.Log($"i: {index} - item: null\n");
-            }
-        }
+        _ineventoryItemList.Sort((x, y) => x.Item.itemName.CompareTo(y.Item.itemName));
     }
 }
