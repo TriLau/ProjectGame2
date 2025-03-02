@@ -14,11 +14,11 @@ public class Player
         HoldingItem
     }
 
-    private EState _curentState;
-    private float _maxHealth;
-    private float _currentHealth;
-    private float _money;
-    private Vector3 _position;
+    [SerializeField] private EState _curentState;
+    [SerializeField] private float _maxHealth;
+    [SerializeField] private float _currentHealth;
+    [SerializeField] private float _money;
+    [SerializeField] private Vector3 _position;
 
     public float MaxHealth
     { get { return _maxHealth; } }

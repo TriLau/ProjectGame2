@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDataPersistence
 {
     public float walkSpeed = 1f;
     public float runSpeed = 1f;
@@ -389,5 +389,18 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Attack");
         yield return new WaitForSeconds(0.5f);
         CanAttack = true;
+    }
+
+    // Load & Save
+    public void LoadData(GameData gameData)
+    {
+        player = gameData.PlayerData;
+        transform.position = player.Position;
+    }
+
+    public void SaveData(ref GameData gameData)
+    {
+        player.SetPosition(transform.position); 
+        gameData.SetPlayerData(player);
     }
 }

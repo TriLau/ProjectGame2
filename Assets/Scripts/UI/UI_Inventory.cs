@@ -13,10 +13,10 @@ public class UI_Inventory : MonoBehaviour
     private int maxToolBarSlot = 9;
 
     // UpdateUI
-    public void UpdateSlotUI(int maxSlot)
+    public void UpdateSlotUI(Inventory invenrory)
     {
         ClearSlotUI();
-        int totalSlots = maxSlot;
+        int totalSlots = invenrory.MaxSlotInventory;
 
         for (int i = 0; i < totalSlots; i++)
         {
@@ -25,6 +25,12 @@ public class UI_Inventory : MonoBehaviour
             UI_InventorySlot inventoryslotUI = slotUIGO.GetComponent<UI_InventorySlot>();
             inventoryslotUI.slotIndex = i;
             inventorySlotsUI.Add(inventoryslotUI);
+
+            InventoryItem inventoryItem = invenrory.GetInventoryItemOfIndex(i);
+            if (inventoryItem != null )
+            {
+                SpawnItem(inventoryItem, slotUIGO);
+            }
         }
     }
 

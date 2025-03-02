@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 [System.Serializable]
 public class Inventory
 {
-    private int _maxSlotInventory;
-    private List<InventoryItem> _ineventoryItemList;
+    [SerializeField] private int _maxSlotInventory;
+    [SerializeField] private List<InventoryItem> _ineventoryItemList;
 
     public int MaxSlotInventory
     {  get { return _maxSlotInventory; } }
@@ -23,14 +24,22 @@ public class Inventory
 
     public InventoryItem GetInventoryItemOfIndex(int index)
     {
-        return _ineventoryItemList[index];
+        InventoryItem item = _ineventoryItemList.Find(i => i.SlotIndex == index);
+        return item;
     }
 
-    public InventoryItem AddItemToInventory(Item item, int slotIndex)
+    public bool AddItemToInventory(Item item, int slotIndex)
     {
         InventoryItem inventoryItem = new InventoryItem(item, slotIndex);
         _ineventoryItemList.Add(inventoryItem);
-        return inventoryItem;
+        return true;
+    }
+
+    public bool AddItemToInventory(Item item, int slotIndex, int amount)
+    {
+        InventoryItem inventoryItem = new InventoryItem(item, slotIndex, amount);
+        _ineventoryItemList.Add(inventoryItem);
+        return true;
     }
 
     public bool RemoveItemFromInventory(Item item, int amount = 1)
@@ -42,10 +51,5 @@ public class Inventory
             if (existingItem.Quantity <= 0) _ineventoryItemList.Remove(existingItem); return true;
         }
         return false;
-    }
-
-    public void SortedSlotList()
-    {
-        _ineventoryItemList.Sort((x, y) => x.Item.itemName.CompareTo(y.Item.itemName));
     }
 }
