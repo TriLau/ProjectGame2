@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
-public class InventorySlotUI : MonoBehaviour, IDropHandler
+public class UI_InventorySlot : MonoBehaviour, IDropHandler
 {
-    private InventorySlot _slot;
-
     public Image image;
     public Sprite selectedColor, notSelectedColor;
 
-    public InventorySlot Slot
-    { get { return _slot; } }
+    public int slotIndex;
+
 
     private void Awake()
     {
         Deselect();
     }
 
+    // Select slot
     public void Select()
     {
         image.sprite = selectedColor;
@@ -29,17 +29,13 @@ public class InventorySlotUI : MonoBehaviour, IDropHandler
         image.sprite = notSelectedColor;
     }
 
+    // Drop item into slot
     public void OnDrop(PointerEventData eventData)
     {
         if (transform.childCount == 0)
         {
-            InventoryItemUI inventoryItem = eventData.pointerDrag.GetComponent<InventoryItemUI>();
+            UI_InventoryItem inventoryItem = eventData.pointerDrag.GetComponent<UI_InventoryItem>();
             inventoryItem.parentAfterDrag = transform;
         }
-    }
-
-    public InventorySlot GetSelectedSlot()
-    {
-        return _slot;
     }
 }

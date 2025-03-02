@@ -301,7 +301,7 @@ public class PlayerController : MonoBehaviour
     // =================== Item ======================
     public void PickupItem(Item item)
     {
-        bool result = InventoryManager.Instance.AddItemToTnventorySlot(item);
+        bool result = InventoryManager.Instance.AddItemToInventorySlot(item);
         if (result == true)
         {
             Debug.Log("Item added");
@@ -352,7 +352,20 @@ public class PlayerController : MonoBehaviour
 
         if (IsHoldingItem)
         {
-            ChangeAnimationState(item.name);
+            switch (item.name)
+            {
+                default:
+                    {
+                        ChangeAnimationState("Idle");
+                        break;
+                    }
+                case "Axe":
+                case "Sword":
+                    {
+                        ChangeAnimationState(item.name);
+                        break;
+                    }
+            }
         }
 
         if (!IsHoldingItem || InventoryManager.Instance.GetSelectedItem(false) == null)
