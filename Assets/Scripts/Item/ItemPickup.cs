@@ -25,6 +25,7 @@ public class ItemPickup : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             InventoryManager.Instance.AddItemToInventorySlot(item);
+            ItemWorldManager.Instance.RemoveItemWorld(gameObject);
             Destroy(gameObject);
         }
     }

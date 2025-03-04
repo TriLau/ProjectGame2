@@ -22,23 +22,19 @@ public class EnvironmentalResource : MonoBehaviour
 
     void Update()
     {
-        ChangeState();
         //ChangeBySeason();
     }
 
     public void OnHit(int damage, Vector2 knockback)
     {
-        animator.SetTrigger("Hit");
-    }
-
-    public void ChangeState()
-    {
+        
         if (damageable.Health == 20)
         {
             animator.SetBool(AnimationStrings.hasBeenCut, true);
             DropItem();
-        }
+        }else animator.SetTrigger("Hit");
     }
+
 
     public void ChangeBySeason()
     {
@@ -73,12 +69,16 @@ public class EnvironmentalResource : MonoBehaviour
     {
         if (numItem > 0)
         {
-            Vector3 randomDir = UtilsClass.GetRandomDir();
-            Vector3 position = this.transform.position + randomDir * 0.2f;
-            GameObject transform = Instantiate(item, position, Quaternion.identity);
+            for (int i = 0; i < numItem; i++)
+            {
+                Vector3 randomDir = UtilsClass.GetRandomDir();
+                Vector3 position = this.transform.position + randomDir * 0.2f;
+                GameObject transform = Instantiate(item, position, Quaternion.identity);
 
-            transform.gameObject.GetComponent<Rigidbody2D>().AddForce(randomDir * 5f, ForceMode2D.Impulse);
-            numItem--;
+                transform.gameObject.GetComponent<Rigidbody2D>().AddForce(randomDir * 5f, ForceMode2D.Impulse);
+                ItemWorldManager.Instance.AddItemWorld(transform);
+            }
         }
+            
     }
 }
