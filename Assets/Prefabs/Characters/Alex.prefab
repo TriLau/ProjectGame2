@@ -176,7 +176,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1449220059
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 659270592, guid: 8f61e7cf7a36914449d44136773dc15b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -252,10 +252,11 @@ MonoBehaviour:
   walkSpeed: 2
   runSpeed: 3
   vehicleSpeed: 0
+  tileTargeter: {fileID: 0}
   _canMove: 1
   _currentSpeed: 0
   movement: {x: 0, y: 0}
-  currentVehicle: {fileID: 0}
+  _currentVehicle: {fileID: 0}
   _isFacingRight: 1
   _canRun: 1
   _isRuning: 0
@@ -266,6 +267,7 @@ MonoBehaviour:
   _canSleep: 0
   _isSleeping: 0
   _currentBed: {fileID: 0}
+  _hadTarget: 0
 --- !u!58 &5248820430536388865
 CircleCollider2D:
   m_ObjectHideFlags: 0

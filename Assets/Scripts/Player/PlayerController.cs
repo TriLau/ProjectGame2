@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public float vehicleSpeed;
     private string currentState;
 
+    [SerializeField] private TileTargeter tileTargeter;
+
     [SerializeField]
     private bool _canMove = true;
     public bool CanMove
@@ -34,6 +36,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public Vector2 LastMovement
     {
         get { return lastMovement; }
+        set
+        {
+            lastMovement = value;
+            animator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x));
+            animator.SetFloat("Vertical", lastMovement.y);
+        }
+
     }
 
     private Rigidbody2D rb;
@@ -286,10 +295,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         movement = new Vector2(moveX, moveY).normalized;
 
-        if (movement != Vector2.zero) lastMovement = movement;
+        if (movement != Vector2.zero) LastMovement = movement;
 
-        animator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x));
-        animator.SetFloat("Vertical", lastMovement.y);
+        
 
         animator.SetFloat("Speed", movement.magnitude);
         animator.SetBool("IsRunning", Input.GetKey(KeyCode.LeftShift));
@@ -361,6 +369,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                     }
                 case "Axe":
                 case "Sword":
+                case "Hoe":
+                case "Pickaxe":
+                case "Scythe":
+                case "WaterCan":
+                case "Shovel":
                     {
                         ChangeAnimationState(item.name);
                         break;
@@ -387,6 +400,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         CanAttack = false;
         animator.SetTrigger("Attack");
+        tileTargeter.UseTool(currentState);
         yield return new WaitForSeconds(0.5f);
         CanAttack = true;
     }
