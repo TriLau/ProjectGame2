@@ -171,7 +171,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
-        player = new Player();
     }
 
 
