@@ -50,6 +50,9 @@ TagManager:
   - name: Walkfront
     uniqueID: 2402591195
     locked: 0
+  - name: FarmGround
+    uniqueID: 2260845169
+    locked: 0
   - name: Collision
     uniqueID: 900298989
     locked: 0
@@ -64,4 +67,7 @@ TagManager:
     locked: 0
   - name: Rimlit
     uniqueID: 2996297867
+    locked: 0
+  - name: TargetedTile
+    uniqueID: 4154933181
     locked: 0
