@@ -14,18 +14,18 @@ public enum ESeason
 [System.Serializable]
 public class Season
 {
-    [SerializeField] private DateTime _dateTime;
+    [SerializeField] string _dateTime;
     [SerializeField] private ESeason _seasonStatus;
 
     public DateTime DateTime
-    { get { return _dateTime; } }
+    { get { return Convert.ToDateTime(_dateTime); } }
 
     public ESeason SeasonStatus
     { get { return _seasonStatus; } }
 
     public Season()
     {
-        _dateTime = new DateTime(1999, 1, 1, 13, 30, 00);
+        _dateTime = new DateTime(1999, 1, 1, 13, 30, 00).ToString("O");
         _seasonStatus = ESeason.Spring;
     }
 
@@ -36,11 +36,12 @@ public class Season
 
     public void SetDateTime(DateTime dateTime)
     {
-        _dateTime = dateTime;
+        _dateTime = dateTime.ToString("O");
     }
 
-    public void AddDate()
+    public void IncreaseDate()
     {
-        _dateTime.AddDays(1);
+        DateTime dt = Convert.ToDateTime(_dateTime).AddMinutes(10);
+        _dateTime = dt.ToString("O");
     }
 }
