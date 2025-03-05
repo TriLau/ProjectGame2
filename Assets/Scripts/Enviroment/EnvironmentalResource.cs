@@ -38,7 +38,7 @@ public class EnvironmentalResource : MonoBehaviour
 
     public void ChangeBySeason()
     {
-        ESeason season = SeasonManager.Instance.Season;
+        ESeason season = EnviromentStatusManager.Instance.GetCurrentSeason();
 
         switch(season)
         {

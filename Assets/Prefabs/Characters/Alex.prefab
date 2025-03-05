@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 1480301862695094884}
   - component: {fileID: 3425856357365464354}
   - component: {fileID: 5248820430536388865}
-  - component: {fileID: 5040115616895181579}
+  - component: {fileID: 4101560532654197353}
   m_Layer: 0
   m_Name: Alex
   m_TagString: Player
@@ -158,7 +158,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 6c8ba93b54ee83c4c8722e061b12e2a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   walkSpeed: 2
   runSpeed: 3
   vehicleSpeed: 0
-  tileTargeter: {fileID: 5040115616895181579}
+  tileTargeter: {fileID: 4101560532654197353}
   _canMove: 1
   _currentSpeed: 0
   movement: {x: 0, y: 0}
@@ -304,7 +304,7 @@ CircleCollider2D:
   m_Offset: {x: 0.03, y: 0.016219586}
   serializedVersion: 2
   m_Radius: 0.2
---- !u!114 &5040115616895181579
+--- !u!114 &4101560532654197353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
