@@ -20,7 +20,7 @@ public class EnviromentStatusManager : Singleton<EnviromentStatusManager>, IData
 
     private void Start()
     {
-        StartCoroutine(WaitToIncreaseDay());
+        
     }
 
     void MoveSunAndMoon()
@@ -124,7 +124,8 @@ public class EnviromentStatusManager : Singleton<EnviromentStatusManager>, IData
 
     public void LoadData(GameData gameData)
     {
-        season = gameData.Season;
+        season = gameData.SeasonData;
+        StartCoroutine(WaitToIncreaseDay());
     }
 
     public void SaveData(ref GameData gameData)
