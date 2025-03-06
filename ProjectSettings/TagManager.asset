@@ -53,6 +53,9 @@ TagManager:
   - name: FarmGround
     uniqueID: 2260845169
     locked: 0
+  - name: WateredGround
+    uniqueID: 2600164781
+    locked: 0
   - name: Collision
     uniqueID: 900298989
     locked: 0
