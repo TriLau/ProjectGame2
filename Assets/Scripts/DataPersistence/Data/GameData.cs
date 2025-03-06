@@ -8,7 +8,7 @@ public class GameData
 {
     [SerializeField] private Player _playerData;
     [SerializeField] private Inventory _inventoryData;
-    [SerializeField] private Season _season;
+    [SerializeField] private Season _seasonData;
 
     public Player PlayerData
     { get { return _playerData; } }
@@ -16,14 +16,14 @@ public class GameData
     public Inventory InventoryData
     { get { return _inventoryData; } }
 
-    public Season Season
-    { get { return _season; } }
+    public Season SeasonData
+    { get { return _seasonData; } }
 
     public GameData()
     {
         this._playerData = new Player();
         this._inventoryData = new Inventory();
-        this._season = new Season();
+        this._seasonData = new Season();
     }
 
     public void SetPlayerData(Player playerData)
@@ -43,6 +43,6 @@ public class GameData
 
     public void SetSeason(Season season)
     { 
-        this._season = season; 
+        this._seasonData = season; 
     }
 }

@@ -41,7 +41,7 @@ public class Season
 
     public void IncreaseDate()
     {
-        DateTime dt = Convert.ToDateTime(_dateTime).AddMinutes(10);
+        DateTime dt = Convert.ToDateTime(_dateTime).AddMinutes(1);
         _dateTime = dt.ToString("O");
     }
 }
