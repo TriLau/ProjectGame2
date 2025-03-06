@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public bool CanMove
     {
         get { return _canMove; }
-        set { _canMove = value; }
+        set 
+        { _canMove = value; }
     }
 
     [SerializeField]
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         get
         {
-            return _currentSpeed = IsRidingVehicle ? vehicleSpeed : IsRuning ? runSpeed : walkSpeed;
+            return _currentSpeed = CanMove ? IsRidingVehicle ? vehicleSpeed : IsRuning ? runSpeed : walkSpeed : 0;
         }
     }
 
@@ -210,26 +211,24 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             if (IsSleeping)
             {
-                CanMove = true;
+                StartAllAction();
                 IsSleeping = !IsSleeping;
                 CurrentBed.SetSleep(IsSleeping);
                 animator.SetBool(AnimationStrings.isSleep, false);
             }
             else
             {
+                StopAllAction();
                 animator.SetBool(AnimationStrings.isSleep, true);
-                CanMove = false;
+                
                 IsSleeping = !IsSleeping;
                 CurrentBed.SetSleep(IsSleeping);
             }
         }
 
-        if (IsHoldingItem && CanAttack && !IsSleeping)
+        if (IsHoldingItem && CanAttack && Input.GetMouseButton(0))
         {
-            if (Input.GetMouseButton(0))
-            {
-                StartCoroutine(AttackRoutine());
-            }
+            AttackRoutine();
         }
 
         if (!IsRidingVehicle)
@@ -305,6 +304,17 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         else if (movement.x < 0 && IsFacingRight) IsFacingRight = false;
     }
 
+    private void StopAllAction()
+    {
+        CanMove = false;
+        CanAttack = false;
+    }
+
+    private void StartAllAction()
+    {
+        CanMove = true;
+        CanAttack = true;
+    }
     // =================== Item ======================
     public void PickupItem(Item item)
     {
@@ -395,13 +405,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         currentState = newState;
     }
 
-    private IEnumerator AttackRoutine()
+    private void AttackRoutine()
     {
-        CanAttack = false;
         animator.SetTrigger("Attack");
         tileTargeter.UseTool(currentState);
-        yield return new WaitForSeconds(0.5f);
-        CanAttack = true;
     }
 
     // Load & Save
