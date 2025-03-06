@@ -18,4 +18,4 @@ MonoBehaviour:
   range: {x: 5, y: 4}
   stackable: 1
   image: {fileID: 1764248313, guid: 6d5dacad31d5dc9458c33856e6a57497, type: 3}
-  itemName: 
+  itemName: Strawberry Seed
