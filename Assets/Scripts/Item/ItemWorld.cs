@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ItemWorld
+public class ItemWorld : IItemHolder
 {
     [NonSerialized] private Item _item;
     [SerializeField] private string _id;
     [SerializeField] private string _itemName;
     [SerializeField] private int _quantity;
     [SerializeField] private Vector3 _position;
-    [SerializeField] private bool _isColected;
 
     public Item Item
     { get { return _item; } }
@@ -28,16 +27,12 @@ public class ItemWorld
     public Vector3 Position
     { get { return _position; } }
 
-    public bool IsColected
-    { get { return _isColected; } }
-
     public ItemWorld()
     {
         this._id = string.Empty;
         this._item = null;
         this._quantity = 0;
         this._position = Vector3.zero;
-        this._isColected = false;
     }
 
     public ItemWorld(string id, Item item, int quantity, Vector3 position)
@@ -49,8 +44,8 @@ public class ItemWorld
         _position = position;
     }
 
-    public void SetColected(bool value)
+    public void SetItem(Item item)
     {
-        _isColected = value;
+        _item = item;
     }
 }

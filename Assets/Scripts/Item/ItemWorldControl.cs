@@ -13,13 +13,9 @@ public class ItemWorldControl : MonoBehaviour
     public Item item;
     private ItemWorld _itemWorld;
 
-    private void Awake() // xai tam cai nay de test spawn item
+    private void Awake()
     {
         InitialItem(item);
-    }
-
-    private void Start()
-    {
         _itemWorld = new ItemWorld(id, item, 1, transform.position);
     }
 
@@ -30,7 +26,7 @@ public class ItemWorldControl : MonoBehaviour
 
     public void InitialItem(Item item)
     {
-        GetComponent<SpriteRenderer>().sprite = item.image;
+        transform.GetComponent<SpriteRenderer>().sprite = item.image;
     }
 
     public ItemWorld GetItemWorld()
@@ -52,7 +48,6 @@ public class ItemWorldControl : MonoBehaviour
         {
             if (InventoryManager.Instance.AddItemToInventorySlot(_itemWorld))
             {
-                _itemWorld.SetColected(true);
                 ItemWorldManager.Instance.RemoveItemWorld(_itemWorld);
                 Destroy(gameObject);
             }

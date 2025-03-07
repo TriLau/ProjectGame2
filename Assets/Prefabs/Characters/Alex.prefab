@@ -177,7 +177,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1449220059
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 659270592, guid: 8f61e7cf7a36914449d44136773dc15b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -288,6 +288,10 @@ MonoBehaviour:
   walkSpeed: 2
   runSpeed: 3
   vehicleSpeed: 0
+  noTargetStates:
+  - Sword
+  - Axe
+  - Scythe
   tileTargeter: {fileID: 4101560532654197353}
   _canMove: 1
   _currentSpeed: 0
@@ -316,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31e1adc06bf0ee488e72709571e3966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 3425856357365464354}
   _tilemaps:
   - {fileID: 0}
   - {fileID: 0}
@@ -323,10 +328,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _highlightTilemap: {fileID: 0}
-  _highlightTile: {fileID: 11400000, guid: d7c3298a0a6669446a7e49bfc0d990bc, type: 2}
-  highlightRange: 1
-  _canHoe: 0
+  _targetTilemap: {fileID: 0}
+  _targetTile: {fileID: 11400000, guid: d7c3298a0a6669446a7e49bfc0d990bc, type: 2}
+  TargetRange: 1
   tilemapCheck: []
-  playerController: {fileID: 3425856357365464354}
+  _canHoe: 0
   HoeTile: {fileID: 11400000, guid: 3b1ff827cbf7d9f49afa711b3cd7b882, type: 2}
+  _canWater: 0
+  WateredTile: {fileID: 0}
