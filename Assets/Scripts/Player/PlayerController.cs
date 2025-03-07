@@ -316,7 +316,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         CanAttack = true;
     }
     // =================== Item ======================
-    public void PickupItem(Item item)
+    public void PickupItem(ItemWorld item)
     {
         bool result = InventoryManager.Instance.AddItemToInventorySlot(item);
         if (result == true)

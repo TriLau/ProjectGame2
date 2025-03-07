@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(menuName = "Scripable object/Item")]
+[CreateAssetMenu(menuName = "ScriptableObject/Item")]
 [System.Serializable]
 public class Item : ScriptableObject
 {

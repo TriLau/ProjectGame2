@@ -28,16 +28,16 @@ public class Inventory
         return item;
     }
 
-    public bool AddItemToInventory(Item item, int slotIndex)
+    public bool AddItemToInventory(string id, Item item, int slotIndex)
     {
-        InventoryItem inventoryItem = new InventoryItem(item, slotIndex);
+        InventoryItem inventoryItem = new InventoryItem(id, item, slotIndex);
         _ineventoryItemList.Add(inventoryItem);
         return true;
     }
 
-    public bool AddItemToInventory(Item item, int slotIndex, int amount)
+    public bool AddItemToInventory(string id, Item item, int slotIndex, int amount)
     {
-        InventoryItem inventoryItem = new InventoryItem(item, slotIndex, amount);
+        InventoryItem inventoryItem = new InventoryItem(id, item, slotIndex, amount);
         _ineventoryItemList.Add(inventoryItem);
         return true;
     }

@@ -7,7 +7,8 @@ using static UnityEditor.Progress;
 [System.Serializable]
 public class InventoryItem
 {
-    [SerializeField] private Item _item;
+    [NonSerialized] private Item _item;
+    [SerializeField] private string _id;
     [SerializeField] private string _itemName;
     [SerializeField] private int _quantity;
     [SerializeField] private int _maxStack;
@@ -15,6 +16,12 @@ public class InventoryItem
 
     public Item Item
     { get { return _item; } }
+
+    public string Id
+    { get { return _id; } }
+
+    public string ItemName
+    { get { return _itemName; } }
 
     public int Quantity
     { get { return _quantity; } }
@@ -25,8 +32,9 @@ public class InventoryItem
     public int SlotIndex
     {  get { return _slotIndex; } }
 
-    public InventoryItem(Item item, int index)
+    public InventoryItem(string id, Item item, int index)
     {
+        this._id = id;
         this._item = item;
         this._itemName = item.itemName;
         this._quantity ++;
@@ -34,8 +42,9 @@ public class InventoryItem
         this._slotIndex = index;
     }
 
-    public InventoryItem(Item item, int index, int amount)
+    public InventoryItem(string id, Item item, int index, int amount)
     {
+        this._id = id;
         this._item = item;
         this._itemName = item.itemName;
         this._quantity += amount;
