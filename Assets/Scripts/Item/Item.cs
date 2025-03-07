@@ -27,7 +27,8 @@ public enum ItemType
     Tile,
     Food,
     Tool,
-    Material
+    Material,
+    Crop
 }
 
 public enum ActionType
@@ -35,5 +36,6 @@ public enum ActionType
     Cook,
     Combine,
     Mine,
-    Craft
+    Craft,
+    PlaceTile
 }

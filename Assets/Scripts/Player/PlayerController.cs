@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
@@ -9,8 +10,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public float walkSpeed = 1f;
     public float runSpeed = 1f;
     public float vehicleSpeed;
-    private string currentState;
-
+    private string _currentState;
+    public string CurrentState
+    {
+        get { return _currentState; }
+        set { _currentState = value; }
+    }
+    public string[] noTargetStates = { "Sword", "Axe", "Scythe" };
     [SerializeField] private TileTargeter tileTargeter;
 
     [SerializeField]
@@ -226,7 +232,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             }
         }
 
-        if (IsHoldingItem && CanAttack && Input.GetMouseButton(0))
+        if (IsHoldingItem && CanAttack && Input.GetMouseButtonDown(0))
         {
             AttackRoutine();
         }
@@ -398,17 +404,19 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void ChangeAnimationState(string newState)
     {
-        if (currentState == newState) return;
+        if (CurrentState == newState) return;
 
         animator.Play(newState);
-
-        currentState = newState;
+        CurrentState = newState;
+        if (noTargetStates.Contains(newState))
+            tileTargeter.RefreshTilemapCheck(false);
+        else tileTargeter.RefreshTilemapCheck(true);
     }
 
     private void AttackRoutine()
     {
         animator.SetTrigger("Attack");
-        tileTargeter.UseTool(currentState);
+        tileTargeter.UseTool(CurrentState);
     }
 
     // Load & Save

@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TileTargeter : MonoBehaviour
 {
+    [SerializeField] PlayerController playerController;
+    [Header("PUT ALL TILEMAPS HERE")]
     [SerializeField]
     private Tilemap[] _tilemaps; // All Tilemaps to check (Ground, Decorations, etc.)
     public Tilemap[] Tilemaps
@@ -14,23 +17,24 @@ public class TileTargeter : MonoBehaviour
     }
 
     [SerializeField]
-    private Tilemap _highlightTilemap;
-    public Tilemap HighlightTilemap
+    private Tilemap _targetTilemap;
+    public Tilemap TargetTilemap
     {
-        get { return _highlightTilemap; }
-        set { _highlightTilemap = value; }
+        get { return _targetTilemap; }
+        set { _targetTilemap = value; }
+    }
+
+    [Header("TARGET TILE SETTINGS")]
+    [SerializeField]
+    private AnimatedTile _targetTile;
+    public AnimatedTile TargetTile
+    {
+        get { return _targetTile; }
+        set { _targetTile = value; }
     }
 
     [SerializeField]
-    private AnimatedTile _highlightTile;
-    public AnimatedTile HighlightTile
-    {
-        get { return _highlightTile; }
-        set { _highlightTile = value; }
-    }
-
-    [SerializeField]
-    private int highlightRange = 1;
+    private int TargetRange = 1;
 
     private Vector3 _mouseWorldPosition;
     private Vector3Int _previousTilePos;
@@ -38,63 +42,81 @@ public class TileTargeter : MonoBehaviour
     private Vector3Int _playerTilePosition;
     private Vector3Int _clampedTilePosition;
 
+    [SerializeField] private List<Tilemap> tilemapCheck = new List<Tilemap>();
+    [Header("HOE ON TILES SETTINGS")]
     [SerializeField] private bool _canHoe = false;
     public bool CanHoe
     {
         get { return _canHoe; }
         set { _canHoe = value; }
     }
-    [SerializeField] private List<Tilemap> tilemapCheck = new List<Tilemap>();
-    [SerializeField] PlayerController playerController;
 
     [SerializeField] RuleTile HoeTile;
 
+    [Header("WATER ON TILES SETTINGS")]
+    [SerializeField] private bool _canWater = false;
+    public bool CanWater
+    {
+        get { return _canWater; }
+        set { _canWater = value; }
+    }
+    [SerializeField] RuleTile WateredTile;
     void Update()
     {
-        TargetTile();
+        GetTargetTile();
     }
 
-    void TargetTile()
+    void GetTargetTile()
     {
+
         // Get mouse position in world coordinates
         _mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         _mouseWorldPosition.z = 0; // Ensure it's on the correct plane
 
         // Convert mouse world position to tile position
-        _mouseTilePosition = HighlightTilemap.WorldToCell(_mouseWorldPosition);
+        _mouseTilePosition = TargetTilemap.WorldToCell(_mouseWorldPosition);
 
         // Get player position in tile coordinates
-        _playerTilePosition = HighlightTilemap.WorldToCell(transform.position);
+        _playerTilePosition = TargetTilemap.WorldToCell(transform.position);
 
         // Ensure the highlight stays within 1 tile range of the player
         _clampedTilePosition = new Vector3Int(
-            Mathf.Clamp(_mouseTilePosition.x, _playerTilePosition.x - highlightRange, _playerTilePosition.x + highlightRange),
-            Mathf.Clamp(_mouseTilePosition.y, _playerTilePosition.y - highlightRange, _playerTilePosition.y + highlightRange),
+            Mathf.Clamp(_mouseTilePosition.x, _playerTilePosition.x - TargetRange, _playerTilePosition.x + TargetRange),
+            Mathf.Clamp(_mouseTilePosition.y, _playerTilePosition.y - TargetRange, _playerTilePosition.y + TargetRange),
             _mouseTilePosition.z
         );
 
         // Only update if tile position has changed
         if (_clampedTilePosition != _previousTilePos)
         {
-            tilemapCheck.Clear();
-            HighlightTilemap.SetTile(_previousTilePos, null); // Remove previous highlight
-
-            foreach (Tilemap tilemap in Tilemaps)
-            {
-                if (tilemap.HasTile(_clampedTilePosition)) // Check if a tile exists in any Tilemap
-                {
-                    tilemapCheck.Add(tilemap);
-                }
-            }
-
-            HighlightTilemap.SetTile(_clampedTilePosition, HighlightTile); // Place highlight on the separate Tilemap
-            _previousTilePos = _clampedTilePosition;
-
-            // Check if tile is walkable and can be hoed
-            CanHoe = (tilemapCheck.Count == 1 && tilemapCheck[0].name == "Walkfront");
+            RefreshTilemapCheck(playerController.noTargetStates.Contains(playerController.CurrentState) ? false : true);
         }
+
     }
 
+    public void RefreshTilemapCheck(bool showTarget)
+    {
+        tilemapCheck.Clear();
+        TargetTilemap.SetTile(_previousTilePos, null); // Remove previous highlight
+
+        foreach (Tilemap tilemap in Tilemaps)
+        {
+            if (tilemap.HasTile(_clampedTilePosition)) // Check if a tile exists in any Tilemap
+            {
+                tilemapCheck.Add(tilemap);
+            }
+        }
+
+        if (showTarget)
+        {
+            TargetTilemap.SetTile(_clampedTilePosition, TargetTile); // Place highlight on the separate Tilemap
+        }
+        _previousTilePos = _clampedTilePosition;
+
+        // Check if tile is walkable and can be hoed
+        CanHoe = (tilemapCheck.Count == 1 && tilemapCheck[0].name == "Walkfront");
+        CanWater = TileManager.Instance.HoeTiles.Contains(_clampedTilePosition) && !TileManager.Instance.WateredTiles.Contains(_clampedTilePosition);
+    }
     public void UseTool(string tool)
     {
         switch (tool)
@@ -104,9 +126,14 @@ public class TileTargeter : MonoBehaviour
                     Debug.Log("Do nothing");
                     break;
                 }
+            case "Sword":
+                {
+                    
+                    break;
+                }
             case "Axe":
                 {
-                    ChangePlayerFacingDirection();
+                   
                     break;
                 }
             case "Hoe":
@@ -115,8 +142,14 @@ public class TileTargeter : MonoBehaviour
                     UseHoe();
                     break;
                 }
+            case "WaterCan":
+                {
+                    ChangePlayerFacingDirection();
+                    UseWaterCan();
+                    break;
+                }
         }
-        
+
     }
 
     private void ChangePlayerFacingDirection()
@@ -143,7 +176,7 @@ public class TileTargeter : MonoBehaviour
     }
     private void UseHoe()
     {
-        
+
         if (CanHoe)
         {
             if (!TileManager.Instance.HoeTiles.Contains(_clampedTilePosition))
@@ -155,13 +188,24 @@ public class TileTargeter : MonoBehaviour
             {
                 Debug.Log("Already hoe");
             }
-            
-            
+
+
         }
         else Debug.Log("Cant Hoe here");
     }
 
-   
+    private void UseWaterCan()
+    {
+        if (CanWater)
+        {
+            Tilemaps[3].SetTile(_clampedTilePosition, WateredTile);
+            TileManager.Instance.AddWateredTile(_clampedTilePosition);
+        }
+        else
+        {
+            Debug.Log("Cant water here");
+        }
+    }
 
 
 }

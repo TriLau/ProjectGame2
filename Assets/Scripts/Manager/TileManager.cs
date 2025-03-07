@@ -11,6 +11,14 @@ public class TileManager : Singleton<TileManager>
         get { return _hoeTiles; }
         set { _hoeTiles = value; }
     }
+
+    [SerializeField]
+    private List<Vector3Int> _wateredTiles = new List<Vector3Int>();
+    public List<Vector3Int> WateredTiles
+    {
+        get { return _wateredTiles; }
+        set { _wateredTiles = value; }
+    }
     void Start()
     {
         
@@ -25,5 +33,9 @@ public class TileManager : Singleton<TileManager>
     public void AddHoeTile(Vector3Int tilePos)
     {
         HoeTiles.Add(tilePos);
+    }
+    public void AddWateredTile(Vector3Int tilePos)
+    {
+        WateredTiles.Add(tilePos);
     }
 }
