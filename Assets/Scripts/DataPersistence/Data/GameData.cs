@@ -8,7 +8,8 @@ public class GameData
 {
     [SerializeField] private Player _playerData;
     [SerializeField] private Inventory _inventoryData;
-    [SerializeField] private Season _seasonData;
+    [SerializeField] private EnvironmentalStatus _eStatus;
+    [SerializeField] private ListItemWorld _listItemWold;
 
     public Player PlayerData
     { get { return _playerData; } }
@@ -16,14 +17,18 @@ public class GameData
     public Inventory InventoryData
     { get { return _inventoryData; } }
 
-    public Season SeasonData
-    { get { return _seasonData; } }
+    public EnvironmentalStatus EnviromentData
+    { get { return _eStatus; } }
+
+    public ListItemWorld ListItemWold
+    { get { return _listItemWold; } }
 
     public GameData()
     {
         this._playerData = new Player();
         this._inventoryData = new Inventory();
-        this._seasonData = new Season();
+        this._eStatus = new EnvironmentalStatus();
+        this._listItemWold = new ListItemWorld();
     }
 
     public void SetPlayerData(Player playerData)
@@ -41,8 +46,13 @@ public class GameData
         }
     }
 
-    public void SetSeason(Season season)
+    public void SetSeason(EnvironmentalStatus status)
     { 
-        this._seasonData = season; 
+        this._eStatus = status; 
+    }
+
+    public void SetListItemWorld(ListItemWorld itemWorld)
+    {
+        this._listItemWold = itemWorld;
     }
 }

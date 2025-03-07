@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,10 +6,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
-public class EnviromentStatusManager : Singleton<EnviromentStatusManager>, IDataPersistence
+public class EnviromentalStatusManager : Singleton<EnviromentalStatusManager>, IDataPersistence
 {
-    private Season season;
-    public UI_EnviromentStatus status;
+    public EnvironmentalStatus eStarus;
+    public UI_EnviromentStatus statusUI;
 
     public Transform sun; 
     public Transform moon; 
@@ -16,7 +17,7 @@ public class EnviromentStatusManager : Singleton<EnviromentStatusManager>, IData
     public Light2D globalLight;
     public Gradient gradient;
 
-    public UnityEvent<ESeason> changeSeasonEvent;
+    public static event Action<ESeason> ChangeSeasonEvent;
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class EnviromentStatusManager : Singleton<EnviromentStatusManager>, IData
 
     void MoveSunAndMoon()
     {
-        float timeOfDay = (season.DateTime.Hour * 60f + season.DateTime.Minute) / (24f * 60f);
+        float timeOfDay = (eStarus.DateTime.Hour * 60f + eStarus.DateTime.Minute) / (24f * 60f);
 
         float angle = timeOfDay * 360f * Mathf.Deg2Rad;
 
@@ -36,7 +37,7 @@ public class EnviromentStatusManager : Singleton<EnviromentStatusManager>, IData
 
     void UpdateSunAndMoonLight()
     {
-        int hour = season.DateTime.Hour;
+        int hour = eStarus.DateTime.Hour;
         Light2D sunLight = sun.GetComponent<Light2D>();
         Light2D moonLight = moon.GetComponent<Light2D>();
         Light2D sunRLight = sun.GetComponentInChildren<Light2D>();
@@ -60,34 +61,34 @@ public class EnviromentStatusManager : Singleton<EnviromentStatusManager>, IData
 
     public bool ChangeSeason()
     {
-        switch (season.DateTime.Month)
+        switch (eStarus.DateTime.Month)
         {
             case 1:
             case 2:
             case 3:
                 {
-                    season.SetSeasonStatus(ESeason.Spring);
+                    eStarus.SetSeasonStatus(ESeason.Spring);
                     return true;
                 }
             case 4:
             case 5:
             case 6:
                 {
-                    season.SetSeasonStatus(ESeason.Summer);
+                    eStarus.SetSeasonStatus(ESeason.Summer);
                     return true;
                 }
             case 7:
             case 8:
             case 9:
                 {
-                    season.SetSeasonStatus(ESeason.Autumn);
+                    eStarus.SetSeasonStatus(ESeason.Autumn);
                     return true;
                 }
             case 10:
             case 11:
             case 12:
                 {
-                    season.SetSeasonStatus(ESeason.Winter);
+                    eStarus.SetSeasonStatus(ESeason.Winter);
                     return true;
                 }
             default:
@@ -97,39 +98,38 @@ public class EnviromentStatusManager : Singleton<EnviromentStatusManager>, IData
         }
     }
 
-    public ESeason GetCurrentSeason()
-    {
-        return season.SeasonStatus;
-    }
-
     IEnumerator WaitToIncreaseDay()
     {
         do
         {
-            status.UpdateDateText(season.DateTime);
+            statusUI.UpdateDateText(eStarus.DateTime);
             ChangeColorDay();
             MoveSunAndMoon();
             UpdateSunAndMoonLight();
+            if (ChangeSeason())
+            {
+                ChangeSeasonEvent?.Invoke(eStarus.SeasonStatus);
+            }
             yield return new WaitForSeconds(1);
-            season.IncreaseDate();
+            eStarus.IncreaseDate();
         } while (true);
     }
 
     public void ChangeColorDay()
     {
-        float timeOfDay = (season.DateTime.Hour * 60f + season.DateTime.Minute) / (24f * 60f);
+        float timeOfDay = (eStarus.DateTime.Hour * 60f + eStarus.DateTime.Minute) / (24f * 60f);
 
         globalLight.color = gradient.Evaluate(timeOfDay);
     }
 
     public void LoadData(GameData gameData)
     {
-        season = gameData.SeasonData;
+        eStarus = gameData.EnviromentData;
         StartCoroutine(WaitToIncreaseDay());
     }
 
     public void SaveData(ref GameData gameData)
     {
-        gameData.SetSeason(season);
+        gameData.SetSeason(eStarus);
     }
 }
