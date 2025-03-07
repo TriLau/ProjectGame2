@@ -14,8 +14,6 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
     private static int selectedSlot = -1;
 
-    public ItemDatabase itemDatabase;
-
     private void Start()
     {
 
@@ -30,15 +28,6 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             {
                 ChangeSelectedSlot(number - 1);
             }
-        }
-    }
-
-    public void SetItem()
-    {
-        foreach (InventoryItem inventoryItem in inventory.InventoryItemList)
-        {
-            Item item = itemDatabase.GetItemByName(inventoryItem.ItemName);
-            inventoryItem.SetItem(item);
         }
     }
 
@@ -116,7 +105,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     public void LoadData(GameData gameData)
     {
         inventory = gameData.InventoryData;
-        SetItem();
+        ItemDatabase.Instance.SetItem(inventory.InventoryItemList);
         inventoryUI.UpdateSlotUI(inventory);
         ChangeSelectedSlot(0);
     }

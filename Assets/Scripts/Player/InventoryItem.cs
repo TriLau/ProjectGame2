@@ -5,7 +5,7 @@ using UnityEngine;
 using static UnityEditor.Progress;
 
 [System.Serializable]
-public class InventoryItem
+public class InventoryItem : IItemHolder
 {
     [NonSerialized] private Item _item;
     [SerializeField] private string _id;

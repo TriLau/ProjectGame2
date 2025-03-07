@@ -6,39 +6,15 @@ public class ItemWorldManager : Singleton<ItemWorldManager>, IDataPersistence
 {
     private ListItemWorld _listItemWorld;
     public GameObject itemPrefab;
-    public ItemDatabase itemDatabase;
     public ItemWorldControl[] itemsOnMap;
-
-    void Start()
-    {
-        itemsOnMap = FindObjectsOfType<ItemWorldControl>();
-
-        foreach (var item in itemsOnMap)
-        {
-            ItemWorld itemWorld = item.GetItemWorld();
-            _listItemWorld.AddItemWorld(itemWorld);
-        }
-
-        //foreach (var item in itemsOnMap)
-        //{
-        //    Destroy(item.gameObject);
-        //}
-
-        //SpawnItem();
-    }
-
-    void Update()
-    {
-        
-    }
 
     public void SpawnItem()
     {
         foreach (var item in _listItemWorld.Items)
         {
-            GameObject itemGO = Instantiate(itemPrefab, item.Value.Position, Quaternion.identity);
+            GameObject itemGO = Instantiate(itemPrefab, item.Position, Quaternion.identity);
             ItemWorldControl itemWorldControl = itemGO.GetComponent<ItemWorldControl>();
-            itemWorldControl.SetItemWorld(item.Value);
+            itemWorldControl.SetItemWorld(item);
         }
     }
 
@@ -55,6 +31,30 @@ public class ItemWorldManager : Singleton<ItemWorldManager>, IDataPersistence
     public void LoadData(GameData gameData)
     {
         _listItemWorld = gameData.ListItemWold;
+
+        itemsOnMap = FindObjectsOfType<ItemWorldControl>();
+
+        if (_listItemWorld.Items == null || _listItemWorld.Items.Count == 0)
+        {
+            _listItemWorld = new ListItemWorld();
+
+            foreach (var item in itemsOnMap)
+            {
+                ItemWorld itemWorld = item.GetItemWorld();
+                _listItemWorld.AddItemWorld(itemWorld);
+            }
+        }
+        else
+        {
+            ItemDatabase.Instance.SetItem(_listItemWorld.Items);
+
+            foreach (var item in itemsOnMap)
+            {
+                Destroy(item.gameObject);
+            }
+
+            SpawnItem();
+        }    
     }
 
     public void SaveData(ref GameData gameData)
