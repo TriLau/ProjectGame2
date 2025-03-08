@@ -11,8 +11,15 @@ public enum ESeason
     Winter
 }
 
+public enum EWeather
+{
+    Rain,
+    Snow,
+    Wind
+}
+
 [System.Serializable]
-public class Season
+public class EnvironmentalStatus
 {
     [SerializeField] string _dateTime;
     [SerializeField] private ESeason _seasonStatus;
@@ -23,9 +30,9 @@ public class Season
     public ESeason SeasonStatus
     { get { return _seasonStatus; } }
 
-    public Season()
+    public EnvironmentalStatus()
     {
-        _dateTime = new DateTime(1999, 1, 1, 13, 30, 00).ToString("O");
+        _dateTime = new DateTime(1999, 12, 1, 13, 30, 00).ToString("O");
         _seasonStatus = ESeason.Spring;
     }
 

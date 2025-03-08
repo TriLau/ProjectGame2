@@ -17,6 +17,10 @@ public class Player
     [SerializeField] private EState _curentState;
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _currentHealth;
+    [SerializeField] private float _maxMana;
+    [SerializeField] private float _currentMana;
+    [SerializeField] private float _maxStamina;
+    [SerializeField] private float _currentStamina;
     [SerializeField] private float _money;
     [SerializeField] private Vector3 _position;
 
@@ -25,6 +29,18 @@ public class Player
 
     public float CurrentHealth 
     { get { return _currentHealth; } }
+
+    public float MaxMana
+    { get { return _maxMana; } }
+
+    public float CurrentMana
+    { get { return _currentMana; } }
+
+    public float MaxStamina
+    { get { return _maxStamina; } }
+
+    public float CurrentStamina
+    { get { return _currentStamina; } }
 
     public float Money
     { get { return _money; } }
@@ -37,6 +53,10 @@ public class Player
         this._curentState = EState.Ilde;
         this._maxHealth = 100;
         this._currentHealth = 100;
+        this._maxMana = 100;
+        this._currentMana = 100;
+        this._maxStamina = 100;
+        this._currentStamina = 100;
         this._money = 0;
         this._position = Vector3.zero;
     }
