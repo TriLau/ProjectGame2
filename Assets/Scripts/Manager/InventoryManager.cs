@@ -9,8 +9,8 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 {
     private Inventory inventory;
     
-    [SerializeField]
-    private UI_Inventory inventoryUI;
+    
+    public UI_Inventory inventoryUI;
 
     private static int selectedSlot = -1;
 
@@ -41,7 +41,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         selectedSlot = newValue;
     }
 
-    public bool AddItemToInventorySlot(Item item)
+    public bool AddItemToInventorySlot(ItemWorld item)
     {
         for (int i = 0; i < inventoryUI.inventorySlotsUI.Count; i++)
         {
@@ -49,7 +49,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             UI_InventoryItem itemUI = slotUI.GetComponentInChildren<UI_InventoryItem>();
 
             if (itemUI != null &&
-                itemUI.InventoryItem.Item == item &&
+                itemUI.InventoryItem.Item == item.Item &&
                 itemUI.InventoryItem.Quantity < itemUI.InventoryItem.MaxStack &&
                 itemUI.InventoryItem.Item.stackable == true)
             {
@@ -64,7 +64,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             UI_InventorySlot slotUI = inventoryUI.inventorySlotsUI[i];
             UI_InventoryItem itemUI = slotUI.GetComponentInChildren<UI_InventoryItem>();
 
-            if (itemUI == null && inventory.AddItemToInventory(item, slotUI.slotIndex))
+            if (itemUI == null && inventory.AddItemToInventory(item.Id, item.Item, slotUI.slotIndex))
             {
                 InventoryItem inventoryItem = inventory.GetInventoryItemOfIndex(slotUI.slotIndex);
                 inventoryUI.AddItemToInventoryUI(inventoryItem, slotUI.slotIndex);
@@ -104,6 +104,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     public void LoadData(GameData gameData)
     {
         inventory = gameData.InventoryData;
+        ItemDatabase.Instance.SetItem(inventory.InventoryItemList);
         inventoryUI.UpdateSlotUI(inventory);
         ChangeSelectedSlot(0);
     }

@@ -2,33 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemWorldManager : Singleton<ItemWorldManager>
+public class ItemWorldManager : Singleton<ItemWorldManager>, IDataPersistence
 {
-    [SerializeField]
-    private List<GameObject> _itemWorlds = new List<GameObject>();
-    public List<GameObject> ItemWorlds
+    private ListItemWorld _listItemWorld;
+    public GameObject itemPrefab;
+    public ItemWorldControl[] itemsOnMap;
+
+    public void SpawnItem()
     {
-        get { return _itemWorlds; }
-        set { _itemWorlds = value; }
-    }
-    void Start()
-    {
-        
+        foreach (var item in _listItemWorld.Items)
+        {
+            GameObject itemGO = Instantiate(itemPrefab, item.Position, Quaternion.identity);
+            ItemWorldControl itemWorldControl = itemGO.GetComponent<ItemWorldControl>();
+            itemWorldControl.SetItemWorld(item);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddItemWorld(ItemWorld item)
     {
-        
+        _listItemWorld.AddItemWorld(item);
     }
 
-    public void AddItemWorld(GameObject item)
+    public void RemoveItemWorld(ItemWorld item)
     {
-        ItemWorlds.Add(item);
+        _listItemWorld.RemoveItemWorld(item);
+    }
+    
+    public void LoadData(GameData gameData)
+    {
+        _listItemWorld = gameData.ListItemWold;
+
+        itemsOnMap = FindObjectsOfType<ItemWorldControl>();
+
+        if (_listItemWorld.Items == null || _listItemWorld.Items.Count == 0)
+        {
+            _listItemWorld = new ListItemWorld();
+
+            foreach (var item in itemsOnMap)
+            {
+                ItemWorld itemWorld = item.GetItemWorld();
+                _listItemWorld.AddItemWorld(itemWorld);
+            }
+        }
+        else
+        {
+            ItemDatabase.Instance.SetItem(_listItemWorld.Items);
+
+            foreach (var item in itemsOnMap)
+            {
+                Destroy(item.gameObject);
+            }
+
+            SpawnItem();
+        }    
     }
 
-    public void RemoveItemWorld(GameObject item)
+    public void SaveData(ref GameData gameData)
     {
-        ItemWorlds.Remove(item);
+        gameData.SetListItemWorld(_listItemWorld);
     }
 }

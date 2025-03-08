@@ -20,9 +20,14 @@ public class EnvironmentalResource : MonoBehaviour
         damageable = GetComponent<Damageable>();
     }
 
-    void Update()
+    private void OnEnable()
     {
-        //ChangeBySeason();
+        EnviromentalStatusManager.ChangeSeasonEvent += ChangeBySeason;
+    }
+
+    private void OnDisable()
+    {
+        EnviromentalStatusManager.ChangeSeasonEvent -= ChangeBySeason;
     }
 
     public void OnHit(int damage, Vector2 knockback)
@@ -36,10 +41,8 @@ public class EnvironmentalResource : MonoBehaviour
     }
 
 
-    public void ChangeBySeason()
+    public void ChangeBySeason(ESeason season)
     {
-        ESeason season = EnviromentStatusManager.Instance.GetCurrentSeason();
-
         switch(season)
         {
             case ESeason.Spring:
@@ -76,9 +79,9 @@ public class EnvironmentalResource : MonoBehaviour
                 GameObject transform = Instantiate(item, position, Quaternion.identity);
 
                 transform.gameObject.GetComponent<Rigidbody2D>().AddForce(randomDir * 5f, ForceMode2D.Impulse);
-                ItemWorldManager.Instance.AddItemWorld(transform);
+                ItemWorld itemWorld = transform.GetComponent<ItemWorldControl>().GetItemWorld();
+                ItemWorldManager.Instance.AddItemWorld(itemWorld);
             }
-        }
-            
+        }      
     }
 }
