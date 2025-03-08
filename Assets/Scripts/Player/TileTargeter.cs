@@ -41,6 +41,7 @@ public class TileTargeter : MonoBehaviour
     private Vector3Int _mouseTilePosition;
     private Vector3Int _playerTilePosition;
     private Vector3Int _clampedTilePosition;
+    private Vector3Int _lockedTilePosition;
 
     [SerializeField] private List<Tilemap> tilemapCheck = new List<Tilemap>();
     [Header("HOE ON TILES SETTINGS")]
@@ -51,7 +52,6 @@ public class TileTargeter : MonoBehaviour
         set { _canHoe = value; }
     }
 
-    [SerializeField] RuleTile HoeTile;
 
     [Header("WATER ON TILES SETTINGS")]
     [SerializeField] private bool _canWater = false;
@@ -60,7 +60,6 @@ public class TileTargeter : MonoBehaviour
         get { return _canWater; }
         set { _canWater = value; }
     }
-    [SerializeField] RuleTile WateredTile;
     void Update()
     {
         GetTargetTile();
@@ -101,7 +100,7 @@ public class TileTargeter : MonoBehaviour
 
         foreach (Tilemap tilemap in Tilemaps)
         {
-            if (tilemap.HasTile(_clampedTilePosition)) // Check if a tile exists in any Tilemap
+            if (tilemap.HasTile(_clampedTilePosition)) 
             {
                 tilemapCheck.Add(tilemap);
             }
@@ -109,7 +108,7 @@ public class TileTargeter : MonoBehaviour
 
         if (showTarget)
         {
-            TargetTilemap.SetTile(_clampedTilePosition, TargetTile); // Place highlight on the separate Tilemap
+            TargetTilemap.SetTile(_clampedTilePosition, TargetTile); 
         }
         _previousTilePos = _clampedTilePosition;
 
@@ -117,41 +116,40 @@ public class TileTargeter : MonoBehaviour
         CanHoe = (tilemapCheck.Count == 1 && tilemapCheck[0].name == "Walkfront");
         CanWater = TileManager.Instance.HoeTiles.Contains(_clampedTilePosition) && !TileManager.Instance.WateredTiles.Contains(_clampedTilePosition);
     }
-    public void UseTool(string tool)
+    public void UseTool(bool changeFacingDirection)
     {
-        switch (tool)
+        if (changeFacingDirection)
         {
-            default:
-                {
-                    Debug.Log("Do nothing");
-                    break;
-                }
-            case "Sword":
-                {
-                    
-                    break;
-                }
-            case "Axe":
-                {
-                   
-                    break;
-                }
-            case "Hoe":
-                {
-                    ChangePlayerFacingDirection();
-                    UseHoe();
-                    break;
-                }
-            case "WaterCan":
-                {
-                    ChangePlayerFacingDirection();
-                    UseWaterCan();
-                    break;
-                }
+            ChangePlayerFacingDirection();
+            LockClampedPosition();
         }
 
     }
 
+    public void LockClampedPosition()
+    {
+        _lockedTilePosition = _clampedTilePosition;
+    }
+    public void PlaceTile(Item item)
+    {
+        switch (item.itemName)
+        {
+            default:
+                {
+                    break;
+                }
+            case "Hoe":
+                {
+                    UseHoe(item);
+                    break;
+                }
+            case "WaterCan":
+                {
+                    UseWaterCan(item);
+                    break;
+                }
+        }
+    }
     private void ChangePlayerFacingDirection()
     {
         if (_clampedTilePosition.x < _playerTilePosition.x)
@@ -174,15 +172,29 @@ public class TileTargeter : MonoBehaviour
             playerController.LastMovement = Vector2.down;
         }
     }
-    private void UseHoe()
+    private void UseHoe(Item item)
     {
 
         if (CanHoe)
         {
-            if (!TileManager.Instance.HoeTiles.Contains(_clampedTilePosition))
+            Tilemap targetTilemap = null;
+            foreach (Tilemap tilemap in Tilemaps)
             {
-                Tilemaps[2].SetTile(_clampedTilePosition, HoeTile);
-                TileManager.Instance.AddHoeTile(_clampedTilePosition);
+                if(tilemap.name == item.tilemap.name)
+                {
+                    targetTilemap = tilemap;
+                    break;
+                }
+                    
+                
+            }
+            Debug.Log(targetTilemap);
+            Debug.Log(item.name);
+            Debug.Log(item.ruleTile);
+            if (!TileManager.Instance.HoeTiles.Contains(_lockedTilePosition))
+            {
+                targetTilemap.SetTile(_lockedTilePosition, item.ruleTile);
+                TileManager.Instance.AddHoeTile(_lockedTilePosition);
             }
             else
             {
@@ -194,12 +206,22 @@ public class TileTargeter : MonoBehaviour
         else Debug.Log("Cant Hoe here");
     }
 
-    private void UseWaterCan()
+    private void UseWaterCan(Item item)
     {
         if (CanWater)
         {
-            Tilemaps[3].SetTile(_clampedTilePosition, WateredTile);
-            TileManager.Instance.AddWateredTile(_clampedTilePosition);
+            Tilemap targetTilemap = null;
+            foreach (Tilemap tilemap in Tilemaps)
+            {
+                if (tilemap.name == item.tilemap.name)
+                {
+                    targetTilemap = tilemap;
+                    break;
+                }
+                    
+            }
+            targetTilemap.SetTile(_lockedTilePosition, item.ruleTile);
+            TileManager.Instance.AddWateredTile(_lockedTilePosition);
         }
         else
         {

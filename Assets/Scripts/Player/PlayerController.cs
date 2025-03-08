@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Player;
 using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviour, IDataPersistence
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         set { _currentState = value; }
     }
     public string[] noTargetStates = { "Sword", "Axe", "Scythe" };
+    public string[] toolsAndWeapon = { "Sword", "Axe", "Scythe", "WaterCan", "Pickaxe", "Shovel" };
+
     [SerializeField] private TileTargeter tileTargeter;
 
     [SerializeField]
@@ -119,6 +122,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             {
                 if (CurrentVehicle.tag == "Bicycle")
                     animator.SetBool("UseDevice", true);
+
                 else if (CurrentVehicle.tag == "Horse")
                     animator.SetBool("UseHorse", true);
             }
@@ -200,11 +204,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (Input.GetKeyDown(KeyCode.E) && CanRide)
         {
             IsRidingVehicle = !IsRidingVehicle;
-
+            
             if (IsRidingVehicle)
             {
+                ChangeAnimationState("Idle");
                 CurrentVehicle.SetRiding(true);
                 CurrentVehicle.transform.SetParent(transform);
+                StartAllAction();
             }
             else
             {
@@ -232,14 +238,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             }
         }
 
-        if (IsHoldingItem && CanAttack && Input.GetMouseButtonDown(0))
-        {
-            AttackRoutine();
-        }
 
-        if (!IsRidingVehicle)
-        {
+        if(!IsRidingVehicle)
             CheckAnimation();
+     
+        if (!IsRidingVehicle && IsHoldingItem && CanAttack && Input.GetMouseButtonDown(0))
+        {
+            UseCurrentItem();
         }
     }
 
@@ -361,7 +366,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     }
 
     // ===================== Animation =====================
-    private void CheckAnimation()
+    public void CheckAnimation()
     {
         Item item = GetSelectedItem();
         if (item != null)
@@ -413,11 +418,32 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         else tileTargeter.RefreshTilemapCheck(true);
     }
 
-    private void AttackRoutine()
+    private void UseCurrentItem()
     {
-        animator.SetTrigger("Attack");
-        tileTargeter.UseTool(CurrentState);
+        Item item = InventoryManager.Instance.GetSelectedItem(false);
+        switch (item.type)
+        {
+            default:
+                {
+                    break;
+                }
+            case ItemType.Tool:
+                {
+                    animator.SetTrigger("Attack");
+                    tileTargeter.UseTool(!noTargetStates.Contains(CurrentState));
+                    break;
+                }
+            case ItemType.Crop:
+            case ItemType.Tile:
+                {
+                    tileTargeter.PlaceTile(item);
+                    break;
+                }
+        }
+        
+        
     }
+
 
     // Load & Save
     public void LoadData(GameData gameData)

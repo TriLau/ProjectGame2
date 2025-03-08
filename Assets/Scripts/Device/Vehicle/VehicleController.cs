@@ -6,7 +6,7 @@ public class VehicleController : MonoBehaviour
 {
     public float vehicleSpeed = 1f;
     public Vector2 movement;
-    private Animator animator;
+    public Animator animator;
     [SerializeField]
     private PlayerController playerController;
 
@@ -21,6 +21,7 @@ public class VehicleController : MonoBehaviour
         private set
         {
             _isBeingRidden = value;
+            animator.Play("Running");
             animator.SetBool("IsRiding", value);
         }
     }

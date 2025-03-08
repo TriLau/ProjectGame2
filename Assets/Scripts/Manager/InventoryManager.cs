@@ -16,7 +16,6 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
     private void Start()
     {
-
     }
 
     private void Update()
