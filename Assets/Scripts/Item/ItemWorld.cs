@@ -11,6 +11,7 @@ public class ItemWorld : IItemHolder
     [SerializeField] private string _itemName;
     [SerializeField] private int _quantity;
     [SerializeField] private Vector3 _position;
+    [SerializeField] private bool _isColected;
 
     public Item Item
     { get { return _item; } }
@@ -27,12 +28,16 @@ public class ItemWorld : IItemHolder
     public Vector3 Position
     { get { return _position; } }
 
+    public bool IsColected
+    { get { return _isColected; } }
+
     public ItemWorld()
     {
         this._id = string.Empty;
         this._item = null;
         this._quantity = 0;
         this._position = Vector3.zero;
+        this._isColected = false;
     }
 
     public ItemWorld(string id, Item item, int quantity, Vector3 position)
@@ -42,10 +47,16 @@ public class ItemWorld : IItemHolder
         _itemName = item.itemName;
         _quantity = quantity;
         _position = position;
+        _isColected = false;
     }
 
     public void SetItem(Item item)
     {
         _item = item;
+    }
+
+    public void SetColected(bool colected)
+    {
+        _isColected = colected;
     }
 }

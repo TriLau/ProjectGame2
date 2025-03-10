@@ -79,9 +79,14 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         Debug.Log("Data and screenshot removed.");
     }
 
-    private void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
-        //SaveGame();
+        SaveGame();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()

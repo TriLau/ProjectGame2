@@ -18,7 +18,7 @@ public class Inventory
 
     public Inventory() 
     {
-        this._maxSlotInventory = 14;
+        this._maxSlotInventory = 44;
         this._ineventoryItemList = new List<InventoryItem>(_maxSlotInventory);
     }
 
