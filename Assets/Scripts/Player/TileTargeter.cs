@@ -188,9 +188,6 @@ public class TileTargeter : MonoBehaviour
                     
                 
             }
-            Debug.Log(targetTilemap);
-            Debug.Log(item.name);
-            Debug.Log(item.ruleTile);
             if (!TileManager.Instance.HoeTiles.Contains(_lockedTilePosition))
             {
                 targetTilemap.SetTile(_lockedTilePosition, item.ruleTile);
