@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cat_Eat
+  m_Name: Rabbit_Run_down
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 789395313, guid: 7bac7190005eb4748a4bbcd9070328ac, type: 3}
+      value: {fileID: 729560190, guid: e107833fa39bc3e498fddd024c499df3, type: 3}
     - time: 0.1
-      value: {fileID: -1633861756, guid: 7bac7190005eb4748a4bbcd9070328ac, type: 3}
+      value: {fileID: 1679329133, guid: e107833fa39bc3e498fddd024c499df3, type: 3}
     - time: 0.2
-      value: {fileID: -363432944, guid: 7bac7190005eb4748a4bbcd9070328ac, type: 3}
+      value: {fileID: 587310120, guid: e107833fa39bc3e498fddd024c499df3, type: 3}
     - time: 0.3
-      value: {fileID: -801899215, guid: 7bac7190005eb4748a4bbcd9070328ac, type: 3}
+      value: {fileID: -1953064765, guid: e107833fa39bc3e498fddd024c499df3, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,10 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 789395313, guid: 7bac7190005eb4748a4bbcd9070328ac, type: 3}
-    - {fileID: -1633861756, guid: 7bac7190005eb4748a4bbcd9070328ac, type: 3}
-    - {fileID: -363432944, guid: 7bac7190005eb4748a4bbcd9070328ac, type: 3}
-    - {fileID: -801899215, guid: 7bac7190005eb4748a4bbcd9070328ac, type: 3}
+    - {fileID: 729560190, guid: e107833fa39bc3e498fddd024c499df3, type: 3}
+    - {fileID: 1679329133, guid: e107833fa39bc3e498fddd024c499df3, type: 3}
+    - {fileID: 587310120, guid: e107833fa39bc3e498fddd024c499df3, type: 3}
+    - {fileID: -1953064765, guid: e107833fa39bc3e498fddd024c499df3, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
