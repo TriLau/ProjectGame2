@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Tileset Grass Spring_1
+  m_Name: Tileset Grass Spring_1 - Copy
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 308754314, guid: c81c911c54c7ec042bbac1480b9187e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

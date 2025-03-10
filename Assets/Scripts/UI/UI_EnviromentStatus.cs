@@ -16,6 +16,11 @@ public class UI_EnviromentStatus : MonoBehaviour
         if (clockHand != null) clockHand.localRotation = Quaternion.Euler(0, 0, hourAngle);
 
         dateText.text = $"{dateTime.Day:D2} - {dateTime.Month:D2} - {dateTime.Year:D4}";
-        timeText.text = $"{dateTime.Hour:D2} : {dateTime.Minute:D2} : {dateTime.Second:D2}";
+        
+        int hour = dateTime.Hour % 12;
+        hour = (hour == 0) ? 12 : hour;
+        string amPm = dateTime.Hour >= 12 ? "PM" : "AM";
+
+        timeText.text = $"{hour:D2} : {dateTime.Minute:D2} {amPm}";
     }
 }

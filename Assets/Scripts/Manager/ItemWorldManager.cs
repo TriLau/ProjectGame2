@@ -12,20 +12,18 @@ public class ItemWorldManager : Singleton<ItemWorldManager>, IDataPersistence
     {
         foreach (var item in _listItemWorld.Items)
         {
-            GameObject itemGO = Instantiate(itemPrefab, item.Position, Quaternion.identity);
-            ItemWorldControl itemWorldControl = itemGO.GetComponent<ItemWorldControl>();
-            itemWorldControl.SetItemWorld(item);
+            if (!item.IsColected)
+            {
+                GameObject itemGO = Instantiate(itemPrefab, item.Position, Quaternion.identity);
+                ItemWorldControl itemWorldControl = itemGO.GetComponent<ItemWorldControl>();
+                itemWorldControl.SetItemWorld(item);
+            }
         }
     }
 
     public void AddItemWorld(ItemWorld item)
     {
         _listItemWorld.AddItemWorld(item);
-    }
-
-    public void RemoveItemWorld(ItemWorld item)
-    {
-        _listItemWorld.RemoveItemWorld(item);
     }
     
     public void LoadData(GameData gameData)

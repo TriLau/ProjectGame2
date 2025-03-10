@@ -402,7 +402,7 @@ TextureImporter:
         x: 290
         y: 229
         width: 60
-        height: 18
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1014,7 +1014,7 @@ TextureImporter:
         height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 3, y: 3, z: 3, w: 3}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1686,7 +1686,7 @@ TextureImporter:
         height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 2, z: 2, w: 3}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2127,7 +2127,7 @@ TextureImporter:
         height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 3, y: 3, z: 3, w: 3}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2337,7 +2337,7 @@ TextureImporter:
         height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 2, z: 2, w: 3}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2631,7 +2631,7 @@ TextureImporter:
         height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 2, z: 2, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2652,7 +2652,7 @@ TextureImporter:
         height: 4
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 1, z: 2, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2841,7 +2841,7 @@ TextureImporter:
         height: 4
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 1, z: 2, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2862,7 +2862,7 @@ TextureImporter:
         height: 46
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 2, z: 1, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2883,7 +2883,7 @@ TextureImporter:
         height: 46
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 2, z: 1, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2904,7 +2904,7 @@ TextureImporter:
         height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 2, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2925,7 +2925,7 @@ TextureImporter:
         height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 2, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2953,27 +2953,6 @@ TextureImporter:
       bones: []
       spriteID: 0bdff81b5caa41c46b3847cab714fd86
       internalID: 1608221216
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ToolBar1
-      rect:
-        serializedVersion: 2
-        x: 374
-        y: 75
-        width: 8
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 261a431641635274e94bceeddd88e1d0
-      internalID: -620159691
       vertices: []
       indices: 
       edges: []
@@ -3009,7 +2988,7 @@ TextureImporter:
         height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 2, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -3030,7 +3009,7 @@ TextureImporter:
         height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 2, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -3108,13 +3087,13 @@ TextureImporter:
       name: ToolBar2
       rect:
         serializedVersion: 2
-        x: 382
+        x: 374
         y: 75
-        width: 20
+        width: 36
         height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 7, y: 5, z: 7, w: 7}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -3126,22 +3105,22 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ToolBar3
+      name: HUD_0
       rect:
         serializedVersion: 2
-        x: 402
-        y: 75
-        width: 8
-        height: 28
+        x: 291
+        y: 244
+        width: 58
+        height: 3
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0, y: 0}
+      border: {x: 3, y: 0, z: 3, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a719f5fa8a942204ca25a46e256ce5fc
-      internalID: 1672185908
+      spriteID: 4c1b80242ccad5d4e98c1af2934b7b71
+      internalID: -977001319
       vertices: []
       indices: 
       edges: []
@@ -3157,6 +3136,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      HUD_0: -977001319
       HUD_1: -1836776230
       HUD_10: 1397372367
       HUD_100: 1815114252
