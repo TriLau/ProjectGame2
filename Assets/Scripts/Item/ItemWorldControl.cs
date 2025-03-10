@@ -48,7 +48,7 @@ public class ItemWorldControl : MonoBehaviour
         {
             if (InventoryManager.Instance.AddItemToInventorySlot(_itemWorld))
             {
-                ItemWorldManager.Instance.RemoveItemWorld(_itemWorld);
+                _itemWorld.SetColected(true);
                 Destroy(gameObject);
             }
         }
