@@ -380,20 +380,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if (IsHoldingItem)
         {
-            switch (item.name)
+            switch (item.type)
             {
                 default:
                     {
                         ChangeAnimationState("Idle");
                         break;
                     }
-                case "Axe":
-                case "Sword":
-                case "Hoe":
-                case "Pickaxe":
-                case "Scythe":
-                case "WaterCan":
-                case "Shovel":
+                case ItemType.Tool:
                     {
                         ChangeAnimationState(item.name);
                         break;

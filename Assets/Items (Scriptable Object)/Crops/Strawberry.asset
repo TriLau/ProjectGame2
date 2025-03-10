@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Strawberry
   m_EditorClassIdentifier: 
   tile: {fileID: 0}
+  ruleTile: {fileID: 0}
+  animatedTile: {fileID: 0}
+  tilemap: {fileID: 6474455846099095451, guid: 3e7eb26198626ca45a259f3cbc07d563, type: 3}
   type: 4
   actionType: 4
   range: {x: 5, y: 4}
