@@ -110,10 +110,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1376378692862310241}
   - component: {fileID: 355996309913763107}
-  - component: {fileID: 5248820430536388865}
   - component: {fileID: 2706262993133320821}
   - component: {fileID: 1480301862695094884}
   - component: {fileID: 3425856357365464354}
+  - component: {fileID: 5248820430536388865}
   - component: {fileID: 4101560532654197353}
   m_Layer: 0
   m_Name: Alex
@@ -190,41 +190,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!58 &5248820430536388865
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3069992538054791838}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.03, y: 0.016219586}
-  serializedVersion: 2
-  m_Radius: 0.2
 --- !u!50 &2706262993133320821
 Rigidbody2D:
   serializedVersion: 4
@@ -292,6 +257,13 @@ MonoBehaviour:
   - Sword
   - Axe
   - Scythe
+  toolsAndWeapon:
+  - Sword
+  - Axe
+  - Scythe
+  - WaterCan
+  - Pickaxe
+  - Shovel
   tileTargeter: {fileID: 4101560532654197353}
   _canMove: 1
   _currentSpeed: 0
@@ -308,6 +280,41 @@ MonoBehaviour:
   _isSleeping: 0
   _currentBed: {fileID: 0}
   _hadTarget: 0
+--- !u!58 &5248820430536388865
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069992538054791838}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03, y: 0.016219586}
+  serializedVersion: 2
+  m_Radius: 0.2
 --- !u!114 &4101560532654197353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,11 +335,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   _targetTilemap: {fileID: 0}
   _targetTile: {fileID: 11400000, guid: d7c3298a0a6669446a7e49bfc0d990bc, type: 2}
   TargetRange: 1
   tilemapCheck: []
   _canHoe: 0
-  HoeTile: {fileID: 11400000, guid: 3b1ff827cbf7d9f49afa711b3cd7b882, type: 2}
   _canWater: 0
-  WateredTile: {fileID: 0}
