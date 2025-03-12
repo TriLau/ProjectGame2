@@ -19,6 +19,10 @@ public class EnviromentalStatusManager : Singleton<EnviromentalStatusManager>, I
 
     public static event Action<ESeason> ChangeSeasonEvent;
 
+
+    public UnityEvent<int> OnTimeIncrease;
+    public int minutesToIncrease;
+
     private void Start()
     {
         
@@ -111,7 +115,8 @@ public class EnviromentalStatusManager : Singleton<EnviromentalStatusManager>, I
                 ChangeSeasonEvent?.Invoke(eStarus.SeasonStatus);
             }
             yield return new WaitForSeconds(1);
-            eStarus.IncreaseDate();
+            eStarus.IncreaseDate(minutesToIncrease);
+            OnTimeIncrease?.Invoke(minutesToIncrease);
         } while (true);
     }
 

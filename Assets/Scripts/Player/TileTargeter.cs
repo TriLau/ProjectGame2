@@ -60,6 +60,14 @@ public class TileTargeter : MonoBehaviour
         get { return _canWater; }
         set { _canWater = value; }
     }
+
+    [Header("PLANT ON TILES SETTINGS")]
+    [SerializeField] private bool _canPlantGround = false;
+    public bool CanPlantGround
+    {
+        get { return _canPlantGround; }
+        set { _canPlantGround = value; }
+    }
     void Update()
     {
         GetTargetTile();
@@ -112,9 +120,10 @@ public class TileTargeter : MonoBehaviour
         }
         _previousTilePos = _clampedTilePosition;
 
-        // Check if tile is walkable and can be hoed
+        // Check if tile is valid to do something
         CanHoe = (tilemapCheck.Count == 1 && tilemapCheck[0].name == "Walkfront");
-        CanWater = TileManager.Instance.HoeTiles.Contains(_clampedTilePosition) && !TileManager.Instance.WateredTiles.Contains(_clampedTilePosition);
+        CanWater = TileManager.Instance.HoedTiles.ContainsKey(_clampedTilePosition) && !TileManager.Instance.WateredTiles.ContainsKey(_clampedTilePosition);
+        CanPlantGround = (tilemapCheck[tilemapCheck.Count - 1].name == "FarmGround" || tilemapCheck[tilemapCheck.Count - 1].name == "WateredGround");
     }
     public void UseTool(bool changeFacingDirection)
     {
@@ -188,10 +197,10 @@ public class TileTargeter : MonoBehaviour
                     
                 
             }
-            if (!TileManager.Instance.HoeTiles.Contains(_lockedTilePosition))
+            if (!TileManager.Instance.HoedTiles.ContainsKey(_lockedTilePosition))
             {
                 targetTilemap.SetTile(_lockedTilePosition, item.ruleTile);
-                TileManager.Instance.AddHoeTile(_lockedTilePosition);
+                TileManager.Instance.AddHoedTile(_lockedTilePosition);
             }
             else
             {
@@ -217,12 +226,35 @@ public class TileTargeter : MonoBehaviour
                 }
                     
             }
-            targetTilemap.SetTile(_lockedTilePosition, item.ruleTile);
-            TileManager.Instance.AddWateredTile(_lockedTilePosition);
+            if (!TileManager.Instance.WateredTiles.ContainsKey(_lockedTilePosition))
+            {
+                targetTilemap.SetTile(_lockedTilePosition, item.ruleTile);
+                TileManager.Instance.AddWateredTile(_lockedTilePosition);
+            }
+            else
+            {
+                Debug.Log("Already water");
+            }
+                
         }
         else
         {
             Debug.Log("Cant water here");
+        }
+    }
+
+    public void SetTile(Item item)
+    {
+        switch(item.type)
+        {
+            default:
+                break;
+
+            case ItemType.Crop:
+                {
+                    GameObject.Find("CropManager").GetComponent<CropManager>().PlantCrop(CanPlantGround,_clampedTilePosition,item);
+                    break;
+                }        
         }
     }
 

@@ -56,6 +56,9 @@ TagManager:
   - name: WateredGround
     uniqueID: 2600164781
     locked: 0
+  - name: CropGround
+    uniqueID: 2917392347
+    locked: 0
   - name: Collision
     uniqueID: 900298989
     locked: 0

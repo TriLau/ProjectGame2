@@ -9,6 +9,11 @@ using UnityEngine.Tilemaps;
 public class Item : ScriptableObject
 {
     [Header("Only gameplay")]
+    [Header("For Crops")]
+    public TileBase[] growthStages;
+    public int TimeToGrowth;
+    public ESeason season;
+    [Header("For Tools")]
     public TileBase tile;
     public RuleTile ruleTile;
     public AnimatedTile animatedTile;

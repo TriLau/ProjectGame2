@@ -186,6 +186,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         private set { _hadTarget = value; }
     }
 
+    [SerializeField]
+    private ItemOnHand _itemOnHand;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -242,7 +244,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if(!IsRidingVehicle)
             CheckAnimation();
      
-        if (!IsRidingVehicle && IsHoldingItem && CanAttack && Input.GetMouseButtonDown(0))
+        if (!IsRidingVehicle && IsHoldingItem && CanAttack && Input.GetMouseButton(0))
         {
             UseCurrentItem();
         }
@@ -368,6 +370,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     // ===================== Animation =====================
     public void CheckAnimation()
     {
+        _itemOnHand.gameObject.SetActive(false);
         Item item = GetSelectedItem();
         if (item != null)
         {
@@ -380,16 +383,27 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if (IsHoldingItem)
         {
+            
             switch (item.type)
             {
                 default:
                     {
                         ChangeAnimationState("Idle");
+                        
                         break;
                     }
                 case ItemType.Tool:
                     {
+
                         ChangeAnimationState(item.name);
+                        
+                        break;
+                    }
+                case ItemType.Crop:
+                    {
+                        _itemOnHand.gameObject.SetActive(true);
+                        ChangeAnimationState("Pickup_idle");
+                        _itemOnHand.SetItemSprite(item.image);
                         break;
                     }
             }
@@ -412,6 +426,16 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         else tileTargeter.RefreshTilemapCheck(true);
     }
 
+    private void MoveItemOnHandUp(float value)
+    {
+        _itemOnHand.MoveUp(value);
+    }
+
+    private void MoveItemOnHandDown(float value)
+    {
+        _itemOnHand.MoveDown(value);
+    }
+
     private void UseCurrentItem()
     {
         Item item = InventoryManager.Instance.GetSelectedItem(false);
@@ -428,9 +452,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                     break;
                 }
             case ItemType.Crop:
-            case ItemType.Tile:
                 {
-                    tileTargeter.PlaceTile(item);
+                    tileTargeter.SetTile(item);
                     break;
                 }
         }

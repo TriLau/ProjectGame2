@@ -46,9 +46,9 @@ public class EnvironmentalStatus
         _dateTime = dateTime.ToString("O");
     }
 
-    public void IncreaseDate()
+    public void IncreaseDate(int minutesToIncrease)
     {
-        DateTime dt = Convert.ToDateTime(_dateTime).AddMinutes(1);
+        DateTime dt = Convert.ToDateTime(_dateTime).AddMinutes(minutesToIncrease);
         _dateTime = dt.ToString("O");
     }
 }
