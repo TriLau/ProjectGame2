@@ -5,13 +5,40 @@ using UnityEngine.Tilemaps;
 
 public class CropData
 {
-    public int growthStage;
-    public int dayPlanted;
-    public int growthTime;
+    public int currentStage;
+    public int growthTimeLeft;
+    public bool isWatered;
+    public int timeToChangeStage;
+    public int stageTimeCounter;
+    public bool needChangeStage;
     public TileBase[] growthStages;
 
-    public bool IsFullyGrown(float currentTime)
+    public CropData(int growthTime, TileBase[] growthStages)
     {
-        return currentTime >= dayPlanted + growthTime;
+        needChangeStage = false;
+        currentStage = 0;
+        isWatered = false;
+        growthTimeLeft = growthTime;
+        this.growthStages = growthStages;
+        timeToChangeStage = growthTime / growthStages.Length;
+        stageTimeCounter = 0;
+        
+    }
+
+    public void GrowthTimeUpdate(int minute)
+    {
+        growthTimeLeft -= minute;
+        stageTimeCounter += minute;
+
+        if(stageTimeCounter >= timeToChangeStage && currentStage < growthStages.Length - 1)
+        {
+            needChangeStage = true;
+            currentStage++;
+            stageTimeCounter = 0;
+        }
+    }
+    public bool IsFullyGrown()
+    {
+        return currentStage == growthStages.Length - 1;
     }
 }
