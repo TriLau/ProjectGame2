@@ -10,11 +10,21 @@ public class CropManager : Singleton<CropManager>
 {
     public Tilemap cropTilemap;
 
-    private Dictionary<Vector3Int, CropData> _plantedCrops = new Dictionary<Vector3Int, CropData>();
-    public Dictionary<Vector3Int, CropData> PlantedCrops
+    private SerializableDictionary<Vector3Int, CropData> _plantedCrops = new SerializableDictionary<Vector3Int, CropData>();
+    public SerializableDictionary<Vector3Int, CropData> PlantedCrops
     {
         get { return _plantedCrops; }
-        private set { _plantedCrops = value; }
+        set { _plantedCrops = value; }
+    }
+
+    private void OnEnable()
+    {
+        EnviromentalStatusManager.OnTimeIncrease += UpdateCropsGrowthTime;
+    }
+
+    private void OnDisable()
+    {
+        EnviromentalStatusManager.OnTimeIncrease -= UpdateCropsGrowthTime;
     }
 
     void Start()
@@ -31,7 +41,7 @@ public class CropManager : Singleton<CropManager>
     {
         if (isFarmGround && !_plantedCrops.ContainsKey(plantPosition))
         {
-            CropData newCrop = new CropData(crop.TimeToGrowth, crop.growthStages);
+            CropData newCrop = new CropData(crop.TimeToGrowth, crop.growthStages, crop.season);
             
             _plantedCrops.Add(plantPosition, newCrop);
             cropTilemap.SetTile(plantPosition, newCrop.growthStages[0]);
@@ -49,6 +59,12 @@ public class CropManager : Singleton<CropManager>
             else cropInfo.isWatered = false;
             if (!cropInfo.IsFullyGrown())
             {
+                if(cropInfo.season != EnviromentalStatusManager.Instance.eStarus.SeasonStatus)
+                {
+                    Debug.Log(EnviromentalStatusManager.Instance.eStarus.SeasonStatus);
+                    Debug.Log("crop dead");
+                    cropTilemap.SetTile(crop.Key, cropInfo.growthStages[1]);
+                }
                 if (cropInfo.isWatered)
                 {
                     cropInfo.GrowthTimeUpdate(minute);
@@ -64,6 +80,15 @@ public class CropManager : Singleton<CropManager>
                 Debug.Log("crop fully grew");
             }
             
+        }
+    }
+
+    public void LoadCrops(SerializableDictionary<Vector3Int, CropData> crops)
+    {
+        PlantedCrops = crops;
+        foreach(var crop in PlantedCrops)
+        {
+            cropTilemap.SetTile(crop.Key,crop.Value.growthStages[crop.Value.currentStage]);
         }
     }
 }

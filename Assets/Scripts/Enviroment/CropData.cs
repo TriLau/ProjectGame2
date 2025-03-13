@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[System.Serializable]
 public class CropData
 {
-    public int currentStage;
-    public int growthTimeLeft;
-    public bool isWatered;
-    public int timeToChangeStage;
-    public int stageTimeCounter;
-    public bool needChangeStage;
-    public TileBase[] growthStages;
+    [SerializeField] public int currentStage;
+    [SerializeField] public int growthTimeLeft;
+    [SerializeField] public bool isWatered;
+    [SerializeField] public int timeToChangeStage;
+    [SerializeField] public int stageTimeCounter;
+    [SerializeField] public bool needChangeStage;
+    [SerializeField] public ESeason season;
+    [SerializeField] public TileBase[] growthStages;
 
-    public CropData(int growthTime, TileBase[] growthStages)
+    public CropData(int growthTime, TileBase[] growthStages, ESeason season)
     {
         needChangeStage = false;
         currentStage = 0;
@@ -22,6 +24,7 @@ public class CropData
         this.growthStages = growthStages;
         timeToChangeStage = growthTime / growthStages.Length;
         stageTimeCounter = 0;
+        this.season = season;
         
     }
 

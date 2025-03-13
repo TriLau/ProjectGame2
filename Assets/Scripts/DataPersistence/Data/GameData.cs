@@ -10,7 +10,7 @@ public class GameData
     [SerializeField] private Inventory _inventoryData;
     [SerializeField] private EnvironmentalStatus _eStatus;
     [SerializeField] private ListItemWorld _listItemWold;
-
+    [SerializeField] private TileSaveData _tileSaveData;
     public Player PlayerData
     { get { return _playerData; } }
 
@@ -23,12 +23,15 @@ public class GameData
     public ListItemWorld ListItemWold
     { get { return _listItemWold; } }
 
+    public TileSaveData TileSaveData
+    { get { return _tileSaveData; } }
     public GameData()
     {
         this._playerData = new Player();
         this._inventoryData = new Inventory();
         this._eStatus = new EnvironmentalStatus();
         this._listItemWold = new ListItemWorld();
+        this._tileSaveData = new TileSaveData();
     }
 
     public void SetPlayerData(Player playerData)
@@ -54,5 +57,10 @@ public class GameData
     public void SetListItemWorld(ListItemWorld itemWorld)
     {
         this._listItemWold = itemWorld;
+    }
+
+    public void SetTiles(TileSaveData tileSaveData)
+    {
+        this._tileSaveData = tileSaveData;
     }
 }

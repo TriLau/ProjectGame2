@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class HoedTileData
 {
-    public int timeToRemoveTile;
-    public int removeTileCounter;
-    public bool hasSomethingOn;
-    public bool needRemove;
+
+    [SerializeField] public int timeToRemoveTile;
+    [SerializeField] public int removeTileCounter;
+    [SerializeField] public bool hasSomethingOn;
+    [SerializeField] public bool needRemove;
 
     public HoedTileData()
     {

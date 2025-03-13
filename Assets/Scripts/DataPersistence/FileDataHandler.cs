@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
-
+using Unity.VisualScripting;
 public class FileDataHandler
 {
     private string dataDirPath = "";
@@ -26,7 +26,7 @@ public class FileDataHandler
                 string dataToLoad = "";
                 using (FileStream stream = new FileStream(fullPath, FileMode.Open))
                 {
-                    using (StreamReader reader = new StreamReader(stream)) 
+                    using (StreamReader reader = new StreamReader(stream))
                     {
                         dataToLoad = reader.ReadToEnd();
                     }
@@ -38,7 +38,7 @@ public class FileDataHandler
             {
                 Debug.LogError("Error occured when trying to save dât to file: " + fullPath + "\n" + e);
             }
-        }   
+        }
         return loadedData;
     }
 
@@ -53,16 +53,16 @@ public class FileDataHandler
 
             using (FileStream stream = new FileStream(fullPath, FileMode.Create))
             {
-                using (StreamWriter writer = new StreamWriter(stream)) 
+                using (StreamWriter writer = new StreamWriter(stream))
                 {
                     writer.Write(dataToStore);
                 }
             }
             Debug.Log("Game saved successfully!");
         }
-        catch (Exception e) 
+        catch (Exception e)
         {
-            Debug.LogError("Error occured when trying to save dât to file: " + fullPath + "\n" + e); 
+            Debug.LogError("Error occured when trying to save dât to file: " + fullPath + "\n" + e);
         }
     }
 

@@ -20,7 +20,7 @@ public class EnviromentalStatusManager : Singleton<EnviromentalStatusManager>, I
     public static event Action<ESeason> ChangeSeasonEvent;
 
 
-    public UnityEvent<int> OnTimeIncrease;
+    public static event Action<int> OnTimeIncrease;
     public int minutesToIncrease;
 
     private void Start()

@@ -4,31 +4,46 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TileManager : Singleton<TileManager>
+public class TileManager : Singleton<TileManager>, IDataPersistence
 {
     [SerializeField]
     private Tilemap _hoedTilemap;
     [SerializeField]
     private Tilemap _wateredTilemap;
-    private Dictionary<Vector3Int, HoedTileData> _hoedTiles = new Dictionary<Vector3Int, HoedTileData>();
-    public Dictionary<Vector3Int, HoedTileData> HoedTiles
+
+    [SerializeField]
+    private RuleTile _hoedRuleTile;
+    [SerializeField]
+    private RuleTile _wateredRuleTile;
+    private SerializableDictionary<Vector3Int, HoedTileData> _hoedTiles = new SerializableDictionary<Vector3Int, HoedTileData>();
+    public SerializableDictionary<Vector3Int, HoedTileData> HoedTiles
     {
         get { return _hoedTiles; }
-        private set { _hoedTiles = value; }
+        set { _hoedTiles = value; }
     }
    
-    private Dictionary<Vector3Int, WateredTileData> _wateredTiles = new Dictionary<Vector3Int, WateredTileData>();
-    public Dictionary<Vector3Int, WateredTileData> WateredTiles
+    private SerializableDictionary<Vector3Int, WateredTileData> _wateredTiles = new SerializableDictionary<Vector3Int, WateredTileData>();
+    public SerializableDictionary<Vector3Int, WateredTileData> WateredTiles
     {
         get { return _wateredTiles; }
-        private set { _wateredTiles = value; }
+        set { _wateredTiles = value; }
     }
 
+    private TileSaveData _tileSaveData = new TileSaveData();
+    private void OnEnable()
+    {
+        EnviromentalStatusManager.OnTimeIncrease += UpdateAllTileStatus;
+    }
+
+    private void OnDisable()
+    {
+        EnviromentalStatusManager.OnTimeIncrease -= UpdateAllTileStatus;
+    }
 
     void Start()
     {
-        
     }
+
 
     // Update is called once per frame
     void Update()
@@ -101,5 +116,34 @@ public class TileManager : Singleton<TileManager>
         WateredTiles.Remove(tilePos);
 
         Debug.Log($"removed watered tile at {tilePos}");
+    }
+
+    public void LoadData(GameData data)
+    {
+        HoedTiles = data.TileSaveData.HoedTiles;
+        WateredTiles = data.TileSaveData.WateredTiles;
+
+        StartCoroutine(ApplyTileUpdates(data));
+    }
+    private IEnumerator ApplyTileUpdates(GameData data)
+    {
+        yield return new WaitForEndOfFrame(); // Wait until rendering is done
+
+        foreach (var hoedTile in HoedTiles)
+        {
+            _hoedTilemap.SetTile(hoedTile.Key, _hoedRuleTile);
+        }
+
+        foreach (var wateredTile in WateredTiles)
+        {
+            _wateredTilemap.SetTile(wateredTile.Key, _wateredRuleTile);
+        }
+
+        CropManager.Instance.LoadCrops(data.TileSaveData.CropTiles);
+    }
+    public void SaveData(ref GameData data)
+    {
+        _tileSaveData.SetTiles(HoedTiles, WateredTiles, CropManager.Instance.PlantedCrops);
+        data.SetTiles(_tileSaveData);
     }
 }

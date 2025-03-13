@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class WateredTileData
 {
-    public int timeToRemoveTile;
-    public int removeTileCounter;
-    public bool needRemove;
+    [SerializeField] public int timeToRemoveTile;
+    [SerializeField] public int removeTileCounter;
+    [SerializeField] public bool needRemove;
 
     public WateredTileData()
     {
