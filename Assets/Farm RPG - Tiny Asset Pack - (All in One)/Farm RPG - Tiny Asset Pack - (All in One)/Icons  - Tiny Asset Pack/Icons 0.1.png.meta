@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,11 +93,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icons 0.1_0
+      name: Wood_Sword
       rect:
         serializedVersion: 2
         x: 0
@@ -118,7 +131,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_1
+      name: Stone_Sword
       rect:
         serializedVersion: 2
         x: 16
@@ -139,7 +152,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_2
+      name: Bone_Sword
       rect:
         serializedVersion: 2
         x: 32
@@ -160,7 +173,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_3
+      name: Copper_Sword
       rect:
         serializedVersion: 2
         x: 48
@@ -181,7 +194,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_4
+      name: Iron_Sword
       rect:
         serializedVersion: 2
         x: 64
@@ -202,7 +215,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_5
+      name: Gold_Sword
       rect:
         serializedVersion: 2
         x: 80
@@ -223,7 +236,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_6
+      name: SilverXGold_Sword
       rect:
         serializedVersion: 2
         x: 96
@@ -244,7 +257,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_7
+      name: GoldXRuby_Sword1
       rect:
         serializedVersion: 2
         x: 112
@@ -265,7 +278,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_8
+      name: Obsidian_Sword
       rect:
         serializedVersion: 2
         x: 128
@@ -286,7 +299,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_9
+      name: GoldXRuby_Sword2
       rect:
         serializedVersion: 2
         x: 144
@@ -307,7 +320,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_10
+      name: GoldXAmethyst_Sword
       rect:
         serializedVersion: 2
         x: 160
@@ -2722,7 +2735,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_125
+      name: Wood
       rect:
         serializedVersion: 2
         x: 80
@@ -2743,7 +2756,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_126
+      name: Stone
       rect:
         serializedVersion: 2
         x: 96
@@ -2764,7 +2777,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_127
+      name: WoodenBoard
       rect:
         serializedVersion: 2
         x: 112
@@ -2785,7 +2798,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_128
+      name: StoneIngot
       rect:
         serializedVersion: 2
         x: 128
@@ -2806,7 +2819,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_129
+      name: Bone
       rect:
         serializedVersion: 2
         x: 144
@@ -2827,7 +2840,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_130
+      name: Leather
       rect:
         serializedVersion: 2
         x: 160
@@ -2848,7 +2861,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_131
+      name: Feather
       rect:
         serializedVersion: 2
         x: 176
@@ -2869,7 +2882,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_132
+      name: Creeper
       rect:
         serializedVersion: 2
         x: 192
@@ -3121,7 +3134,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_144
+      name: CopperNugget
       rect:
         serializedVersion: 2
         x: 80
@@ -3142,7 +3155,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_145
+      name: IronNugget
       rect:
         serializedVersion: 2
         x: 96
@@ -3163,7 +3176,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_146
+      name: GoldNugget
       rect:
         serializedVersion: 2
         x: 112
@@ -3184,7 +3197,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_147
+      name: SilverNugget
       rect:
         serializedVersion: 2
         x: 128
@@ -3205,7 +3218,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_148
+      name: AmethystNugget
       rect:
         serializedVersion: 2
         x: 144
@@ -3226,7 +3239,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_149
+      name: RubyNugget
       rect:
         serializedVersion: 2
         x: 160
@@ -3247,7 +3260,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_150
+      name: Emerald
       rect:
         serializedVersion: 2
         x: 176
@@ -3499,7 +3512,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_162
+      name: CopperIngot
       rect:
         serializedVersion: 2
         x: 80
@@ -3520,7 +3533,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_163
+      name: IronIngot
       rect:
         serializedVersion: 2
         x: 96
@@ -3541,7 +3554,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_164
+      name: GoldIngot
       rect:
         serializedVersion: 2
         x: 112
@@ -3562,7 +3575,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_165
+      name: SilverIngot
       rect:
         serializedVersion: 2
         x: 128
@@ -3583,7 +3596,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_166
+      name: AmethystIngot
       rect:
         serializedVersion: 2
         x: 144
@@ -3604,7 +3617,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_167
+      name: GoldXRubyIngot
       rect:
         serializedVersion: 2
         x: 160
@@ -3772,7 +3785,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_175
+      name: Diamond
       rect:
         serializedVersion: 2
         x: 0
@@ -3793,7 +3806,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_176
+      name: Ruby
       rect:
         serializedVersion: 2
         x: 16
@@ -3814,7 +3827,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_177
+      name: Sapphire
       rect:
         serializedVersion: 2
         x: 32
@@ -3835,7 +3848,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_178
+      name: Amethyst
       rect:
         serializedVersion: 2
         x: 48
@@ -3856,7 +3869,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_179
+      name: Gold
       rect:
         serializedVersion: 2
         x: 64
@@ -3877,7 +3890,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons 0.1_180
+      name: RoseQuartz
       rect:
         serializedVersion: 2
         x: 80
@@ -4622,9 +4635,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Icons 0.1_0: -1710233629
-      Icons 0.1_1: -834773552
-      Icons 0.1_10: 588023464
+      Amethyst: 1358927140
+      AmethystIngot: 233601690
+      AmethystNugget: 1958005224
+      Bone: 1903481678
+      Bone_Sword: -108909976
+      CopperIngot: 2137231396
+      CopperNugget: -850804325
+      Copper_Sword: 1187732193
+      Creeper: -734248755
+      Diamond: -587166916
+      Emerald: 1718147627
+      Feather: 1873837673
+      Gold: 1760339629
+      GoldIngot: -1995618703
+      GoldNugget: -285611407
+      GoldXAmethyst_Sword: 588023464
+      GoldXRubyIngot: -684847137
+      GoldXRuby_Sword1: 908534342
+      GoldXRuby_Sword2: -1193959205
+      Gold_Sword: -379511325
       Icons 0.1_100: 350611687
       Icons 0.1_101: -1525776053
       Icons 0.1_102: -752292478
@@ -4652,15 +4682,7 @@ TextureImporter:
       Icons 0.1_122: -481386410
       Icons 0.1_123: -407066529
       Icons 0.1_124: 1402552672
-      Icons 0.1_125: 1166858725
-      Icons 0.1_126: 1045400462
-      Icons 0.1_127: -192261547
-      Icons 0.1_128: 2130587930
-      Icons 0.1_129: 1903481678
       Icons 0.1_13: -1744306320
-      Icons 0.1_130: 285822668
-      Icons 0.1_131: 1873837673
-      Icons 0.1_132: -734248755
       Icons 0.1_133: -2067568496
       Icons 0.1_134: 1131027361
       Icons 0.1_135: -1697854570
@@ -4673,14 +4695,7 @@ TextureImporter:
       Icons 0.1_141: -832788273
       Icons 0.1_142: -884841454
       Icons 0.1_143: -232801452
-      Icons 0.1_144: -850804325
-      Icons 0.1_145: -1537997408
-      Icons 0.1_146: -285611407
-      Icons 0.1_147: 1638539844
-      Icons 0.1_148: 1958005224
-      Icons 0.1_149: 624235156
       Icons 0.1_15: -1142061932
-      Icons 0.1_150: 1718147627
       Icons 0.1_151: 665005456
       Icons 0.1_152: 1181617974
       Icons 0.1_153: -1484635893
@@ -4693,12 +4708,6 @@ TextureImporter:
       Icons 0.1_16: 1750407784
       Icons 0.1_160: 1792888607
       Icons 0.1_161: -1223973775
-      Icons 0.1_162: 2137231396
-      Icons 0.1_163: 1597116448
-      Icons 0.1_164: -1995618703
-      Icons 0.1_165: -312848862
-      Icons 0.1_166: 233601690
-      Icons 0.1_167: -684847137
       Icons 0.1_168: -1311908955
       Icons 0.1_169: 665833929
       Icons 0.1_17: 1670505071
@@ -4707,13 +4716,7 @@ TextureImporter:
       Icons 0.1_172: 1606004036
       Icons 0.1_173: -2030986260
       Icons 0.1_174: 714704891
-      Icons 0.1_175: -587166916
-      Icons 0.1_176: -420526778
-      Icons 0.1_177: 1394641675
-      Icons 0.1_178: 1358927140
-      Icons 0.1_179: 1760339629
       Icons 0.1_18: 633486743
-      Icons 0.1_180: -1245358014
       Icons 0.1_181: 1793537930
       Icons 0.1_182: -1072316322
       Icons 0.1_183: 1530080289
@@ -4734,7 +4737,6 @@ TextureImporter:
       Icons 0.1_197: 1785805754
       Icons 0.1_198: -1673826514
       Icons 0.1_199: 1871471291
-      Icons 0.1_2: -108909976
       Icons 0.1_20: -1437907620
       Icons 0.1_200: -557718567
       Icons 0.1_201: 1742042273
@@ -4760,7 +4762,6 @@ TextureImporter:
       Icons 0.1_27: 2052051240
       Icons 0.1_28: -1306629031
       Icons 0.1_29: 1976847059
-      Icons 0.1_3: 1187732193
       Icons 0.1_30: -597496477
       Icons 0.1_31: -563187091
       Icons 0.1_32: -309202390
@@ -4771,7 +4772,6 @@ TextureImporter:
       Icons 0.1_37: -54434380
       Icons 0.1_38: 574430871
       Icons 0.1_39: -681892494
-      Icons 0.1_4: 1337786379
       Icons 0.1_40: -234555458
       Icons 0.1_41: 502597234
       Icons 0.1_42: -483950956
@@ -4782,7 +4782,6 @@ TextureImporter:
       Icons 0.1_47: 201980057
       Icons 0.1_48: -192738511
       Icons 0.1_49: 1053665194
-      Icons 0.1_5: -379511325
       Icons 0.1_50: -29191597
       Icons 0.1_51: -1849728887
       Icons 0.1_52: 343926524
@@ -4793,7 +4792,6 @@ TextureImporter:
       Icons 0.1_57: 1851896455
       Icons 0.1_58: -1134844050
       Icons 0.1_59: 662900072
-      Icons 0.1_6: 18191940
       Icons 0.1_60: -145713867
       Icons 0.1_61: -1164007449
       Icons 0.1_62: -2131767069
@@ -4804,7 +4802,6 @@ TextureImporter:
       Icons 0.1_67: -2089339899
       Icons 0.1_68: -351264773
       Icons 0.1_69: 1407459413
-      Icons 0.1_7: 908534342
       Icons 0.1_70: -1402610207
       Icons 0.1_71: 555493355
       Icons 0.1_72: -227471527
@@ -4815,7 +4812,6 @@ TextureImporter:
       Icons 0.1_77: 151321256
       Icons 0.1_78: -954376043
       Icons 0.1_79: -955065323
-      Icons 0.1_8: 756918341
       Icons 0.1_80: 988092536
       Icons 0.1_81: -409296888
       Icons 0.1_82: -404024163
@@ -4826,7 +4822,6 @@ TextureImporter:
       Icons 0.1_87: 1529625072
       Icons 0.1_88: -1744597497
       Icons 0.1_89: -1300461880
-      Icons 0.1_9: -1193959205
       Icons 0.1_90: 1547913595
       Icons 0.1_91: 1119745869
       Icons 0.1_92: -465400048
@@ -4837,6 +4832,24 @@ TextureImporter:
       Icons 0.1_97: 2123544477
       Icons 0.1_98: 1308488171
       Icons 0.1_99: 2094754834
+      IronIngot: 1597116448
+      IronNugget: -1537997408
+      Iron_Sword: 1337786379
+      Leather: 285822668
+      Obsidian_Sword: 756918341
+      RoseQuartz: -1245358014
+      Ruby: -420526778
+      RubyNugget: 624235156
+      Sapphire: 1394641675
+      SilverIngot: -312848862
+      SilverNugget: 1638539844
+      SilverXGold_Sword: 18191940
+      Stone: 1045400462
+      StoneIngot: 2130587930
+      Stone_Sword: -834773552
+      Wood: 1166858725
+      Wood_Sword: -1710233629
+      WoodenBoard: -192261547
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

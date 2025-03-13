@@ -12,7 +12,6 @@ public class UI_InventorySlot : MonoBehaviour, IDropHandler
 
     public int slotIndex;
 
-
     private void Awake()
     {
         Deselect();
@@ -32,13 +31,29 @@ public class UI_InventorySlot : MonoBehaviour, IDropHandler
     // Drop item into slot
     public void OnDrop(PointerEventData eventData)
     {
-        if (transform.childCount == 0)
+        UI_InventoryItem draggedItem = eventData.pointerDrag.GetComponent<UI_InventoryItem>();
+
+        if (draggedItem == null)
+            return;
+
+        if (transform.childCount > 0)
         {
-            UI_InventoryItem inventoryItem = eventData.pointerDrag.GetComponent<UI_InventoryItem>();
-            if (inventoryItem != null )
+            UI_InventoryItem existingItem = transform.GetChild(0).GetComponent<UI_InventoryItem>();
+
+            if (existingItem.InventoryItem.Item.itemName == draggedItem.InventoryItem.Item.itemName && 
+                existingItem.InventoryItem.Item.stackable &&
+                existingItem.InventoryItem.Quantity < existingItem.InventoryItem.MaxStack)  
             {
-                inventoryItem.parentAfterDrag = transform;
+                existingItem.InventoryItem.IncreaseQuantity(draggedItem.InventoryItem.Quantity);
+                existingItem.RefreshCount();
+
+                InventoryManager.Instance.RemoveItemById(draggedItem.InventoryItem);
+                Destroy(draggedItem.gameObject);
+                return;
             }
         }
+
+        draggedItem.parentAfterDrag = transform;
     }
+
 }

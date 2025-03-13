@@ -57,9 +57,15 @@ public class InventoryItem : IItemHolder
         this._item = item;
     }
 
-    public void AddQuantity(int amount)
+    public void IncreaseQuantity(int amount)
     {
         _quantity += amount;
+    }
+
+    public void DecreaseQuantity(int amount) 
+    {
+        _quantity -= amount;
+        if (_quantity < 0) _quantity = 0;
     }
 
     public void UpdateSlotIndex(int newIndex)

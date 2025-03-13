@@ -48,6 +48,12 @@ public class ItemWorldManager : Singleton<ItemWorldManager>, IDataPersistence
 
             foreach (var item in itemsOnMap)
             {
+                bool existItem = _listItemWorld.Items.Find(x => x.Id == item.id) != null ? true : false;
+                if (!existItem)
+                {
+                    ItemWorld itemWorld = item.GetItemWorld();
+                    _listItemWorld.AddItemWorld(itemWorld);
+                }
                 Destroy(item.gameObject);
             }
 

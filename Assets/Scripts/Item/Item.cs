@@ -31,7 +31,8 @@ public enum ItemType
     Food,
     Tool,
     Material,
-    Crop
+    Crop,
+    Workbench
 }
 
 public enum ActionType

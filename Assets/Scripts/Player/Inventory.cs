@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 [System.Serializable]
 public class Inventory
@@ -47,8 +48,19 @@ public class Inventory
         InventoryItem existingItem = _ineventoryItemList.Find(i => i.Item == item);
         if (existingItem != null)
         {
-            existingItem.AddQuantity(-amount);
+            existingItem.DecreaseQuantity(amount);
             if (existingItem.Quantity <= 0) _ineventoryItemList.Remove(existingItem); return true;
+        }
+        return false;
+    }
+
+    public bool RemoveItemById(InventoryItem inventoryItem)
+    {
+        InventoryItem existingItem = _ineventoryItemList.Find(i => i.Id == inventoryItem.Id);
+        if (existingItem != null)
+        {
+            _ineventoryItemList.Remove(existingItem);
+            return true;
         }
         return false;
     }
