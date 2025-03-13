@@ -329,7 +329,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     // =================== Item ======================
     public void PickupItem(ItemWorld item)
     {
-        bool result = InventoryManager.Instance.AddItemToInventorySlot(item);
+        bool result = InventoryManager.Instance.AddItemToInventory(item);
         if (result == true)
         {
             Debug.Log("Item added");
