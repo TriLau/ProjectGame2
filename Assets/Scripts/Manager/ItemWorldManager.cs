@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemWorldManager : Singleton<ItemWorldManager>, IDataPersistence
 {
+    [SerializeField]
     private ListItemWorld _listItemWorld;
     public GameObject itemPrefab;
     public ItemWorldControl[] itemsOnMap;

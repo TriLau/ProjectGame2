@@ -15,7 +15,9 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
         foreach (KeyValuePair<TKey, TValue> pair in this)
         {
             keys.Add(pair.Key);
+            Debug.Log("Added" + pair.Key);
             values.Add(pair.Value);
+            Debug.Log("Added" + pair.Value);
         }
     }
 
@@ -26,6 +28,8 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
         if (keys.Count != values.Count)
         {
             Debug.LogError("");
+            Debug.LogError(keys.Count);
+            Debug.LogError(values.Count);
         }
 
         for (int i = 0; i < keys.Count; i++)

@@ -370,6 +370,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     // ===================== Animation =====================
     public void CheckAnimation()
     {
+        if (!CanAttack) return;
         _itemOnHand.gameObject.SetActive(false);
         Item item = GetSelectedItem();
         if (item != null)
