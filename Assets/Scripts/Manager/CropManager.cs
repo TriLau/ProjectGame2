@@ -16,7 +16,7 @@ public class CropManager : Singleton<CropManager>
         get { return _plantedCrops; }
         set { _plantedCrops = value; }
     }
-
+   
     private void OnEnable()
     {
         EnviromentalStatusManager.OnTimeIncrease += UpdateCropsGrowthTime;
@@ -49,6 +49,16 @@ public class CropManager : Singleton<CropManager>
         }
     }
 
+    public void Harverst(Vector3Int pos)
+    {
+        if(PlantedCrops.ContainsKey(pos))
+        {
+            if (PlantedCrops[pos].IsFullyGrown())
+                Debug.Log("Start Harverst");
+            else
+                Debug.Log("not fully grown");
+        }
+    }
     public void UpdateCropsGrowthTime(int minute)
     {
         foreach(var crop in _plantedCrops.ToList())
