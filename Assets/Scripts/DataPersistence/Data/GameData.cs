@@ -42,11 +42,6 @@ public class GameData
     public void SetInventoryData(Inventory inventoryData)
     {
         this._inventoryData = inventoryData;
-
-        foreach (var item in inventoryData.InventoryItemList)
-        {
-            Debug.Log($"i[{item.SlotIndex}]: {item.Item.itemName} - {item.Quantity}");
-        }
     }
 
     public void SetSeason(EnvironmentalStatus status)

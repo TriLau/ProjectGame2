@@ -61,6 +61,13 @@ public class UI_InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         }
     }
 
+    public void ChangeSlot(Transform slot, int index)
+    {
+        parentAfterDrag = slot;
+        transform.SetParent(parentAfterDrag);
+        _inventoryItem.UpdateSlotIndex(index);
+    }
+
     // Drop & Drag
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -86,6 +93,10 @@ public class UI_InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         if (parentAfterDrag.GetComponent<UI_InventorySlot>() != null)
         {
             _inventoryItem.UpdateSlotIndex(parentAfterDrag.GetComponent<UI_InventorySlot>().slotIndex);
+        }
+        if (parentAfterDrag.GetComponent<UI_DropZone>() != null)
+        {
+            Destroy(gameObject);
         }
     }
 }
