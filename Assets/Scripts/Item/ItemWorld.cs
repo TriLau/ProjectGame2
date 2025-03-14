@@ -55,6 +55,11 @@ public class ItemWorld : IItemHolder
         _item = item;
     }
 
+    public void SetId()
+    {
+        _id = System.Guid.NewGuid().ToString();
+    }
+
     public void SetColected(bool colected)
     {
         _isColected = colected;
