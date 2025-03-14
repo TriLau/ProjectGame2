@@ -33,13 +33,12 @@ public class UI_InventorySlot : MonoBehaviour, IDropHandler
     {
         UI_InventoryItem draggedItem = eventData.pointerDrag.GetComponent<UI_InventoryItem>();
 
-        if (draggedItem == null)
-            return;
+        if (draggedItem == null) return;
 
-        if (transform.childCount > 0)
+        UI_InventoryItem existingItem = transform.GetComponentInChildren<UI_InventoryItem>();
+
+        if (existingItem != null)
         {
-            UI_InventoryItem existingItem = transform.GetChild(0).GetComponent<UI_InventoryItem>();
-
             if (existingItem.InventoryItem.Item.itemName == draggedItem.InventoryItem.Item.itemName && 
                 existingItem.InventoryItem.Item.stackable &&
                 existingItem.InventoryItem.Quantity < existingItem.InventoryItem.MaxStack)  
@@ -51,9 +50,16 @@ public class UI_InventorySlot : MonoBehaviour, IDropHandler
                 Destroy(draggedItem.gameObject);
                 return;
             }
+            else if (existingItem.InventoryItem.Item.itemName != draggedItem.InventoryItem.Item.itemName)
+            {
+                existingItem.ChangeSlot(draggedItem.parentAfterDrag, draggedItem.InventoryItem.SlotIndex);
+                draggedItem.parentAfterDrag = transform;
+            }
         }
-
-        draggedItem.parentAfterDrag = transform;
+        else
+        {
+            draggedItem.parentAfterDrag = transform;
+        }
     }
 
 }

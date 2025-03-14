@@ -31,15 +31,6 @@ public class ItemWorld : IItemHolder
     public bool IsColected
     { get { return _isColected; } }
 
-    public ItemWorld()
-    {
-        this._id = string.Empty;
-        this._item = null;
-        this._quantity = 0;
-        this._position = Vector3.zero;
-        this._isColected = false;
-    }
-
     public ItemWorld(string id, Item item, int quantity, Vector3 position)
     {
         _id = id;
