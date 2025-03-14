@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2937cd1ec553aec45961e357bc702d01, type: 3}
-  m_Name: Garlic Seed
+  m_Name: Onion Seed
   m_EditorClassIdentifier: 
   growthStages:
   - {fileID: 11400000, guid: c3c573ce0e4b6e94e855e21d38f5319a, type: 2}
@@ -20,6 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ff5ef6dbe35578543b5935865ebdecd1, type: 2}
   - {fileID: 11400000, guid: 45b3001b4bdc85a4db40f6170b25ccd2, type: 2}
   TimeToGrowth: 4320
+  season: 0
   tile: {fileID: 0}
   ruleTile: {fileID: 0}
   animatedTile: {fileID: 0}
@@ -29,4 +30,4 @@ MonoBehaviour:
   range: {x: 5, y: 4}
   stackable: 1
   image: {fileID: 17216761, guid: 6d5dacad31d5dc9458c33856e6a57497, type: 3}
-  itemName: Garlic Seed
+  itemName: Onion Seed
