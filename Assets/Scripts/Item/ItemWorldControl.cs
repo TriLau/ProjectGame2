@@ -46,7 +46,7 @@ public class ItemWorldControl : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (InventoryManager.Instance.AddItemToInventorySlot(_itemWorld))
+            if (InventoryManager.Instance.AddItemToInventory(_itemWorld))
             {
                 _itemWorld.SetColected(true);
                 Destroy(gameObject);

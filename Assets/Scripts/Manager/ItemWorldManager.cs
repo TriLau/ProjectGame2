@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ItemWorldManager : Singleton<ItemWorldManager>, IDataPersistence
 {
-    [SerializeField]
     private ListItemWorld _listItemWorld;
     public GameObject itemPrefab;
     public ItemWorldControl[] itemsOnMap;
@@ -55,6 +54,7 @@ public class ItemWorldManager : Singleton<ItemWorldManager>, IDataPersistence
                     ItemWorld itemWorld = item.GetItemWorld();
                     _listItemWorld.AddItemWorld(itemWorld);
                 }
+                Destroy(item.gameObject);
             }
 
             SpawnItem();

@@ -80,6 +80,7 @@ public class EnvironmentalResource : MonoBehaviour
 
                 transform.gameObject.GetComponent<Rigidbody2D>().AddForce(randomDir * 5f, ForceMode2D.Impulse);
                 ItemWorld itemWorld = transform.GetComponent<ItemWorldControl>().GetItemWorld();
+                itemWorld.SetId();
                 ItemWorldManager.Instance.AddItemWorld(itemWorld);
             }
         }      

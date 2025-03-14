@@ -65,32 +65,24 @@ public class EnviromentalStatusManager : Singleton<EnviromentalStatusManager>, I
 
     public bool ChangeSeason()
     {
-        switch (eStarus.DateTime.Month)
+        switch (eStarus.DateTime.Month, eStarus.DateTime.Day, eStarus.DateTime.Hour, eStarus.DateTime.Minute)
         {
-            case 1:
-            case 2:
-            case 3:
+            case (1, 1, 0, 0):
                 {
                     eStarus.SetSeasonStatus(ESeason.Spring);
                     return true;
                 }
-            case 4:
-            case 5:
-            case 6:
+            case (4, 1, 0, 0):
                 {
                     eStarus.SetSeasonStatus(ESeason.Summer);
                     return true;
                 }
-            case 7:
-            case 8:
-            case 9:
+            case (7, 1, 0, 0):
                 {
                     eStarus.SetSeasonStatus(ESeason.Autumn);
                     return true;
                 }
-            case 10:
-            case 11:
-            case 12:
+            case (10, 1, 0, 0):
                 {
                     eStarus.SetSeasonStatus(ESeason.Winter);
                     return true;

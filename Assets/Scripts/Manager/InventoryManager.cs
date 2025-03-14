@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using static UnityEditor.Progress;
 
 public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 {
     private Inventory inventory;
-    
     
     public UI_Inventory inventoryUI;
 
@@ -41,7 +41,13 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         selectedSlot = newValue;
     }
 
-    public bool AddItemToInventorySlot(ItemWorld item)
+    public bool AddItemToInventory(ItemWorld item)
+    {
+        InventoryItem inventoryItem = new InventoryItem(item.Id, item.Item, 0, item.Quantity);
+        return AddItemToInventorySlot(inventoryItem);
+    }    
+
+    public bool AddItemToInventorySlot(InventoryItem newItem)
     {
         for (int i = 0; i < inventoryUI.inventorySlotsUI.Count; i++)
         {
@@ -49,11 +55,11 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             UI_InventoryItem itemUI = slotUI.GetComponentInChildren<UI_InventoryItem>();
 
             if (itemUI != null &&
-                itemUI.InventoryItem.Item == item.Item &&
+                itemUI.InventoryItem.Item == newItem.Item &&
                 itemUI.InventoryItem.Quantity < itemUI.InventoryItem.MaxStack &&
-                itemUI.InventoryItem.Item.stackable == true)
+                itemUI.InventoryItem.Item.stackable)
             {
-                itemUI.InventoryItem.AddQuantity(1);
+                itemUI.InventoryItem.IncreaseQuantity(newItem.Quantity);
                 itemUI.RefreshCount();
                 return true;
             }
@@ -62,18 +68,17 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         for (int i = 0; i < inventoryUI.inventorySlotsUI.Count; i++)
         {
             UI_InventorySlot slotUI = inventoryUI.inventorySlotsUI[i];
-            UI_InventoryItem itemUI = slotUI.GetComponentInChildren<UI_InventoryItem>();
-
-            if (itemUI == null && inventory.AddItemToInventory(item.Id, item.Item, slotUI.slotIndex))
+            if (slotUI.transform.childCount == 0)
             {
-                InventoryItem inventoryItem = inventory.GetInventoryItemOfIndex(slotUI.slotIndex);
-                inventoryUI.AddItemToInventoryUI(inventoryItem, slotUI.slotIndex);
+                inventory.AddItemToInventory(newItem.Id, newItem.Item, slotUI.slotIndex);
+                inventoryUI.AddItemToInventoryUI(newItem, slotUI.slotIndex);
                 return true;
             }
         }
 
         return false;
     }
+
 
     public Item GetSelectedItem(bool use)
     {
@@ -84,7 +89,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             Item item = itemInSlot.InventoryItem.Item;
             if (use == true)
             {
-                itemInSlot.InventoryItem.AddQuantity(-1);
+                itemInSlot.InventoryItem.DecreaseQuantity(1);
                 if (itemInSlot.InventoryItem.Quantity <= 0)
                 {
                     Destroy(itemInSlot.gameObject);
@@ -99,6 +104,27 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         }
 
         return null;
+    }
+
+    public UI_InventorySlot GetEmptySlot()
+    {
+        foreach (var slot in inventoryUI.inventorySlotsUI)
+        {
+            UI_InventoryItem inventoryItemUI = slot.GetComponentInChildren<UI_InventoryItem>();
+            if (inventoryItemUI == null) return slot;
+        }
+        return null;
+    }
+
+    public void AddItemToEmptySlot(InventoryItem newItem, UI_InventorySlot emptySlot)
+    {
+        inventory.AddItemToInventory(newItem.Id, newItem.Item, emptySlot.slotIndex);
+        inventoryUI.AddItemToInventoryUI(newItem, emptySlot.slotIndex);
+    }
+
+    public void RemoveItemById(InventoryItem item)
+    {
+        inventory.RemoveItemById(item);
     }
 
     public void LoadData(GameData gameData)
