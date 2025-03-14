@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if(!IsRidingVehicle)
             CheckAnimation();
      
-        if (!IsRidingVehicle && IsHoldingItem && CanAttack && Input.GetMouseButton(0))
+        if (!IsRidingVehicle && IsHoldingItem && CanAttack && Input.GetMouseButtonDown(0))
         {
             UseCurrentItem();
         }

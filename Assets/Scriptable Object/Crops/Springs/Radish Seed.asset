@@ -20,6 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e6935f9b12fc15e41b9fd272d26b02e1, type: 2}
   - {fileID: 11400000, guid: d112609e310150b4992cd0894b7182af, type: 2}
   TimeToGrowth: 4320
+  season: 0
   tile: {fileID: 0}
   ruleTile: {fileID: 0}
   animatedTile: {fileID: 0}
