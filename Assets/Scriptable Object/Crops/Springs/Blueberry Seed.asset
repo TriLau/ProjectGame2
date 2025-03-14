@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2937cd1ec553aec45961e357bc702d01, type: 3}
   m_Name: Blueberry Seed
   m_EditorClassIdentifier: 
+  cropProductName: Blueberry
   growthStages:
   - {fileID: 11400000, guid: 83a14c0e07c607644a7952a9a2195006, type: 2}
   - {fileID: 11400000, guid: c3243dc9784cd95498fa312897b4bce4, type: 2}
@@ -21,6 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b218124b5ac99054e9cb6946fbeae88a, type: 2}
   TimeToGrowth: 4320
   season: 0
+  cropLevelImage: []
   tile: {fileID: 0}
   ruleTile: {fileID: 0}
   animatedTile: {fileID: 0}
