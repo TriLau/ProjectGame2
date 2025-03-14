@@ -11,9 +11,13 @@ public class Item : ScriptableObject
 {
     [Header("Only gameplay")]
     [Header("For Crops")]
+    public string cropProductName;
     public TileBase[] growthStages;
     public int TimeToGrowth;
     public ESeason season;
+    [Header("For Crops Products")]
+    public Sprite[] cropLevelImage;
+
     [Header("For Tools")]
     public TileBase tile;
     public RuleTile ruleTile;

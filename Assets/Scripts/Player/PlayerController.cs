@@ -251,7 +251,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if(!IsRidingVehicle && CanAttack && Input.GetMouseButton(1))
         {
-            tileTargeter.CheckHarverst();
+            if (tileTargeter.CheckHarverst(transform.position))
+            {
+                animator.SetTrigger(AnimationStrings.pickup);
+                _itemOnHand.gameObject.SetActive(false);
+
+            }
         }
     }
 
@@ -406,6 +411,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                         break;
                     }
                 case ItemType.Crop:
+                case ItemType.Food:
                     {
                         _itemOnHand.gameObject.SetActive(true);
                         ChangeAnimationState("Pickup_idle");

@@ -14,8 +14,11 @@ public class CropData
     [SerializeField] public bool needChangeStage;
     [SerializeField] public ESeason season;
     [SerializeField] public TileBase[] growthStages;
-
-    public CropData(int growthTime, TileBase[] growthStages, ESeason season)
+    [SerializeField] public string cropName;
+    [SerializeField] public int[] level; // crop se co 4 level
+    [SerializeField] public float[] ratio;
+    // them he thong chon level cua crop khi thu hoach
+    public CropData(int growthTime, TileBase[] growthStages, ESeason season, string cropName)
     {
         needChangeStage = false;
         currentStage = 0;
@@ -25,7 +28,9 @@ public class CropData
         timeToChangeStage = growthTime / growthStages.Length;
         stageTimeCounter = 0;
         this.season = season;
-        
+        this.cropName = cropName;
+        level = new int[] { 1,2,3,4};
+        ratio = new float[] { 100, 0, 0, 0 };
     }
 
     public void GrowthTimeUpdate(int minute)

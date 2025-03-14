@@ -142,9 +142,9 @@ public class TileTargeter : MonoBehaviour
         CanPlantGround = (tilemapCheck[tilemapCheck.Count - 1].name == "FarmGround" || tilemapCheck[tilemapCheck.Count - 1].name == "WateredGround");
     }
 
-    public void CheckHarverst()
+    public bool CheckHarverst(Vector3 playerPos)
     {
-        CropManager.Instance.Harverst(_clampedTilePosition);
+        return CropManager.Instance.Harverst(_clampedTilePosition, playerPos);
     }
     public void UseTool(bool changeFacingDirection)
     {

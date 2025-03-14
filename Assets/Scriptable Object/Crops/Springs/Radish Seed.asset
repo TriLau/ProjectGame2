@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2937cd1ec553aec45961e357bc702d01, type: 3}
   m_Name: Radish Seed
   m_EditorClassIdentifier: 
+  cropProductName: Radish
   growthStages:
   - {fileID: 11400000, guid: 03fd5a8c6a87df948bf1a29acdb27c27, type: 2}
   - {fileID: 11400000, guid: 9a70cd831f36889409050f6553d47e95, type: 2}
@@ -21,6 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d112609e310150b4992cd0894b7182af, type: 2}
   TimeToGrowth: 4320
   season: 0
+  cropLevelImage: []
   tile: {fileID: 0}
   ruleTile: {fileID: 0}
   animatedTile: {fileID: 0}
