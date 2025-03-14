@@ -14,10 +14,6 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
     private static int selectedSlot = -1;
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         if (Input.inputString != null)
@@ -61,6 +57,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             {
                 itemUI.InventoryItem.IncreaseQuantity(newItem.Quantity);
                 itemUI.RefreshCount();
+                inventoryUI.UpdateSlotUI(inventory);
                 return true;
             }
         }
@@ -70,7 +67,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             UI_InventorySlot slotUI = inventoryUI.inventorySlotsUI[i];
             if (slotUI.transform.childCount == 0)
             {
-                inventory.AddItemToInventory(newItem.Id, newItem.Item, slotUI.slotIndex);
+                inventory.AddItemToInventory(newItem, slotUI.slotIndex);
                 inventoryUI.AddItemToInventoryUI(newItem, slotUI.slotIndex);
                 return true;
             }
@@ -118,7 +115,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
     public void AddItemToEmptySlot(InventoryItem newItem, UI_InventorySlot emptySlot)
     {
-        inventory.AddItemToInventory(newItem.Id, newItem.Item, emptySlot.slotIndex);
+        inventory.AddItemToInventory(newItem, emptySlot.slotIndex);
         inventoryUI.AddItemToInventoryUI(newItem, emptySlot.slotIndex);
     }
 

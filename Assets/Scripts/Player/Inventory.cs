@@ -29,10 +29,10 @@ public class Inventory
         return item;
     }
 
-    public bool AddItemToInventory(string id, Item item, int slotIndex)
+    public bool AddItemToInventory(InventoryItem item, int slotIndex)
     {
-        InventoryItem inventoryItem = new InventoryItem(id, item, slotIndex);
-        _ineventoryItemList.Add(inventoryItem);
+        item.UpdateSlotIndex(slotIndex);
+        _ineventoryItemList.Add(item);
         return true;
     }
 
