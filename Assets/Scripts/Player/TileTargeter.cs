@@ -52,6 +52,13 @@ public class TileTargeter : MonoBehaviour
         set { _canHoe = value; }
     }
 
+    [SerializeField] private bool _lockedCanHoe = false;
+    public bool LockedCanHoe
+    {
+        get { return _lockedCanHoe; }
+        set { _lockedCanHoe = value; }
+    }
+
 
     [Header("WATER ON TILES SETTINGS")]
     [SerializeField] private bool _canWater = false;
@@ -61,6 +68,13 @@ public class TileTargeter : MonoBehaviour
         set { _canWater = value; }
     }
 
+    [SerializeField] private bool _lockedCanWater = false;
+    public bool LockedCanWater
+    {
+        get { return _lockedCanWater; }
+        set { _lockedCanWater = value; }
+    }
+
     [Header("PLANT ON TILES SETTINGS")]
     [SerializeField] private bool _canPlantGround = false;
     public bool CanPlantGround
@@ -68,6 +82,8 @@ public class TileTargeter : MonoBehaviour
         get { return _canPlantGround; }
         set { _canPlantGround = value; }
     }
+
+    
     void Update()
     {
         GetTargetTile();
@@ -125,12 +141,19 @@ public class TileTargeter : MonoBehaviour
         CanWater = TileManager.Instance.HoedTiles.ContainsKey(_clampedTilePosition) && !TileManager.Instance.WateredTiles.ContainsKey(_clampedTilePosition);
         CanPlantGround = (tilemapCheck[tilemapCheck.Count - 1].name == "FarmGround" || tilemapCheck[tilemapCheck.Count - 1].name == "WateredGround");
     }
+
+    public void CheckHarverst()
+    {
+        CropManager.Instance.Harverst(_clampedTilePosition);
+    }
     public void UseTool(bool changeFacingDirection)
     {
         if (changeFacingDirection)
         {
             ChangePlayerFacingDirection();
             LockClampedPosition();
+            LockedCanHoe = CanHoe;
+            LockedCanWater = CanWater;
         }
 
     }
@@ -184,7 +207,7 @@ public class TileTargeter : MonoBehaviour
     private void UseHoe(Item item)
     {
 
-        if (CanHoe)
+        if (LockedCanHoe)
         {
             Tilemap targetTilemap = null;
             foreach (Tilemap tilemap in Tilemaps)
@@ -214,7 +237,7 @@ public class TileTargeter : MonoBehaviour
 
     private void UseWaterCan(Item item)
     {
-        if (CanWater)
+        if (LockedCanWater)
         {
             Tilemap targetTilemap = null;
             foreach (Tilemap tilemap in Tilemaps)
