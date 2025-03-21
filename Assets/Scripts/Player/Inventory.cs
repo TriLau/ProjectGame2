@@ -64,4 +64,11 @@ public class Inventory
         }
         return false;
     }
+
+    public InventoryItem FindItemInInventory(int index)
+    {
+        InventoryItem existingItem = _ineventoryItemList.Find(i => i.SlotIndex == index);
+        if (existingItem != null) return existingItem;
+        return null;
+    }
 }
