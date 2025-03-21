@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2937cd1ec553aec45961e357bc702d01, type: 3}
   m_Name: Broccoli Seed
   m_EditorClassIdentifier: 
+  cropProductName: Broccoli
   growthStages:
   - {fileID: 11400000, guid: 9d60621ee73980c48968c1411c8e706c, type: 2}
   - {fileID: 11400000, guid: b82e2e24c1bc6fe45afcb73e90538792, type: 2}
@@ -20,6 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2fc75b1f63296e14ab657c2ca35a0127, type: 2}
   TimeToGrowth: 4320
   season: 0
+  cropLevelImage: []
   tile: {fileID: 0}
   ruleTile: {fileID: 0}
   animatedTile: {fileID: 0}
