@@ -33,26 +33,36 @@ public class ItemWorld : IItemHolder
 
     public ItemWorld(string id, Item item, int quantity, Vector3 position)
     {
-        _id = id;
-        _item = item;
-        _itemName = item.itemName;
-        _quantity = quantity;
-        _position = position;
-        _isColected = false;
+        this._id = id;
+        this._item = item;
+        this._itemName = item.itemName;
+        this._quantity = quantity;
+        this._position = position;
+        this._isColected = false;
     }
 
     public void SetItem(Item item)
     {
-        _item = item;
+        this._item = item;
     }
 
     public void SetId()
     {
-        _id = System.Guid.NewGuid().ToString();
+        this._id = System.Guid.NewGuid().ToString();
+    }
+
+    public void SetId(string id)
+    {
+        this._id = id;
     }
 
     public void SetColected(bool colected)
     {
-        _isColected = colected;
+        this._isColected = colected;
+    }
+
+    public void SetQuantity(int amount)
+    {
+        this._quantity = amount;
     }
 }

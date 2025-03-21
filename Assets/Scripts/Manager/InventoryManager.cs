@@ -43,6 +43,11 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         return AddItemToInventorySlot(inventoryItem);
     }    
 
+    public bool AddItemToInventory(InventoryItem item, int slotIndex)
+    {
+        return inventory.AddItemToInventory(item, slotIndex);
+    }    
+
     public bool AddItemToInventorySlot(InventoryItem newItem)
     {
         for (int i = 0; i < inventoryUI.inventorySlotsUI.Count; i++)
@@ -122,6 +127,11 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     public void RemoveItemById(InventoryItem item)
     {
         inventory.RemoveItemById(item);
+    }
+
+    public InventoryItem GetItemInSlot(int index)
+    {
+        return inventory.FindItemInInventory(index);
     }
 
     public void LoadData(GameData gameData)

@@ -1,27 +1,29 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CraftingSystemManager : Singleton<CraftingSystemManager>
 {
+    public List<GameObject> listOutputSlot;
     public GameObject outputSlot;
     public List<Recipe> recipes;
     public GameObject itemPrefab;
 
-    private Item[,] grid = new Item[3, 3];
+    private UI_InventoryItem[,] grid = new UI_InventoryItem[3, 3];
 
     private void OnEnable()
     {
-        UI_CraftingSlot.OnCraftingSlotAdded += AddItemToGrid;
+        UI_InventoryItem.OnCraftingSlotAdded += AddItemToGrid;
         UI_InventoryItem.ItemOnDrag += RemoveItemToGrid;
     }
 
     private void OnDisable()
     {
-        UI_CraftingSlot.OnCraftingSlotAdded -= AddItemToGrid;
+        UI_InventoryItem.OnCraftingSlotAdded -= AddItemToGrid;
         UI_InventoryItem.ItemOnDrag -= RemoveItemToGrid;
     }
 
-    public void AddItemToGrid(int i, int j, Item item)
+    public void AddItemToGrid(int i, int j, UI_InventoryItem item)
     {
         grid[i, j] = item;
         CheckRecipe();
@@ -29,13 +31,9 @@ public class CraftingSystemManager : Singleton<CraftingSystemManager>
 
     public void RemoveItemToGrid(int i, int j, Item item)
     {
+        grid[i, j] = null;
         UI_InventoryItem uI_InventoryItem = outputSlot.GetComponentInChildren<UI_InventoryItem>();
-        if (uI_InventoryItem != null)
-        {
-            grid[i, j] = null;
-            Destroy(uI_InventoryItem.gameObject);
-        }
-        else return;    
+        if (uI_InventoryItem != null) Destroy(uI_InventoryItem.gameObject);
     }
 
     public void CheckRecipe()
@@ -51,20 +49,14 @@ public class CraftingSystemManager : Singleton<CraftingSystemManager>
                 for (int j = 0; j < grid.GetLength(1); j++)
                 {
                     var slotItem = grid[i, j];
-                    if (slotItem == null) Debug.Log($"{i}{j} Ko co slotitem");
-                    else Debug.Log($"{i}{j}co slot slotitem");
-
                     var recipeItem = recipe.GetItem(i, j);
-                    if (recipeItem == null) Debug.Log($"{i}{j} Ko co recipeitem");
-                    else Debug.Log($"{i}{j}co slot recipeitem");
 
                     if ((slotItem == null && recipeItem != null) ||
                         (slotItem != null && recipeItem == null) ||
                         (slotItem != null && recipeItem != null &&
-                        slotItem.itemName != recipeItem.itemName))
+                        slotItem.InventoryItem.Item.itemName != recipeItem.itemName))
                     {
                         completeRecipe = false;
-                        Debug.Log("Sai cong thuc");
                         break;
                     }
                 }
@@ -74,7 +66,6 @@ public class CraftingSystemManager : Singleton<CraftingSystemManager>
 
             if (completeRecipe)
             {
-                Debug.Log("Dung cong thuc");
                 CreateItem(recipe.itemOutput);
                 return;
             }
@@ -92,21 +83,35 @@ public class CraftingSystemManager : Singleton<CraftingSystemManager>
         GameObject newItem = Instantiate(itemPrefab, outputSlot.transform);
         UI_InventoryItem inventoryItemUI = newItem.GetComponent<UI_InventoryItem>();
         inventoryItemUI.InitialiseItem(inventoryItem);
+        inventoryItemUI.IsItemCreated(true);
     }
 
-    public void ChangeListToGrid(List<UI_CraftingSlot> list, UI_CraftingSlot[,] grid)
+    public void TakeOfItem()
     {
-        int t = 0;
         for (int i = 0; i < grid.GetLength(0); i++)
         {
             for (int j = 0; j < grid.GetLength(1); j++)
             {
-                if (t < list.Count)
+                if (grid[i, j] != null)
                 {
-                    grid[i, j] = list[t];
-                    t++;
+                    if (grid[i, j].InventoryItem.Quantity > 1)
+                    {
+                        grid[i, j].InventoryItem.DecreaseQuantity(1);
+                        grid[i, j].RefreshCount();
+                    }
+                    else if (grid[i, j].InventoryItem.Quantity == 1)
+                    {
+                        InventoryManager.Instance.RemoveItemById(grid[i, j].InventoryItem);
+                        Destroy(grid[i, j].gameObject);
+                    }
                 }
+                else continue;
             }
         }
+    }
+
+    public void SetNumCraftingTable(int num)
+    {
+        this.outputSlot = listOutputSlot[num];
     }
 }

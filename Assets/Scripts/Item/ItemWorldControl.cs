@@ -13,6 +13,8 @@ public class ItemWorldControl : MonoBehaviour
     public Item item;
     private ItemWorld _itemWorld;
 
+    private bool canPickedup = true;
+
     private void Awake()
     {
         InitialItem(item);
@@ -44,7 +46,7 @@ public class ItemWorldControl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && canPickedup)
         {
             if (InventoryManager.Instance.AddItemToInventory(_itemWorld))
             {
@@ -52,5 +54,23 @@ public class ItemWorldControl : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void StartWaitForPickedup()
+    {
+        StartCoroutine(WaitForPickedup());
+    }
+
+    IEnumerator WaitForPickedup()
+    {
+        int i = 0;
+        while (i < 2)
+        {
+            canPickedup = false;
+            yield return new WaitForSeconds(1f);
+            i++;
+        }
+
+        canPickedup = true;
     }
 }

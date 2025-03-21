@@ -58,8 +58,13 @@ public class UI_InventorySlot : MonoBehaviour, IDropHandler
         }
         else
         {
-            draggedItem.parentAfterDrag = transform;
+            InventoryItem inventoryItem = InventoryManager.Instance.GetItemInSlot(slotIndex);
+            if (inventoryItem != null)
+            {
+                inventoryItem.UpdateSlotIndex(draggedItem.InventoryItem.SlotIndex);
+                draggedItem.parentAfterDrag = transform;
+            }
+            else draggedItem.parentAfterDrag = transform;
         }
     }
-
 }
