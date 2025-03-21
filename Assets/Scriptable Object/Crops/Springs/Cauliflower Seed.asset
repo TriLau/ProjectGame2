@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2937cd1ec553aec45961e357bc702d01, type: 3}
   m_Name: Cauliflower Seed
   m_EditorClassIdentifier: 
+  cropProductName: Cauliflower
   growthStages:
   - {fileID: 11400000, guid: 1c145a4e3d121e94d95d46ae113b6bd8, type: 2}
   - {fileID: 11400000, guid: c06c36b3e21877641a3ad694ff8333a8, type: 2}
@@ -21,6 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 74214b92eebfa4543bacfe4f79a2be85, type: 2}
   TimeToGrowth: 4320
   season: 0
+  cropLevelImage: []
   tile: {fileID: 0}
   ruleTile: {fileID: 0}
   animatedTile: {fileID: 0}

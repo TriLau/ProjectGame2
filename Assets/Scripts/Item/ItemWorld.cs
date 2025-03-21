@@ -12,7 +12,7 @@ public class ItemWorld : IItemHolder
     [SerializeField] private int _quantity;
     [SerializeField] private Vector3 _position;
     [SerializeField] private bool _isColected;
-
+   
     public Item Item
     { get { return _item; } }
 

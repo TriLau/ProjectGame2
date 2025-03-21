@@ -14,6 +14,7 @@ internal class AnimationStrings
     internal static string winterIdle = "Winter_Idle";
     internal static string isHit = "Hit";
 
+    internal static string pickup = "Pickup";
 
     internal static string hasBeenCut = "HasBeenCut";
 }
