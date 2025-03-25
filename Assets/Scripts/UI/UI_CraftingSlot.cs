@@ -4,17 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public enum EGrid
-{
-    Grid2x2,
-    Grid3x3
-}
-
 public class UI_CraftingSlot : MonoBehaviour, IDropHandler
 {
     public int i, j;
-
-    public static event Action<int, int, Item> OnCraftingSlotAdded;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -22,25 +14,31 @@ public class UI_CraftingSlot : MonoBehaviour, IDropHandler
 
         if (draggedItem == null) return;
 
-        if (transform.childCount > 0)
-        {
-            UI_InventoryItem existingItem = transform.GetChild(0).GetComponent<UI_InventoryItem>();
+        UI_InventoryItem existingItem = transform.GetComponentInChildren<UI_InventoryItem>();
 
-            if (existingItem.InventoryItem.Item.itemName == draggedItem.InventoryItem.Item.itemName &&
+        if (existingItem != null)
+        {
+            if (existingItem.InventoryItem.Item.itemName == draggedItem.InventoryItem.Item.itemName && 
                 existingItem.InventoryItem.Item.stackable &&
-                existingItem.InventoryItem.Quantity < existingItem.InventoryItem.MaxStack)
+                existingItem.InventoryItem.Quantity < existingItem.InventoryItem.MaxStack)  
             {
                 existingItem.InventoryItem.IncreaseQuantity(draggedItem.InventoryItem.Quantity);
                 existingItem.RefreshCount();
 
+                InventoryManager.Instance.RemoveItemById(draggedItem.InventoryItem);
                 Destroy(draggedItem.gameObject);
                 return;
             }
+            else if (existingItem.InventoryItem.Item.itemName != draggedItem.InventoryItem.Item.itemName)
+            {
+                existingItem.ChangeSlot(draggedItem.parentAfterDrag, draggedItem.InventoryItem.SlotIndex);
+                draggedItem.parentAfterDrag = transform;
+            }
         }
-
-        draggedItem.parentAfterDrag = transform;
-
-        OnCraftingSlotAdded?.Invoke(i, j, draggedItem.InventoryItem.Item);
+        else
+        {
+            draggedItem.parentAfterDrag = transform;
+        }
     }
 
     public Item GetItem()

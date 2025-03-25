@@ -17,6 +17,10 @@ public class UI_InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     public InventoryItem InventoryItem => _inventoryItem;
 
     public static Action<int, int, Item> ItemOnDrag;
+    public static event Action<int, int, UI_InventoryItem> OnCraftingSlotAdded;
+
+    [SerializeField]
+    private bool itemHasBeenCreated = false;
 
     public void InitialiseItem(InventoryItem newItem)
     {
@@ -74,10 +78,16 @@ public class UI_InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         image.raycastTarget = false;
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
-        UI_CraftingSlot uI_CraftingSlot = parentAfterDrag.GetComponent<UI_CraftingSlot>();
-        if (uI_CraftingSlot != null)
+        if (parentAfterDrag.GetComponent<UI_CraftingSlot>() != null)
         {
+            UI_CraftingSlot uI_CraftingSlot = parentAfterDrag.GetComponent<UI_CraftingSlot>();
             ItemOnDrag?.Invoke(uI_CraftingSlot.i, uI_CraftingSlot.j, _inventoryItem.Item);
+        }
+        
+        if (itemHasBeenCreated)
+        {
+            CraftingSystemManager.Instance.TakeOfItem();
+            InventoryManager.Instance.AddItemToInventory(InventoryItem, -1);
         }
     }
 
@@ -94,9 +104,24 @@ public class UI_InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         {
             _inventoryItem.UpdateSlotIndex(parentAfterDrag.GetComponent<UI_InventorySlot>().slotIndex);
         }
-        if (parentAfterDrag.GetComponent<UI_DropZone>() != null)
+        else if (parentAfterDrag.GetComponent<UI_DropZone>() != null)
         {
+            ItemWorldManager.Instance.DropItemFromInventory(_inventoryItem);
+            InventoryManager.Instance.RemoveItemById(_inventoryItem);
             Destroy(gameObject);
         }
+        else if (parentAfterDrag.GetComponent<UI_CraftingSlot>() != null)
+        {
+            UI_CraftingSlot uI_CraftingSlot = parentAfterDrag.GetComponent<UI_CraftingSlot>();
+            if (uI_CraftingSlot != null)
+            {
+                OnCraftingSlotAdded?.Invoke(uI_CraftingSlot.i, uI_CraftingSlot.j, this);
+            }
+        }
+    }
+
+    public void IsItemCreated(bool value)
+    {
+        this.itemHasBeenCreated = value;
     }
 }
