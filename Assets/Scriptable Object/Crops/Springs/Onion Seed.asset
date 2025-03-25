@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2937cd1ec553aec45961e357bc702d01, type: 3}
   m_Name: Onion Seed
   m_EditorClassIdentifier: 
-  cropProductName: Onion
-  growthStages:
-  - {fileID: 11400000, guid: c3c573ce0e4b6e94e855e21d38f5319a, type: 2}
-  - {fileID: 11400000, guid: cba61e3a08d27c248b83da5852abc623, type: 2}
-  - {fileID: 11400000, guid: 5ce968d7305539c4385760fc967d8670, type: 2}
-  - {fileID: 11400000, guid: 52e23a61dc6582045a493786b37454ea, type: 2}
-  - {fileID: 11400000, guid: ff5ef6dbe35578543b5935865ebdecd1, type: 2}
-  - {fileID: 11400000, guid: 45b3001b4bdc85a4db40f6170b25ccd2, type: 2}
-  TimeToGrowth: 4320
-  season: 0
+  CropSetting:
+    cropProductName: Onion
+    growthStages:
+    - {fileID: 11400000, guid: c3c573ce0e4b6e94e855e21d38f5319a, type: 2}
+    - {fileID: 11400000, guid: cba61e3a08d27c248b83da5852abc623, type: 2}
+    - {fileID: 11400000, guid: 5ce968d7305539c4385760fc967d8670, type: 2}
+    - {fileID: 11400000, guid: 52e23a61dc6582045a493786b37454ea, type: 2}
+    - {fileID: 11400000, guid: ff5ef6dbe35578543b5935865ebdecd1, type: 2}
+    - {fileID: 11400000, guid: 45b3001b4bdc85a4db40f6170b25ccd2, type: 2}
+    TimeToGrowth: 4320
+    season: 0
   cropLevelImage: []
   tile: {fileID: 0}
   ruleTile: {fileID: 0}

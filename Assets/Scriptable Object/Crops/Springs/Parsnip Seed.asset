@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2937cd1ec553aec45961e357bc702d01, type: 3}
   m_Name: Parsnip Seed
   m_EditorClassIdentifier: 
-  cropProductName: Parsnip
-  growthStages:
-  - {fileID: 11400000, guid: 57a1a35e8b63fdf43b57c5d3c99fc643, type: 2}
-  - {fileID: 11400000, guid: 0be0b7bcf84ad7b4fac9e7b71fb10b09, type: 2}
-  - {fileID: 11400000, guid: f866428f19762d0458a8c38ca0511727, type: 2}
-  - {fileID: 11400000, guid: e54c23211ac76c842acf0944a05c963c, type: 2}
-  - {fileID: 11400000, guid: 51587a20631b90a4f981e1fbb3ad07ac, type: 2}
-  TimeToGrowth: 4320
-  season: 0
+  CropSetting:
+    cropProductName: Parsnip
+    growthStages:
+    - {fileID: 11400000, guid: 57a1a35e8b63fdf43b57c5d3c99fc643, type: 2}
+    - {fileID: 11400000, guid: 0be0b7bcf84ad7b4fac9e7b71fb10b09, type: 2}
+    - {fileID: 11400000, guid: f866428f19762d0458a8c38ca0511727, type: 2}
+    - {fileID: 11400000, guid: e54c23211ac76c842acf0944a05c963c, type: 2}
+    - {fileID: 11400000, guid: 51587a20631b90a4f981e1fbb3ad07ac, type: 2}
+    TimeToGrowth: 4320
+    season: 0
   cropLevelImage: []
   tile: {fileID: 0}
   ruleTile: {fileID: 0}

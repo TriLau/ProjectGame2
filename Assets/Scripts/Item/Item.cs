@@ -11,10 +11,7 @@ public class Item : ScriptableObject
 {
     [Header("Only gameplay")]
     [Header("For Crops")]
-    public string cropProductName;
-    public TileBase[] growthStages;
-    public int TimeToGrowth;
-    public ESeason season;
+    public Crop CropSetting;
     [Header("For Crops Products")]
     public Sprite[] cropLevelImage;
 
@@ -33,8 +30,18 @@ public class Item : ScriptableObject
     [Header("Both")]
     public Sprite image;
     public string itemName;
-}
 
+    
+
+}
+[System.Serializable]
+public class Crop
+{
+    public string cropProductName;
+    public TileBase[] growthStages;
+    public int TimeToGrowth;
+    public ESeason season;
+}
 public enum ItemType
 {
     Tile,
