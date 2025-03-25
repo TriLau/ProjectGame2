@@ -430,9 +430,9 @@ MonoBehaviour:
   _tilemaps:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 9111606563782251726, guid: 130577277d5cb554bacd17a37afb6126, type: 3}
-  - {fileID: 741419083630274413, guid: a24b1e6ea1bbb8048ab417c20f44f95a, type: 3}
-  - {fileID: 6474455846099095451, guid: 3e7eb26198626ca45a259f3cbc07d563, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -442,5 +442,7 @@ MonoBehaviour:
   TargetRange: 1
   tilemapCheck: []
   _canHoe: 0
+  _lockedCanHoe: 0
   _canWater: 0
+  _lockedCanWater: 0
   _canPlantGround: 0

@@ -438,15 +438,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         else tileTargeter.RefreshTilemapCheck(true);
     }
 
-    private void MoveItemOnHandUp(float value)
-    {
-        _itemOnHand.MoveUp(value);
-    }
-
-    private void MoveItemOnHandDown(float value)
-    {
-        _itemOnHand.MoveDown(value);
-    }
 
     private void UseCurrentItem()
     {
