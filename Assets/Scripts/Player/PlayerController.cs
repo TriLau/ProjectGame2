@@ -6,7 +6,7 @@ using UnityEngine;
 using static Player;
 using static UnityEditor.Progress;
 
-public class PlayerController : MonoBehaviour, IDataPersistence
+public class PlayerController : Singleton<PlayerController>, IDataPersistence
 {
     public float walkSpeed = 1f;
     public float runSpeed = 1f;
@@ -188,13 +188,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     [SerializeField]
     private ItemOnHand _itemOnHand;
-    private void Awake()
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
     }
-
 
     void Update()
     {
@@ -459,9 +459,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                     tileTargeter.SetTile(item);
                     break;
                 }
-        }
-        
-        
+        }   
     }
 
 
