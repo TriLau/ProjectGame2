@@ -12,18 +12,27 @@ public class ItemWorldControl : MonoBehaviour
     }
     public Item item;
     private ItemWorld _itemWorld;
+    private Rigidbody2D rb;
 
     private bool canPickedup = true;
+
+    private bool _isSpawned = false;
+    public bool IsSpawned
+    {
+        get { return _isSpawned; }
+        private set { _isSpawned = value; }
+    }
 
     private void Awake()
     {
         InitialItem(item);
         _itemWorld = new ItemWorld(id, item, 1, transform.position);
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        transform.gameObject.GetComponent<Rigidbody2D>().velocity *= 0.8f;
+        rb.velocity *= 0.8f;
     }
 
     public void InitialItem(Item item)
