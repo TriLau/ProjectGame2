@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2937cd1ec553aec45961e357bc702d01, type: 3}
   m_Name: Tomato Seed
   m_EditorClassIdentifier: 
-  growthStages:
-  - {fileID: 11400000, guid: de3313b2a1ba4124ab88aeae163a6b0c, type: 2}
-  - {fileID: 11400000, guid: 6520357c7df5a1c42ab5a855e42ff789, type: 2}
-  - {fileID: 11400000, guid: c83e03678179411429d90274ee95d945, type: 2}
-  - {fileID: 11400000, guid: b87c902856a7df8429b10271412324c2, type: 2}
-  - {fileID: 11400000, guid: a957ffa19502133438ce6c24147304d2, type: 2}
-  - {fileID: 11400000, guid: c565af72e524f7845a51f41614210ad6, type: 2}
-  - {fileID: 11400000, guid: 59b5b13649c5fe7489fdb1d7ab3b0002, type: 2}
-  TimeToGrowth: 4320
-  season: 1
+  CropSetting:
+    cropProductName: Tomato
+    growthStages:
+    - {fileID: 11400000, guid: de3313b2a1ba4124ab88aeae163a6b0c, type: 2}
+    - {fileID: 11400000, guid: 6520357c7df5a1c42ab5a855e42ff789, type: 2}
+    - {fileID: 11400000, guid: c83e03678179411429d90274ee95d945, type: 2}
+    - {fileID: 11400000, guid: b87c902856a7df8429b10271412324c2, type: 2}
+    - {fileID: 11400000, guid: a957ffa19502133438ce6c24147304d2, type: 2}
+    - {fileID: 11400000, guid: c565af72e524f7845a51f41614210ad6, type: 2}
+    - {fileID: 11400000, guid: 59b5b13649c5fe7489fdb1d7ab3b0002, type: 2}
+    TimeToGrowth: 4320
+    season: 0
+  cropLevelImage: []
   tile: {fileID: 0}
   ruleTile: {fileID: 0}
   animatedTile: {fileID: 0}

@@ -41,7 +41,7 @@ public class CropManager : Singleton<CropManager>
     {
         if (isFarmGround && !_plantedCrops.ContainsKey(plantPosition))
         {
-            CropData newCrop = new CropData(crop.TimeToGrowth, crop.growthStages, crop.season, crop.cropProductName);
+            CropData newCrop = new CropData(crop.CropSetting.TimeToGrowth, crop.CropSetting.growthStages, crop.CropSetting.season, crop.CropSetting.cropProductName);
 
             _plantedCrops.Add(plantPosition, newCrop);
             cropTilemap.SetTile(plantPosition, newCrop.growthStages[0]);

@@ -7,7 +7,7 @@ public class RatioPick
 {
     private static System.Random random = new System.Random();
 
-    public static int GetRandomLevel(int[] levels, float[] probabilities)
+    public static T GetRandomLevel<T>(T[] levels, float[] probabilities)
     {
         if (levels.Length != probabilities.Length)
             throw new ArgumentException("level count and ratio count must be equals");

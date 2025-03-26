@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2937cd1ec553aec45961e357bc702d01, type: 3}
   m_Name: Cabbage Seed
   m_EditorClassIdentifier: 
-  cropProductName: Cabbage
-  growthStages:
-  - {fileID: 11400000, guid: c680062feceb040459ee5ded55445f1d, type: 2}
-  - {fileID: 11400000, guid: e4f42eec6d0ea6843a47fd58a8b1c0bd, type: 2}
-  - {fileID: 11400000, guid: 849a57878304aa548b170ebbc3a8b2dd, type: 2}
-  - {fileID: 11400000, guid: c7409b99afc76d047921b8778e3eaa86, type: 2}
-  - {fileID: 11400000, guid: b4edc315cfe3ba744b751b1c63d832d9, type: 2}
-  - {fileID: 11400000, guid: f9a8bb1b21fd1434fb7a49c732f7d1c9, type: 2}
-  - {fileID: 11400000, guid: 824579b5ff69ab14c96ee311b8df1706, type: 2}
-  TimeToGrowth: 4320
-  season: 0
+  CropSetting:
+    cropProductName: Cabbage
+    growthStages:
+    - {fileID: 11400000, guid: c680062feceb040459ee5ded55445f1d, type: 2}
+    - {fileID: 11400000, guid: e4f42eec6d0ea6843a47fd58a8b1c0bd, type: 2}
+    - {fileID: 11400000, guid: 849a57878304aa548b170ebbc3a8b2dd, type: 2}
+    - {fileID: 11400000, guid: c7409b99afc76d047921b8778e3eaa86, type: 2}
+    - {fileID: 11400000, guid: b4edc315cfe3ba744b751b1c63d832d9, type: 2}
+    - {fileID: 11400000, guid: f9a8bb1b21fd1434fb7a49c732f7d1c9, type: 2}
+    - {fileID: 11400000, guid: 824579b5ff69ab14c96ee311b8df1706, type: 2}
+    TimeToGrowth: 4320
+    season: 0
   cropLevelImage: []
   tile: {fileID: 0}
   ruleTile: {fileID: 0}
