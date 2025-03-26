@@ -77,3 +77,6 @@ TagManager:
   - name: TargetedTile
     uniqueID: 4154933181
     locked: 0
+  - name: UI
+    uniqueID: 2693888133
+    locked: 0
