@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 673244303}
   - component: {fileID: 673244302}
   - component: {fileID: 673244301}
+  - component: {fileID: 673244304}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -214,6 +215,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &673244304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673244300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &1493192515
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +407,16 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -452,77 +507,79 @@ Tilemap:
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
-      e00: 2.1e-44
-      e01: 0
-      e02: 6.9176627e+19
-      e03: 6.9176627e+19
-      e10: 0
-      e11: 0
-      e12: 6.2e-43
-      e13: 6.2e-43
-      e20: 3.1385153e-23
-      e21: 3.055244e+35
-      e22: -3.0584528e-19
-      e23: -1.695e-41
-      e30: 4.5905e-41
-      e31: 6.22e-43
-      e32: 6.2e-43
-      e33: 6.22e-43
-  - m_RefCount: 0
-    m_Data:
       e00: 0
       e01: 0
       e02: 0
-      e03: 0
+      e03: 3.9847754e-32
       e10: 0
       e11: 0
       e12: 0
-      e13: 0
+      e13: 8.3e-44
       e20: 0
       e21: 0
-      e22: 0
+      e22: 1.346253e-19
       e23: 0
       e30: 0
       e31: 0
-      e32: 0
+      e32: 4.5904e-41
       e33: 0
   - m_RefCount: 0
     m_Data:
       e00: 0
       e01: 0
       e02: 0
-      e03: 0
+      e03: 3.9847754e-32
       e10: 0
       e11: 0
       e12: 0
-      e13: 0
+      e13: 8.3e-44
       e20: 0
       e21: 0
-      e22: 0
+      e22: 1.346253e-19
       e23: 0
       e30: 0
       e31: 0
-      e32: 0
+      e32: 4.5904e-41
       e33: 0
   - m_RefCount: 0
     m_Data:
       e00: 0
       e01: 0
-      e02: 6.9180005e+19
-      e03: 6.9180005e+19
+      e02: 0
+      e03: 3.9847754e-32
       e10: 0
       e11: 0
-      e12: 6.2e-43
-      e13: 6.2e-43
-      e20: 3.1385153e-23
-      e21: 5.18664e+30
-      e22: -5.736088e-19
-      e23: -1.7242e-41
-      e30: 4.5905e-41
-      e31: 6.22e-43
-      e32: 6.2e-43
-      e33: 6.22e-43
+      e12: 0
+      e13: 8.3e-44
+      e20: 0
+      e21: 0
+      e22: 1.346253e-19
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 4.5904e-41
+      e33: 0
+  - m_RefCount: 0
+    m_Data:
+      e00: 7e-45
+      e01: 0
+      e02: 1.610634e+10
+      e03: 1.610634e+10
+      e10: 0
+      e11: 0
+      e12: 6.98e-43
+      e13: 6.98e-43
+      e20: 3.1301135e-19
+      e21: 1.217487e+18
+      e22: -6.8164294e-29
+      e23: 3.695098e+19
+      e30: 4.5904e-41
+      e31: 7e-43
+      e32: 6.98e-43
+      e33: 7e-43
   m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: 4.1865e-41, g: 4.1865e-41, b: 4.1865e-41, a: 4.1865e-41}
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   m_TileObjectToInstantiateArray: []
