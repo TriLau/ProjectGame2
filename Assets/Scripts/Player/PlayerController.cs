@@ -433,9 +433,8 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
         animator.Play(newState);
         CurrentState = newState;
-        if (noTargetStates.Contains(newState))
-            tileTargeter.RefreshTilemapCheck(false);
-        else tileTargeter.RefreshTilemapCheck(true);
+        tileTargeter.RefreshTilemapCheck(!noTargetStates.Contains(newState));
+        
     }
 
 
@@ -461,8 +460,6 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
                 }
         }   
     }
-
-
     // Load & Save
     public void LoadData(GameData gameData)
     {

@@ -427,16 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 3425856357365464354}
-  _tilemaps:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _tilemaps: []
   _targetTilemap: {fileID: 0}
   _targetTile: {fileID: 11400000, guid: d7c3298a0a6669446a7e49bfc0d990bc, type: 2}
   TargetRange: 1

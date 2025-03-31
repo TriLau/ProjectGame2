@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public class CropData
 {
-    [SerializeField] public int currentStage;
+    [SerializeField] public int _currentStage;
     [SerializeField] public int growthTimeLeft;
     [SerializeField] public bool isWatered;
     [SerializeField] public int timeToChangeStage;
@@ -21,7 +21,7 @@ public class CropData
     public CropData(int growthTime, TileBase[] growthStages, ESeason season, string cropName)
     {
         needChangeStage = false;
-        currentStage = 0;
+        _currentStage = 0;
         isWatered = false;
         growthTimeLeft = growthTime;
         this.growthStages = growthStages;
@@ -38,15 +38,15 @@ public class CropData
         growthTimeLeft -= minute;
         stageTimeCounter += minute;
 
-        if(stageTimeCounter >= timeToChangeStage && currentStage < growthStages.Length - 1)
+        if(stageTimeCounter >= timeToChangeStage && _currentStage < growthStages.Length - 1)
         {
             needChangeStage = true;
-            currentStage++;
+            _currentStage++;
             stageTimeCounter = 0;
         }
     }
     public bool IsFullyGrown()
     {
-        return currentStage == growthStages.Length - 1;
+        return _currentStage == growthStages.Length - 1;
     }
 }

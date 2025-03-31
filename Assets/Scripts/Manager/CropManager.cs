@@ -69,9 +69,7 @@ public class CropManager : Singleton<CropManager>
         foreach (var crop in _plantedCrops.ToList())
         {
             var cropInfo = crop.Value;
-            if (TileManager.Instance.WateredTiles.ContainsKey(crop.Key))
-                cropInfo.isWatered = true;
-            else cropInfo.isWatered = false;
+            cropInfo.isWatered = TileManager.Instance.WateredTiles.ContainsKey(crop.Key);
             if (!cropInfo.IsFullyGrown())
             {
                 if (cropInfo.season != EnviromentalStatusManager.Instance.eStarus.SeasonStatus)
@@ -87,7 +85,7 @@ public class CropManager : Singleton<CropManager>
                 if (cropInfo.needChangeStage)
                 {
                     cropInfo.needChangeStage = false;
-                    cropTilemap.SetTile(crop.Key, cropInfo.growthStages[cropInfo.currentStage]);
+                    cropTilemap.SetTile(crop.Key, cropInfo.growthStages[cropInfo._currentStage]);
                 }
             }
             else
@@ -109,7 +107,7 @@ public class CropManager : Singleton<CropManager>
         PlantedCrops = crops;
         foreach (var crop in PlantedCrops)
         {
-            cropTilemap.SetTile(crop.Key, crop.Value.growthStages[crop.Value.currentStage]);
+            cropTilemap.SetTile(crop.Key, crop.Value.growthStages[crop.Value._currentStage]);
         }
     }
 }
