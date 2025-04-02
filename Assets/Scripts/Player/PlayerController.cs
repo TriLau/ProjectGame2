@@ -9,7 +9,7 @@ using static UnityEditor.Progress;
 public class PlayerController : Singleton<PlayerController>, IDataPersistence
 {
     public float walkSpeed = 1f;
-    public float runSpeed = 1f;
+    public float runSpeed = 1f; // :)) tuong de 1.5f
     public float vehicleSpeed;
     private string _currentState;
     public string CurrentState
@@ -17,7 +17,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         get { return _currentState; }
         set { _currentState = value; }
     }
-    public string[] noTargetStates = { "Sword", "Axe", "Scythe" };
+    public string[] noTargetStates = { "Sword", "Axe", "Scythe" }; 
     public string[] toolsAndWeapon = { "Sword", "Axe", "Scythe", "WaterCan", "Pickaxe", "Shovel" };
 
     [SerializeField] private TileTargeter tileTargeter;
@@ -43,13 +43,13 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     public Vector2 movement;
     private Vector2 lastMovement;
-    public Vector2 LastMovement
+    public Vector2 LastMovement // Keep the last animation
     {
         get { return lastMovement; }
         set
         {
             lastMovement = value;
-            animator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x));
+            animator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x)); 
             animator.SetFloat("Vertical", lastMovement.y);
         }
 
