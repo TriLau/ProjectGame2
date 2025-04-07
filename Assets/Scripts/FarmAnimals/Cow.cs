@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Cow : FarmAnimal
@@ -31,4 +32,6 @@ public class Cow : FarmAnimal
         _animator.SetBool("IsMature", IsMature);
 
     }
+
+    
 }

@@ -14,7 +14,13 @@ public class ItemWorldControl : MonoBehaviour
     private ItemWorld _itemWorld;
     private Rigidbody2D rb;
 
-    private bool canPickedup = true;
+    [SerializeField]
+    private bool _canPickup = true;
+    public bool CanPickup
+    {
+        get { return _canPickup; }
+        set { _canPickup = value; }
+    }
 
     private bool _isSpawned = false;
     public bool IsSpawned
@@ -53,9 +59,9 @@ public class ItemWorldControl : MonoBehaviour
         InitialItem(item);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && canPickedup)
+        if (collision.CompareTag("Player") && CanPickup)
         {
             if (InventoryManager.Instance.AddItemToInventory(_itemWorld))
             {
@@ -73,13 +79,13 @@ public class ItemWorldControl : MonoBehaviour
     IEnumerator WaitForPickedup()
     {
         int i = 0;
-        while (i < 2)
+        while (i < 1)
         {
-            canPickedup = false;
+            CanPickup = false;
             yield return new WaitForSeconds(1f);
             i++;
         }
 
-        canPickedup = true;
+        CanPickup = true;
     }
 }

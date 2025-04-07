@@ -3,45 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class EnvironmentalResource : MonoBehaviour
+[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(Damageable))]
+[RequireComponent(typeof(Animator))]
+public abstract class EnvironmentalResource : MonoBehaviour
 {
-    private Animator animator;
-    private Damageable damageable;
+    protected Animator animator;
+    protected Damageable damageable;
+    [SerializeField] protected DestructibleEnviromentResources destructibleBlockInfo;
+    [SerializeField] protected GameObject itemToDrop;
 
-    [SerializeField]
-    private int numItem = 2;
-
-    [SerializeField]
-    private GameObject item;
-
-    void Start()
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
         damageable = GetComponent<Damageable>();
     }
 
-    private void OnEnable()
+    protected void Start()
     {
+        
+    }
+    protected void OnEnable()
+    {
+        if (this is StoneAndMineral) return;
         EnviromentalStatusManager.ChangeSeasonEvent += ChangeBySeason;
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
+        if (this is StoneAndMineral) return;
         EnviromentalStatusManager.ChangeSeasonEvent -= ChangeBySeason;
     }
 
-    public void OnHit(int damage, Vector2 knockback)
-    {
-        
-        if (damageable.Health == 20)
-        {
-            animator.SetBool(AnimationStrings.hasBeenCut, true);
-            DropItem();
-        }else animator.SetTrigger("Hit");
-    }
+    public virtual void OnHit(int damage, Vector2 knockback) { }
 
 
-    public void ChangeBySeason(ESeason season)
+    protected void ChangeBySeason(ESeason season)
     {
         switch(season)
         {
@@ -68,20 +65,27 @@ public class EnvironmentalResource : MonoBehaviour
         }
     }
 
-    public void DropItem()
+    public void DropItem(bool makeLessDrop)
     {
+        itemToDrop.GetComponent<ItemWorldControl>().item = destructibleBlockInfo.ItemToDrop;
+        Debug.Log(itemToDrop.GetComponent<ItemWorldControl>().item.itemName);
+        int numItem = 0;
+        numItem = UtilsClass.GetRandomValue(destructibleBlockInfo.numOfItemCouldDrop, destructibleBlockInfo.ratioForEachNum);
+        if(makeLessDrop) numItem /= 2;
         if (numItem > 0)
         {
             for (int i = 0; i < numItem; i++)
             {
                 Vector3 randomDir = UtilsClass.GetRandomDir();
                 Vector3 position = this.transform.position + randomDir * 0.2f;
-                GameObject transform = Instantiate(item, position, Quaternion.identity);
+                GameObject transform = Instantiate(itemToDrop, position, Quaternion.identity);
 
                 transform.gameObject.GetComponent<Rigidbody2D>().AddForce(randomDir * 5f, ForceMode2D.Impulse);
+                transform.GetComponent<ItemWorldControl>().StartWaitForPickedup();
                 ItemWorld itemWorld = transform.GetComponent<ItemWorldControl>().GetItemWorld();
                 itemWorld.SetId();
                 ItemWorldManager.Instance.AddItemWorld(itemWorld);
+
             }
         }      
     }

@@ -9,7 +9,7 @@ public class TileTargeter : MonoBehaviour
 {
     [SerializeField] PlayerController playerController;
     [SerializeField]
-    private List<Tilemap> _tilemaps; 
+    private List<Tilemap> _tilemaps;
     public List<Tilemap> Tilemaps
     {
         get { return _tilemaps; }
@@ -44,7 +44,6 @@ public class TileTargeter : MonoBehaviour
     private Vector3Int _lockedTilePosition;
 
     [SerializeField] private List<Tilemap> tilemapCheck = new List<Tilemap>();
-    [Header("HOE ON TILES SETTINGS")]
     [SerializeField] private bool _canHoe = false;
     public bool CanHoe
     {
@@ -60,7 +59,6 @@ public class TileTargeter : MonoBehaviour
     }
 
 
-    [Header("WATER ON TILES SETTINGS")]
     [SerializeField] private bool _canWater = false;
     public bool CanWater
     {
@@ -75,7 +73,6 @@ public class TileTargeter : MonoBehaviour
         set { _lockedCanWater = value; }
     }
 
-    [Header("PLANT ON TILES SETTINGS")]
     [SerializeField] private bool _canPlantGround = false;
     public bool CanPlantGround
     {
@@ -143,7 +140,7 @@ public class TileTargeter : MonoBehaviour
 
         foreach (Tilemap tilemap in Tilemaps)
         {
-            if (tilemap.HasTile(_clampedTilePosition)) 
+            if (tilemap.HasTile(_clampedTilePosition))
             {
                 tilemapCheck.Add(tilemap);
             }
@@ -151,14 +148,38 @@ public class TileTargeter : MonoBehaviour
 
         if (showTarget)
         {
-            TargetTilemap.SetTile(_clampedTilePosition, TargetTile); 
+            TargetTilemap.SetTile(_clampedTilePosition, TargetTile);
         }
         _previousTilePos = _clampedTilePosition;
 
         // Check if tile is valid to do something
-        CanHoe = (tilemapCheck.Count == 1 && tilemapCheck[0].name == "Walkfront");
+        CanHoe = (tilemapCheck[tilemapCheck.Count - 1].name == "Walkfront" && CheckCanHoe());
         CanWater = TileManager.Instance.HoedTiles.ContainsKey(_clampedTilePosition) && !TileManager.Instance.WateredTiles.ContainsKey(_clampedTilePosition);
         CanPlantGround = (tilemapCheck[tilemapCheck.Count - 1].name == "FarmGround" || tilemapCheck[tilemapCheck.Count - 1].name == "WateredGround");
+    }
+
+    private bool CheckCanHoe()
+    {
+        List<Vector3Int> surroundingTiles = new List<Vector3Int>
+        {
+            _clampedTilePosition + new Vector3Int(0, 1),   // Top
+            _clampedTilePosition + new Vector3Int(0, -1),  // Bottom
+            _clampedTilePosition + new Vector3Int(1, 0),   // Right
+            _clampedTilePosition + new Vector3Int(-1, 0),  // Left
+            _clampedTilePosition + new Vector3Int(1, 1),   // Top-Right
+            _clampedTilePosition + new Vector3Int(-1, 1),  // Top-Left
+            _clampedTilePosition + new Vector3Int(1, -1),  // Bottom-Right
+            _clampedTilePosition + new Vector3Int(-1, -1)  // Bottom-Left
+        };
+
+        foreach(var tile in surroundingTiles)
+        {
+            if (!tilemapCheck[tilemapCheck.Count - 1].HasTile(tile))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public bool CheckHarverst(Vector3 playerPos)
@@ -232,13 +253,13 @@ public class TileTargeter : MonoBehaviour
             Tilemap targetTilemap = null;
             foreach (Tilemap tilemap in Tilemaps)
             {
-                if(tilemap.name == item.tilemap.name)
+                if (tilemap.name == item.tilemap.name)
                 {
                     targetTilemap = tilemap;
                     break;
                 }
-                    
-                
+
+
             }
             if (!TileManager.Instance.HoedTiles.ContainsKey(_lockedTilePosition))
             {
@@ -267,7 +288,7 @@ public class TileTargeter : MonoBehaviour
                     targetTilemap = tilemap;
                     break;
                 }
-                    
+
             }
             if (!TileManager.Instance.WateredTiles.ContainsKey(_lockedTilePosition))
             {
@@ -278,7 +299,7 @@ public class TileTargeter : MonoBehaviour
             {
                 Debug.Log("Already water");
             }
-                
+
         }
         else
         {
@@ -288,16 +309,16 @@ public class TileTargeter : MonoBehaviour
 
     public void SetTile(Item item)
     {
-        switch(item.type)
+        switch (item.type)
         {
             default:
                 break;
 
             case ItemType.Crop:
                 {
-                    GameObject.Find("CropManager").GetComponent<CropManager>().PlantCrop(CanPlantGround,_clampedTilePosition,item);
+                    GameObject.Find("CropManager").GetComponent<CropManager>().PlantCrop(CanPlantGround, _clampedTilePosition, item);
                     break;
-                }        
+                }
         }
     }
 

@@ -17,8 +17,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         get { return _currentState; }
         set { _currentState = value; }
     }
-    public string[] noTargetStates = { "Sword", "Axe", "Scythe" };
-    public string[] toolsAndWeapon = { "Sword", "Axe", "Scythe", "WaterCan", "Pickaxe", "Shovel" };
+    public List<string> noTargetStates = new List<string> { "Sword", "Axe", "Scythe", "Pickaxe" };
 
     [SerializeField] private TileTargeter tileTargeter;
 
@@ -430,7 +429,6 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     private void ChangeAnimationState(string newState)
     {
         if (CurrentState == newState) return;
-
         animator.Play(newState);
         CurrentState = newState;
         tileTargeter.RefreshTilemapCheck(!noTargetStates.Contains(newState));

@@ -6,22 +6,27 @@ public class Attack : MonoBehaviour
 {
     public int attackDamage = 10;
     public Vector2 knockback = Vector2.zero;
+    public LayerMask LayerToHit;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Damageable damageable = collision.gameObject.GetComponent<Damageable>();
-
-        if (damageable != null)
+        if (((1 << collision.gameObject.layer) & LayerToHit) != 0)
         {
-            float direction = Mathf.Sign(collision.transform.position.x - transform.position.x);
-            Vector2 deliveredKnockBack = new Vector2(knockback.x * direction, knockback.y);
+            Damageable damageable = collision.gameObject.GetComponent<Damageable>();
 
-            bool goHit = damageable.Hit(attackDamage, deliveredKnockBack);
-
-            if (goHit)
+            if (damageable != null)
             {
-                Debug.Log(collision.gameObject.name + " hit for " + attackDamage);
+                float direction = Mathf.Sign(collision.transform.position.x - transform.position.x);
+                Vector2 deliveredKnockBack = new Vector2(knockback.x * direction, knockback.y);
+
+                bool goHit = damageable.Hit(attackDamage, deliveredKnockBack);
+
+                if (goHit)
+                {
+                    Debug.Log(collision.gameObject.name + " hit for " + attackDamage);
+                }
             }
         }
+        
     }
 }
