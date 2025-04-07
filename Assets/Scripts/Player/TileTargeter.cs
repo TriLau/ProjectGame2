@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class TileTargeter : MonoBehaviour
 {
     [SerializeField] PlayerController playerController;
-    [Header("PUT ALL TILEMAPS HERE")]
     [SerializeField]
-    private Tilemap[] _tilemaps; // All Tilemaps to check (Ground, Decorations, etc.)
-    public Tilemap[] Tilemaps
+    private List<Tilemap> _tilemaps; 
+    public List<Tilemap> Tilemaps
     {
         get { return _tilemaps; }
         set { _tilemaps = value; }
@@ -83,12 +83,31 @@ public class TileTargeter : MonoBehaviour
         set { _canPlantGround = value; }
     }
 
-    
+    private void Awake()
+    {
+        GetAllTilemaps();
+        TargetTilemap = Tilemaps.LastOrDefault();
+    }
     void Update()
     {
         GetTargetTile();
     }
+    void GetAllTilemaps()
+    {
+        GameObject gridObject = GameObject.Find("Grid");
 
+        if (gridObject == null)
+        {
+            Debug.LogError("No Grid found in the scene!");
+            return;
+        }
+
+        Tilemaps.Clear();
+        Tilemap[] foundTilemaps = gridObject.GetComponentsInChildren<Tilemap>();
+
+        Tilemaps.AddRange(foundTilemaps);
+
+    }
     void GetTargetTile()
     {
 
@@ -151,6 +170,7 @@ public class TileTargeter : MonoBehaviour
         if (changeFacingDirection)
         {
             ChangePlayerFacingDirection();
+            RefreshTilemapCheck(changeFacingDirection);
             LockClampedPosition();
             LockedCanHoe = CanHoe;
             LockedCanWater = CanWater;

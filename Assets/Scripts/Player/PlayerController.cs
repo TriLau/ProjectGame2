@@ -9,7 +9,7 @@ using static UnityEditor.Progress;
 public class PlayerController : Singleton<PlayerController>, IDataPersistence
 {
     public float walkSpeed = 1f;
-    public float runSpeed = 1f;
+    public float runSpeed = 1f; // :)) tuong de 1.5f
     public float vehicleSpeed;
     private string _currentState;
     public string CurrentState
@@ -17,7 +17,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         get { return _currentState; }
         set { _currentState = value; }
     }
-    public string[] noTargetStates = { "Sword", "Axe", "Scythe" };
+    public string[] noTargetStates = { "Sword", "Axe", "Scythe" }; 
     public string[] toolsAndWeapon = { "Sword", "Axe", "Scythe", "WaterCan", "Pickaxe", "Shovel" };
 
     [SerializeField] private TileTargeter tileTargeter;
@@ -27,7 +27,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     public bool CanMove
     {
         get { return _canMove; }
-        set 
+        set
         { _canMove = value; }
     }
 
@@ -43,13 +43,13 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     public Vector2 movement;
     private Vector2 lastMovement;
-    public Vector2 LastMovement
+    public Vector2 LastMovement // Keep the last animation
     {
         get { return lastMovement; }
         set
         {
             lastMovement = value;
-            animator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x));
+            animator.SetFloat("Horizontal", Mathf.Abs(lastMovement.x)); 
             animator.SetFloat("Vertical", lastMovement.y);
         }
 
@@ -59,7 +59,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     private Animator animator;
     private Collider2D col;
     private Player player;
-    
+
     [SerializeField]
     private VehicleController _currentVehicle;
     public VehicleController CurrentVehicle
@@ -206,7 +206,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         if (Input.GetKeyDown(KeyCode.E) && CanRide)
         {
             IsRidingVehicle = !IsRidingVehicle;
-            
+
             if (IsRidingVehicle)
             {
                 ChangeAnimationState("Idle");
@@ -234,22 +234,22 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
             {
                 StopAllAction();
                 animator.SetBool(AnimationStrings.isSleep, true);
-                
+
                 IsSleeping = !IsSleeping;
                 CurrentBed.SetSleep(IsSleeping);
             }
         }
 
 
-        if(!IsRidingVehicle)
+        if (!IsRidingVehicle)
             CheckAnimation();
-     
+
         if (!IsRidingVehicle && IsHoldingItem && CanAttack && Input.GetMouseButton(0))
         {
             UseCurrentItem();
         }
 
-        if(!IsRidingVehicle && CanAttack && Input.GetMouseButton(1))
+        if (!IsRidingVehicle && CanAttack && Input.GetMouseButton(1))
         {
             if (tileTargeter.CheckHarverst(transform.position))
             {
@@ -317,8 +317,6 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         movement = new Vector2(moveX, moveY).normalized;
 
         if (movement != Vector2.zero) LastMovement = movement;
-
-        
 
         animator.SetFloat("Speed", movement.magnitude);
         animator.SetBool("IsRunning", Input.GetKey(KeyCode.LeftShift));
@@ -394,20 +392,20 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
         if (IsHoldingItem)
         {
-            
+
             switch (item.type)
             {
                 default:
                     {
                         ChangeAnimationState("Idle");
-                        
+
                         break;
                     }
                 case ItemType.Tool:
                     {
 
                         ChangeAnimationState(item.name);
-                        
+
                         break;
                     }
                 case ItemType.Crop:
@@ -433,9 +431,8 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
         animator.Play(newState);
         CurrentState = newState;
-        if (noTargetStates.Contains(newState))
-            tileTargeter.RefreshTilemapCheck(false);
-        else tileTargeter.RefreshTilemapCheck(true);
+        tileTargeter.RefreshTilemapCheck(!noTargetStates.Contains(newState));
+        
     }
 
 
@@ -459,10 +456,8 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
                     tileTargeter.SetTile(item);
                     break;
                 }
-        }   
+        }
     }
-
-
     // Load & Save
     public void LoadData(GameData gameData)
     {
@@ -472,7 +467,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     public void SaveData(ref GameData gameData)
     {
-        player.SetPosition(transform.position); 
+        player.SetPosition(transform.position);
         gameData.SetPlayerData(player);
     }
 }
