@@ -27,7 +27,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     public bool CanMove
     {
         get { return _canMove; }
-        set 
+        set
         { _canMove = value; }
     }
 
@@ -59,7 +59,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     private Animator animator;
     private Collider2D col;
     private Player player;
-    
+
     [SerializeField]
     private VehicleController _currentVehicle;
     public VehicleController CurrentVehicle
@@ -206,7 +206,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         if (Input.GetKeyDown(KeyCode.E) && CanRide)
         {
             IsRidingVehicle = !IsRidingVehicle;
-            
+
             if (IsRidingVehicle)
             {
                 ChangeAnimationState("Idle");
@@ -234,22 +234,22 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
             {
                 StopAllAction();
                 animator.SetBool(AnimationStrings.isSleep, true);
-                
+
                 IsSleeping = !IsSleeping;
                 CurrentBed.SetSleep(IsSleeping);
             }
         }
 
 
-        if(!IsRidingVehicle)
+        if (!IsRidingVehicle)
             CheckAnimation();
-     
+
         if (!IsRidingVehicle && IsHoldingItem && CanAttack && Input.GetMouseButton(0))
         {
             UseCurrentItem();
         }
 
-        if(!IsRidingVehicle && CanAttack && Input.GetMouseButton(1))
+        if (!IsRidingVehicle && CanAttack && Input.GetMouseButton(1))
         {
             if (tileTargeter.CheckHarverst(transform.position))
             {
@@ -317,8 +317,6 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         movement = new Vector2(moveX, moveY).normalized;
 
         if (movement != Vector2.zero) LastMovement = movement;
-
-        
 
         animator.SetFloat("Speed", movement.magnitude);
         animator.SetBool("IsRunning", Input.GetKey(KeyCode.LeftShift));
@@ -394,20 +392,20 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
         if (IsHoldingItem)
         {
-            
+
             switch (item.type)
             {
                 default:
                     {
                         ChangeAnimationState("Idle");
-                        
+
                         break;
                     }
                 case ItemType.Tool:
                     {
 
                         ChangeAnimationState(item.name);
-                        
+
                         break;
                     }
                 case ItemType.Crop:
@@ -458,7 +456,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
                     tileTargeter.SetTile(item);
                     break;
                 }
-        }   
+        }
     }
     // Load & Save
     public void LoadData(GameData gameData)
@@ -469,7 +467,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     public void SaveData(ref GameData gameData)
     {
-        player.SetPosition(transform.position); 
+        player.SetPosition(transform.position);
         gameData.SetPlayerData(player);
     }
 }

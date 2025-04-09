@@ -44,29 +44,35 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Ground
+  - name: Ground Level 1
     uniqueID: 3273337507
     locked: 0
-  - name: Walkfront
+  - name: Grass Level 1
+    uniqueID: 3097165069
+    locked: 0
+  - name: Road Level 1
     uniqueID: 2402591195
     locked: 0
-  - name: FarmGround
+  - name: FarmGround Level 1
     uniqueID: 2260845169
     locked: 0
-  - name: WateredGround
+  - name: WateredGround Level 1
     uniqueID: 2600164781
     locked: 0
-  - name: CropGround
+  - name: CropGround Level 1
     uniqueID: 2917392347
     locked: 0
-  - name: Collision
+  - name: Collision Level 1
     uniqueID: 900298989
+    locked: 0
+  - name: Collision Level 2
+    uniqueID: 1711662351
+    locked: 0
+  - name: Collision Level 3
+    uniqueID: 3459105675
     locked: 0
   - name: Player
     uniqueID: 1449220059
-    locked: 0
-  - name: Walkbehind
-    uniqueID: 1716526539
     locked: 0
   - name: Decor
     uniqueID: 1195580027
@@ -76,6 +82,9 @@ TagManager:
     locked: 0
   - name: TargetedTile
     uniqueID: 4154933181
+    locked: 0
+  - name: Leaf
+    uniqueID: 3557807717
     locked: 0
   - name: UI
     uniqueID: 2693888133
