@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
-using static Player;
-using static UnityEditor.Progress;
 
-public class PlayerController : Singleton<PlayerController>, IDataPersistence
+public class PlayerController : NetworkBehaviour, IDataPersistence
 {
     public float walkSpeed = 1f;
     public float runSpeed = 1f;
@@ -64,7 +63,20 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     public VehicleController CurrentVehicle
     {
         get { return _currentVehicle; }
-        private set { _currentVehicle = value; }
+        private set 
+        { 
+            _currentVehicle = value; 
+            if(_currentVehicle == null)
+            {
+                HadTarget = false;
+                CanRide = false;
+            }
+            else
+            {
+                HadTarget = true;
+                CanRide = true;
+            }
+        }
     }
 
     [SerializeField]
@@ -174,7 +186,20 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     public BedScript CurrentBed
     {
         get { return _currentBed; }
-        private set { _currentBed = value; }
+        private set
+        {
+            _currentBed = value;
+            if (_currentBed == null)
+            {
+                HadTarget = false;
+                CanSleep = false;
+            }
+            else
+            {
+                HadTarget = true;
+                CanSleep = true;
+            }
+        }
     }
 
     [SerializeField]
@@ -197,6 +222,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     void Update()
     {
+        if(!IsOwner) return;
         if (CanRun && Input.GetKey(KeyCode.LeftShift)) IsRuning = true;
         else IsRuning = false;
 
@@ -205,18 +231,20 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         if (Input.GetKeyDown(KeyCode.E) && CanRide)
         {
             IsRidingVehicle = !IsRidingVehicle;
-            
+
             if (IsRidingVehicle)
             {
                 ChangeAnimationState("Idle");
-                CurrentVehicle.SetRiding(true);
-                CurrentVehicle.transform.SetParent(transform);
                 StartAllAction();
+                if(!IsServer)
+                RequestStartRidingServerRpc();
+                else CurrentVehicle.SetRiding(true, this);
             }
             else
             {
-                CurrentVehicle.SetRiding(false);
-                CurrentVehicle.transform.SetParent(null);
+                if (!IsServer)
+                    RequestStopRidingServerRpc();
+                else CurrentVehicle.SetRiding(false);
             }
         }
 
@@ -268,16 +296,13 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     public void SetCurrentBed(BedScript bed)
     {
         if (HadTarget) return;
-        HadTarget = true;
-        CanSleep = true;
         CurrentBed = bed;
         CurrentBed.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     public void ClearBed()
     {
-        HadTarget = false;
-        CanSleep = false;
+        if (CurrentBed == null) return;
         CurrentBed.GetComponent<SpriteRenderer>().color = Color.white;
         CurrentBed = null;
 
@@ -286,20 +311,38 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     // ============= Vehicle ================
     public void SetCurrentVehicle(VehicleController vehicle)
     {
-        if (IsRidingVehicle || HadTarget) return;
-        HadTarget = true;
-        CanRide = true;
+        if (HadTarget) return;
         CurrentVehicle = vehicle;
         CurrentVehicle.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     public void ClearVehicle()
     {
-        HadTarget = false;
-        CanRide = false;
+        if( CurrentVehicle == null) return;
         CurrentVehicle.GetComponent<SpriteRenderer>().color = Color.white;
         CurrentVehicle = null;
     }
+
+
+
+
+    [ServerRpc]
+    void RequestStartRidingServerRpc()
+    {
+        CurrentVehicle.SetRiding(true, this);
+    }
+
+    [ServerRpc]
+    void RequestStopRidingServerRpc()
+    {
+        CurrentVehicle.SetRiding(false);
+    }
+
+
+
+
+
+
 
     // ============== Movement ==================
     public void SetFacing()

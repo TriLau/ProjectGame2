@@ -1,14 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class VehicleController : MonoBehaviour
+public class VehicleController : NetworkBehaviour
 {
     public float vehicleSpeed = 1f;
     public Vector2 movement;
     public Animator animator;
     [SerializeField]
-    private PlayerController playerController;
+    private PlayerController _playerController;
+    public PlayerController PlayerController
+    {
+        get { return _playerController; }
+        set 
+        { 
+            _playerController = value; 
+            if(_playerController == null) transform.SetParent(null);
+            else transform.SetParent(value.transform);
+        }
+    }
 
     [SerializeField]
     private List<Collider2D> colliders;
@@ -36,9 +47,9 @@ public class VehicleController : MonoBehaviour
     {
         if (IsBeingRidden)
         {
-            SetMovement(playerController.movement);
+            SetMovement(PlayerController.LastMovement);
 
-            animator.SetFloat("Speed", playerController.movement.magnitude);
+            animator.SetFloat("Speed", PlayerController.movement.magnitude);
         }
     }
 
@@ -48,9 +59,8 @@ public class VehicleController : MonoBehaviour
         {
             if (IsBeingRidden) return;
             PlayerController player = collision.GetComponent<PlayerController>();
-
-            playerController = player;
-            playerController.SetCurrentVehicle(this);
+            if (player.IsRidingVehicle) return;
+            player.SetCurrentVehicle(this);
         }
     }
 
@@ -59,30 +69,32 @@ public class VehicleController : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerController player = collision.GetComponent<PlayerController>();
-            if (player.IsRidingVehicle) return;
-
-            playerController.ClearVehicle();
+            if (player.IsRidingVehicle || IsBeingRidden) return;
+            player.ClearVehicle();
         }
     }
-
-    public void SetRiding(bool riding)
+    public void SetRiding(bool riding, PlayerController player = null)
     {
         IsBeingRidden = riding;
 
         if (riding)
         {
-            playerController.transform.position = transform.position;
-            playerController.GetComponent<Collider2D>().isTrigger = true;
-            transform.localScale = playerController.transform.localScale;
-            animator.SetFloat("Horizontal", Mathf.Abs(playerController.LastMovement.x));
-            animator.SetFloat("Vertical", playerController.LastMovement.y);
-            playerController.vehicleSpeed = vehicleSpeed;
+            PlayerController = player;
+            PlayerController.GetComponent<Collider2D>().isTrigger = true;
+            PlayerController.transform.position = transform.position;
+            transform.localScale = PlayerController.transform.localScale;
+            animator.SetFloat("Horizontal", Mathf.Abs(PlayerController.LastMovement.x));
+            animator.SetFloat("Vertical", PlayerController.LastMovement.y);
+            PlayerController.vehicleSpeed = vehicleSpeed;
         }
         else
         {
-            playerController.transform.position = transform.position;
-            playerController.GetComponent<Collider2D>().isTrigger = false;
+
+            PlayerController.transform.position = transform.position;
+            PlayerController.GetComponent<Collider2D>().isTrigger = false;
+            PlayerController = null;
             animator.SetFloat("Speed", 0);
+
         }
     }
 
